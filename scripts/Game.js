@@ -28,28 +28,33 @@ function init() {
          //create ground
          bodyDef.type = b2Body.b2_staticBody;
          fixDef.shape = new b2PolygonShape;
-         fixDef.shape.SetAsBox(20, 2);
-         bodyDef.position.Set(10, 400 / 30 + 1.8);
+         fixDef.shape.SetAsOrientedBox(22, 2,new b2Vec2(0, 0), 60);
+         bodyDef.position.Set(20, 400 / 30);
          world.CreateBody(bodyDef).CreateFixture(fixDef);
+
+         fixDef.shape.SetAsOrientedBox(2, 1, new b2Vec2(0, 0), 110);
+         bodyDef.position.Set(13, 10);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+
+
          bodyDef.position.Set(10, -1.8);
+         fixDef.shape.SetAsBox(20, 2);
          world.CreateBody(bodyDef).CreateFixture(fixDef);
          fixDef.shape.SetAsBox(2, 14);
          bodyDef.position.Set(-1.8, 13);
          world.CreateBody(bodyDef).CreateFixture(fixDef);
          bodyDef.position.Set(21.8, 13);
          world.CreateBody(bodyDef).CreateFixture(fixDef);
-         
-         
+
+
+ 
+
+
          //create some objects
          bodyDef.type = b2Body.b2_dynamicBody;
-         for(var i = 0; i < 10; ++i) {
+         for(var i = 0; i < 1; ++i) {
             if(Math.random() > 0.5) {
-               fixDef.shape = new b2PolygonShape;
-               fixDef.shape.SetAsBox(
-                     Math.random() + 0.1 //half width
-                  ,  Math.random() + 0.1 //half height
-               );
-            } else {
+          
                fixDef.shape = new b2CircleShape(
                   Math.random() + 0.1 //radius
                );
