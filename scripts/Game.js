@@ -32,10 +32,12 @@ function init() {
          bodyDef.position.Set(20, 400 / 30);
          world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-         fixDef.shape.SetAsOrientedBox(2, 1, new b2Vec2(0, 0), 110);
+         fixDef.shape.SetAsOrientedBox(2, 1, new b2Vec2(0, 0), 100);
          bodyDef.position.Set(13, 10);
          world.CreateBody(bodyDef).CreateFixture(fixDef);
 
+
+    
 
          bodyDef.position.Set(10, -1.8);
          fixDef.shape.SetAsBox(20, 2);
@@ -53,12 +55,11 @@ function init() {
          //create some objects
          bodyDef.type = b2Body.b2_dynamicBody;
          for(var i = 0; i < 1; ++i) {
-            if(Math.random() > 0.5) {
-          
+            
                fixDef.shape = new b2CircleShape(
                   Math.random() + 0.1 //radius
                );
-            }
+            
             bodyDef.position.x = Math.random() * 10;
             bodyDef.position.y = Math.random() * 10;
             world.CreateBody(bodyDef).CreateFixture(fixDef);
