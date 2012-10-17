@@ -1,3 +1,17 @@
+/******************
+* File: Game.js
+* Author: Scott Larson
+* Date: 15 Oct 2012
+*
+*Notes:
+*
+*TODO:
+* - fix box2d Step world function to use deltaTime and not fixed (1/60) ratio
+* - fix camera to follow box2d world and coordinates
+* - modify three.js detector message for no webGL support
+*******************/
+
+
 /***GLOBAL VARIABLES***/
 	
 	//box2d vars
@@ -23,7 +37,7 @@
 	var fixDef = new b2FixtureDef;
     fixDef.density = 1.0;
     fixDef.friction = 0.5;
-    fixDef.restitution = 0.2;         
+    fixDef.restitution = 0.5;    //raise for more bounce     
     var bodyDef = new b2BodyDef;
 	
 	//three.js vars
@@ -42,12 +56,12 @@
 	var glSpheres = new Array();
 	var numSpheres = 20;
 	
-function updateWorld() {
-         
-			//fix Step to use delta time
-            world.Step(1 / 60, 10, 10);
-			world.DrawDebugData();
-            world.ClearForces();
+function updateWorld() 
+{
+	//TODO Fix Step to use delta time
+	world.Step(1 / 60, 10, 10);
+	world.DrawDebugData();
+	world.ClearForces();
 };
 
 function init() 
