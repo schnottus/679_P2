@@ -1,21 +1,29 @@
-<!doctype html>
+<! doctype html>
 <html lang="en">
 <head>
 	<title>Game Title</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	
-	<link rel="stylesheet" href="style.css" type="text/css" />
 	<script type="text/javascript" src="Box2dWeb/Box2dWeb-2.1.a.3.min.js"></script>
-	<script type="text/javascript" src="scripts/Game.js"></script>
+	<script src="js/Three.js"></script>
+	<script src="js/Detector.js"></script>
+	<script src="js/THREEx.KeyboardState.js"></script>
+	<script src="js/Game.js"></script>
+	<script src="js/draw.js"></script>
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	
+	
 	
 </head>
 
 <body onload="init();">
-      <canvas id="canvas" width="600" height="400" style="background-color:#333333;" ></canvas>
+
+	<div id="message"></div>
+    <div id="container"></div>
+	<br/>
+	<canvas id="canvas" width="120" height="80" style="background-color:#333333;" ></canvas>
+	
 </body>
-
-
-
-
 </html>
+
