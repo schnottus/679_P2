@@ -50,10 +50,14 @@
 	SCREEN_HEIGHT = 600;  //view size in pixels
 	var keyboard = new THREEx.KeyboardState();
 	var SCALE_FACTOR = 20;
-	
+
+	var originalX = 1;
+	var originalY = 1;
+
 	//for example spheres
 	var b2Circles = new Array();
 	var glSpheres = new Array();
+	var glTracks = new Array();
 	var numSpheres = 20;
 	
 function updateWorld() 
@@ -99,6 +103,10 @@ function init()
 	
 	//create car
 	createCar();
+
+	//load level
+	LoadLevel(0);
+
 	
 	//setup debug draw
 	var debugDraw = new b2DebugDraw();
@@ -167,6 +175,22 @@ function init()
 		scene.add(sphere);
 		glSpheres.push(sphere);
 	}
+
+    for (var i = 0; i < glTracks.length; ++i) {
+        //0.5 is radius of box 2d circles (then scale up)
+        var trackGeometry = new THREE.CubeGeometry(2 * SCALE_FACTOR, .2 * SCALE_FACTOR, .4 * SCALE_FACTOR, 1, 1, 1);
+
+        var trackMaterial = new THREE.MeshLambertMaterial({ color: 0x11ffff });
+        var track = new THREE.Mesh(trackGeometry, trackMaterial);
+        track.position.set(glTracks[i].x * SCALE_FACTOR,
+							glTracks[i].y * SCALE_FACTOR,
+							0);
+
+        //alert(b2Circles[i].m_body.GetPosition().x);
+     scene.add(track);
+ 
+    }
+	
 	
 	// create a set of coordinate axes to help orient user
 	// default size is 100 pixels in each direction; change size by setting scale
@@ -241,6 +265,11 @@ function updateSpheres()
 	}
 };
 
+
+
+
+
+
 function createCar()
 {
 	//create car
@@ -281,4 +310,47 @@ function createCar()
 	revoluteJointDef2.motorSpeed = 6.0;
 	revoluteJointDef2.enableMotor = true;
 	revoluteJointB = world.CreateJoint(revoluteJointDef2);
+}
+
+function createTrack(length, height, angle) {
+
+    var X_pivot = originalX;
+    var Y_pivot = originalY;
+
+    originalX = X_pivot + Math.cos(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2));
+    originalY = Y_pivot + Math.sin(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2));
+
+
+    bodyDef.type = b2Body.b2_staticBody;
+    fixDef.shape = new b2PolygonShape;
+    //originalY = originalY + (height / 2);
+
+    // fixDef.shape.SetAsBox(2, .1);
+    fixDef.shape.SetAsOrientedBox(length / 2, height / 2, new b2Vec2(-(length / 2), -(height / 2)), angle);
+    bodyDef.position.Set(originalX, originalY);
+    world.CreateBody(bodyDef).CreateFixture(fixDef);
+
+    glTracks.push(new b2Vec2(bodyDef.position.x,bodyDef.position.y));
+
+    originalY = Y_pivot + length * Math.sin(angle);
+    originalX = X_pivot + length * Math.cos(angle);
+
+};
+
+function LoadLevel(level) {
+
+    if (level == 0) {
+        LoadLevel1();
+    }
+
+}
+
+function LoadLevel1() {
+    originalX = 0;
+    originalY = 0;
+
+    for (var j = 0; j < 7; j++) {
+        createTrack(2, .1, .60);
+    }
+
 }
