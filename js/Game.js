@@ -171,20 +171,23 @@ function init()
 		sphere.position.set(b2Circles[i].m_body.GetPosition().x * SCALE_FACTOR, 
 							b2Circles[i].m_body.GetPosition().y * SCALE_FACTOR,
 							0);
+
 		//alert(b2Circles[i].m_body.GetPosition().x);
 		scene.add(sphere);
 		glSpheres.push(sphere);
+        
 	}
 
     for (var i = 0; i < glTracks.length; ++i) {
         //0.5 is radius of box 2d circles (then scale up)
-        var trackGeometry = new THREE.CubeGeometry(2 * SCALE_FACTOR, .2 * SCALE_FACTOR, .4 * SCALE_FACTOR, 1, 1, 1);
+        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length * SCALE_FACTOR, .2 * SCALE_FACTOR, 1 * SCALE_FACTOR, 1, 1, 1);
 
         var trackMaterial = new THREE.MeshLambertMaterial({ color: 0x11ffff });
         var track = new THREE.Mesh(trackGeometry, trackMaterial);
         track.position.set(glTracks[i].x * SCALE_FACTOR,
 							glTracks[i].y * SCALE_FACTOR,
 							0);
+        track.rotation.z = glTracks[i].angle;
 
         //alert(b2Circles[i].m_body.GetPosition().x);
      scene.add(track);
@@ -330,7 +333,13 @@ function createTrack(length, height, angle) {
     bodyDef.position.Set(originalX, originalY);
     world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-    glTracks.push(new b2Vec2(bodyDef.position.x,bodyDef.position.y));
+    var track = {
+    "x" : bodyDef.position.x,
+    "y": bodyDef.position.y,
+    "length" : length,
+    "angle" : angle,
+    };
+    glTracks.push(track);
 
     originalY = Y_pivot + length * Math.sin(angle);
     originalX = X_pivot + length * Math.cos(angle);
@@ -350,7 +359,7 @@ function LoadLevel1() {
     originalY = 0;
 
     for (var j = 0; j < 7; j++) {
-        createTrack(2, .1, .60);
+        createTrack(2, .1, Math.random());
     }
 
 }
