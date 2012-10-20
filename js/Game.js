@@ -27,6 +27,7 @@
         b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
         b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
         b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef,
+		b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef,
 		b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef
         ;
     var world = new b2World
@@ -39,6 +40,9 @@
     fixDef.friction = 0.5;
     fixDef.restitution = 0.5;    //raise for more bounce     
     var bodyDef = new b2BodyDef;
+	
+	//car variables
+	var car, axle1, axle2, spring1, spring2, wheel1, wheel2, motor1, motor2;
 	
 	//three.js vars
 	var container,
@@ -102,7 +106,7 @@ function init()
 	}
 	
 	//create car
-	createCar();
+	CreateCar();
 
 	//load level
 	LoadLevel(0);
@@ -234,7 +238,12 @@ function animate()
 //gl loop, updates on every requestAnimationFrame
 function update()
 {
-
+	//Reset the motor in the car axles to give it a spring effect
+	spring1.SetMaxMotorForce(30+Math.abs(800*Math.pow(spring1.GetJointTranslation(), 2)));
+	spring1.SetMotorSpeed((spring1.GetMotorSpeed() - 10*spring1.GetJointTranslation())*0.4);
+	spring2.SetMaxMotorForce(20+Math.abs(800*Math.pow(spring2.GetJointTranslation(), 2)));
+	spring2.SetMotorSpeed(-4*Math.pow(spring2.GetJointTranslation(), 1));
+	
 	// functionality provided by THREEx.KeyboardState.js
 	if ( keyboard.pressed("1") )
 		document.getElementById('message').innerHTML = 'Pressed 1';	
