@@ -40,5 +40,5 @@
 	
 //level.js vars
 	var originalX = 1;
-	var originalY = 1;
+	var originalY = 50;
 	
