@@ -8,3 +8,6 @@ h1{
     font-family: Helvetica, Geneva, Arial,
           SunSans-Regular, sans-serif;
 }
+
+#container { border: 1px solid red; float: left}
+#debugDraw { border: 1px solid red; float: left}

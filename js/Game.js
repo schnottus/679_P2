@@ -12,53 +12,13 @@
 *******************/
 
 
-/***GLOBAL VARIABLES***/
-	
-	//box2d vars
-	var b2Vec2 = Box2D.Common.Math.b2Vec2,
-		b2AABB = Box2D.Collision.b2AABB,
-		b2BodyDef = Box2D.Dynamics.b2BodyDef,
-        b2Body = Box2D.Dynamics.b2Body,
-        b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
-        b2Fixture = Box2D.Dynamics.b2Fixture,
-        b2World = Box2D.Dynamics.b2World,
-        b2MassData = Box2D.Collision.Shapes.b2MassData,
-        b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
-        b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
-        b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
-        b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef,
-		b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef
-        ;
-    var world = new b2World
-	(
-        new b2Vec2(0, 10),   //gravity
-		true                 //allow sleep
-    );
-	var fixDef = new b2FixtureDef;
-    fixDef.density = 1.0;
-    fixDef.friction = 0.5;
-    fixDef.restitution = 0.5;    //raise for more bounce     
-    var bodyDef = new b2BodyDef;
-	
-	//three.js vars
-	var container,
-	scene, 
-	camera, 
-	renderer, 
-	controls;
-	var SCREEN_WIDTH = 800, 
-	SCREEN_HEIGHT = 600;  //view size in pixels
-	var keyboard = new THREEx.KeyboardState();
-	var SCALE_FACTOR = 20;
 
-	var originalX = 1;
-	var originalY = 1;
 
-	//for example spheres
+//global vars for example spheres
 	var b2Circles = new Array();
 	var glSpheres = new Array();
 	var glTracks = new Array();
-	var numSpheres = 20;
+	var numSpheres = 15;
 	
 function updateWorld() 
 {
@@ -76,26 +36,26 @@ function init()
     //create ground
     bodyDef.type = b2Body.b2_staticBody;
     fixDef.shape = new b2PolygonShape;
-    fixDef.shape.SetAsBox(12, 0.1);
+    fixDef.shape.SetAsBox(120, 1);
+	//bodyDef.position.Set(0, 0);
+	//world.CreateBody(bodyDef).CreateFixture(fixDef); //top of box
+	bodyDef.position.Set(0, 80);
+	world.CreateBody(bodyDef).CreateFixture(fixDef); //bottom of box
+	fixDef.shape.SetAsBox(1, 80);
 	bodyDef.position.Set(0, 0);
-	world.CreateBody(bodyDef).CreateFixture(fixDef);
-	bodyDef.position.Set(0, 8);
-	world.CreateBody(bodyDef).CreateFixture(fixDef);
-	fixDef.shape.SetAsBox(0.1, 8);
-	bodyDef.position.Set(0, 0);
-	world.CreateBody(bodyDef).CreateFixture(fixDef);
-	bodyDef.position.Set(12, 0);
-	world.CreateBody(bodyDef).CreateFixture(fixDef);
+	world.CreateBody(bodyDef).CreateFixture(fixDef); //left wall
+	bodyDef.position.Set(120, 0);
+	world.CreateBody(bodyDef).CreateFixture(fixDef); //right wall
             
 	//create some objects
 	bodyDef.type = b2Body.b2_dynamicBody;
 	for(var i = 0; i < numSpheres; ++i) 
 	{
 		fixDef.shape = new b2CircleShape(
-			0.5 //radius
+			1.0 //radius
 		);
 		bodyDef.position.x = Math.random() * 5;
-		bodyDef.position.y = Math.random() * 5;
+		bodyDef.position.y = Math.random() * 5 - 10;
 		var body = world.CreateBody(bodyDef).CreateFixture(fixDef);
 		//alert("body" + body.m_body.GetPosition().x);
 		b2Circles.push(body);
@@ -111,7 +71,7 @@ function init()
 	//setup debug draw
 	var debugDraw = new b2DebugDraw();
 		debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-		debugDraw.SetDrawScale(10.0);
+		debugDraw.SetDrawScale(4.0);
 		debugDraw.SetFillAlpha(0.5);
 		debugDraw.SetLineThickness(1.0);
 		debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
@@ -137,24 +97,31 @@ function init()
 	//camera attributes
 	var VIEW_ANGLE = 45,
 	ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT,
-	NEAR = 1,
-	FAR = 10000;
+	NEAR = 0.01,
+	FAR = 1500;
 	//create camera
 	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 	
 	// the camera starts at 0,0,0
 	// so move it back
-	camera.position.set(0,200,600);
+	camera.position.set(0,10,-50);
 	camera.lookAt(scene.position);
 	// add the camera to the scene
 	scene.add(camera);
 	
+	//rotate camera view to match box2d coordinate system ( x:0 and y:0 in upper left)
+	//with this rotation positive z axis is going away from the camera
+	camera.rotation.x = d2r(180);
+	camera.rotation.z = d2r(0);
+	camera.updateMatrix();
+	
 	//give us some control
-	controls = new THREE.TrackballControls( camera );
-
+	//controls = new THREE.TrackballControls( camera );
+	
+	
 	// create a light
 	var light = new THREE.PointLight(0xffffff);
-	light.position.set(0,250,0);
+	light.position.set(0,250,-250);
 	scene.add(light);
 	//var ambientLight = new THREE.AmbientLight(0xffffff);
 	//scene.add(ambientLight);   
@@ -164,12 +131,12 @@ function init()
 	//create some spheres (to use with b2Circles created earlier)
 	for(var i = 0; i < numSpheres; ++i) 
 	{
-		//0.5 is radius of box 2d circles (then scale up)
-		var sphereGeometry = new THREE.SphereGeometry( 0.5 * SCALE_FACTOR, 20, 16 ); 
-		var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0x111fff} ); 
+		//box 2d circles 
+		var sphereGeometry = new THREE.SphereGeometry( 1.0, 20, 16 ); 
+		var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0x95F717} ); 
 		var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-		sphere.position.set(b2Circles[i].m_body.GetPosition().x * SCALE_FACTOR, 
-							b2Circles[i].m_body.GetPosition().y * SCALE_FACTOR,
+		sphere.position.set(b2Circles[i].m_body.GetPosition().x, 
+							b2Circles[i].m_body.GetPosition().y,
 							0);
 
 		//alert(b2Circles[i].m_body.GetPosition().x);
@@ -179,17 +146,15 @@ function init()
 	}
 
     for (var i = 0; i < glTracks.length; ++i) {
-        //0.5 is radius of box 2d circles (then scale up)
-        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length * SCALE_FACTOR, .2 * SCALE_FACTOR, 1 * SCALE_FACTOR, 1, 1, 1);
+        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, .2, 1, 1, 1, 1);
 
         var trackMaterial = new THREE.MeshLambertMaterial({ color: 0x11ffff });
         var track = new THREE.Mesh(trackGeometry, trackMaterial);
-        track.position.set(glTracks[i].x * SCALE_FACTOR,
-							glTracks[i].y * SCALE_FACTOR,
+        track.position.set(glTracks[i].x,
+							glTracks[i].y,
 							0);
         track.rotation.z = glTracks[i].angle;
-
-        //alert(b2Circles[i].m_body.GetPosition().x);
+		
      scene.add(track);
  
     }
@@ -198,23 +163,13 @@ function init()
 	// create a set of coordinate axes to help orient user
 	// default size is 100 pixels in each direction; change size by setting scale
 	var axes = new THREE.AxisHelper();
-	axes.scale.set( 1, 1, 1 );
+	axes.scale.set( 0.1, 0.1, 0.1 );
 	scene.add( axes );
 	
-    // note: 4x4 checkboard pattern scaled so that each square is 25 by 25 pixels.
-	var floorTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
-	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
-	floorTexture.repeat.set( 10, 10 );
-	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
-	var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 1, 1);
-	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-	floor.position.y = -0.5;
-	floor.doubleSided = true;
-	scene.add(floor);
 	
 	// make sure the camera's "far" value is large enough so that it will render the skyBox!
-	var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
-	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff } );
+	var skyBoxGeometry = new THREE.CubeGeometry( 1000, 1000, 1000 );
+	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xdddddd } );
 	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
 	skyBox.flipSided = true; // render faces from inside of the cube, instead of from outside (default).
 	scene.add(skyBox);
@@ -234,20 +189,11 @@ function animate()
 //gl loop, updates on every requestAnimationFrame
 function update()
 {
-
-	// functionality provided by THREEx.KeyboardState.js
-	if ( keyboard.pressed("1") )
-		document.getElementById('message').innerHTML = 'Pressed 1';	
-	if ( keyboard.pressed("2") )
-		document.getElementById('message').innerHTML = 'Pressed 2 ';	
-	
-	//three.js provided pan and rotate with mouse
-	controls.update();
 	
 	//update box2d world
 	updateWorld();
-	
 	updateSpheres();
+	updateCamera();
 	
 }
 
@@ -262,14 +208,21 @@ function updateSpheres()
 	for(var i = 0; i < numSpheres; ++i) 
 	{
 		
-		glSpheres[i].position.set(b2Circles[i].m_body.GetPosition().x * SCALE_FACTOR, 
-							b2Circles[i].m_body.GetPosition().y * SCALE_FACTOR,
+		glSpheres[i].position.set(b2Circles[i].m_body.GetPosition().x , 
+							b2Circles[i].m_body.GetPosition().y ,
 							0);
 	}
 };
 
-
-
+//move camera to follow player
+function updateCamera()
+{
+	camera.position.set(glSpheres[0].position.x,
+						glSpheres[0].position.y,
+						-CAMERA_DISTANCE);
+	
+	
+}
 
 
 
@@ -358,7 +311,7 @@ function LoadLevel1() {
     originalX = 0;
     originalY = 0;
 
-    for (var j = 0; j < 7; j++) {
+    for (var j = 0; j < 50; j++) {
         createTrack(2, .1, Math.random());
     }
 

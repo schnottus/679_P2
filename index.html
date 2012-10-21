@@ -9,6 +9,8 @@
 	<script src="js/Three.js"></script>
 	<script src="js/Detector.js"></script>
 	<script src="js/THREEx.KeyboardState.js"></script>
+	<script src="js/Globals.js"></script>
+	<script src="js/Util.js"></script>
     <script src="js/Level.js"></script>
 	<script src="js/Game.js"></script>
     
@@ -20,11 +22,10 @@
 
 <body onload="init();">
 
-	<div id="message"></div>
     <div id="container"></div>
-	<br/>
-	<canvas id="canvas" width="120" height="80" style="background-color:#333333;" ></canvas>
-	
+	<div id="debugDraw">
+		<canvas id="canvas" width="480" height="320" style="background-color:#333333;"></canvas>
+	</div>
 </body>
 </html>
 
