@@ -20,7 +20,7 @@
 	var b2Circles = new Array();
 	var glSpheres = new Array();
 	var glTracks = new Array();
-	var numSpheres = 5;
+	var numSpheres = 0;
 	
 function updateWorld() 
 {
@@ -143,7 +143,7 @@ function init()
     for (var i = 0; i < glTracks.length; ++i) {
         var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, glTracks[i].height, 1, 1, 1, 1);
 
-        var trackMaterial = new THREE.MeshLambertMaterial({ color: 0x11ffff });
+        var trackMaterial = new THREE.MeshLambertMaterial({ color: glTracks[i].color});
         var track = new THREE.Mesh(trackGeometry, trackMaterial);
         track.position.set(glTracks[i].x,
 							glTracks[i].y,
@@ -263,7 +263,7 @@ function updateCamera()
 }
 
 
-function createTrack(length, height, angle) {
+function createTrack(length, height, angle, color, friction) {
 
     var X_pivot = originalX;
     var Y_pivot = originalY;
@@ -274,6 +274,7 @@ function createTrack(length, height, angle) {
 
     bodyDef.type = b2Body.b2_staticBody;
     fixDef.shape = new b2PolygonShape;
+    fixDef.friction = friction;
     //originalY = originalY + (height / 2);
 
     // fixDef.shape.SetAsBox(2, .1);
@@ -286,6 +287,7 @@ function createTrack(length, height, angle) {
     "y": bodyDef.position.y,
     "length" : length,
     "height" : height,
+    "color" : color,
     "angle" : angle,
     };
     glTracks.push(track);
@@ -307,12 +309,12 @@ function createSpace(length, height, angle){
 
 }
 
-function createRamp(length, height, maxAngle){
+function createRamp(length, height, maxAngle, color, friction){
         var total = length / 2;
         var angleMargin = maxAngle / total;
         var angle = 0;
         for(var i = 0; i < total; i++){
-            createTrack(2, height, angle);
+            createTrack(2, height, angle, color, friction);
             angle+=angleMargin; 
         }
 }
@@ -339,22 +341,28 @@ function LoadLevel1() {
     originalY = 5;
 
     for (var j = 0; j < 30; j++) {
-        createTrack(2, .1,.8);
+        createTrack(2, .1,.8, 0x95F717, .5);
     }
+
+    createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
 
     createRamp(10,.1,-1);
     createSpace(10,.1,1);
     
       for (var j = 0; j < 20; j++) {
-        createTrack(2, .1,.4);
+        createTrack(2, .1,.4,0x95F717,.5);
     }
+ 
+       
+  //  createRamp(10,.1,-.5,0x95F717, 0,.5);
 
-    createRamp(10,.1,-.5);
-
-    createSpace(5,.1,0);
+    //createSpace(5,.1,0);
     
       for (var j = 0; j < 20; j++) {
-        createTrack(2, .1,0);
+        createTrack(2, .1,0,0x95F717,.1,.5);
     }
 
           
