@@ -141,7 +141,7 @@ function init()
 	}
 
     for (var i = 0; i < glTracks.length; ++i) {
-        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, .2, 1, 1, 1, 1);
+        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, glTracks[i].height, 1, 1, 1, 1);
 
         var trackMaterial = new THREE.MeshLambertMaterial({ color: 0x11ffff });
         var track = new THREE.Mesh(trackGeometry, trackMaterial);
@@ -285,6 +285,7 @@ function createTrack(length, height, angle) {
     "x" : bodyDef.position.x,
     "y": bodyDef.position.y,
     "length" : length,
+    "height" : height,
     "angle" : angle,
     };
     glTracks.push(track);
@@ -292,7 +293,38 @@ function createTrack(length, height, angle) {
     originalY = Y_pivot + length * Math.sin(angle);
     originalX = X_pivot + length * Math.cos(angle);
 
-};
+}
+
+function createSpace(length, height, angle){
+    var X_pivot = originalX;
+    var Y_pivot = originalY;
+
+    originalX = X_pivot + Math.cos(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2));
+    originalY = Y_pivot + Math.sin(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2));
+
+    originalY = Y_pivot + length * Math.sin(angle);
+    originalX = X_pivot + length * Math.cos(angle);
+
+}
+
+function createRamp(length, height, maxAngle){
+        var total = length / 2;
+        var angleMargin = maxAngle / total;
+        var angle = 0;
+        for(var i = 0; i < total; i++){
+            createTrack(2, height, angle);
+            angle+=angleMargin; 
+        }
+}
+
+function createMovingObject(x,y){
+     bodyDef.type = Box2D.Dynamics.b2_kinematicBody; //this will be a kinematic body
+     bodyDef.position.Set(x, y);
+     fixDef.shape.SetAsBox(2,2);
+     var movingBody = world.CreateBody(bodyDef).CreateFixture(fixDef);
+    // movingBody.SetLinearVelocity(new b2Vec2(0,1));
+    
+}
 
 function LoadLevel(level) {
 
@@ -304,12 +336,29 @@ function LoadLevel(level) {
 
 function LoadLevel1() {
     originalX = 0;
-    originalY = 0;
+    originalY = 5;
 
-    for (var j = 0; j < 50; j++) {
-        createTrack(2, .1, Math.random());
+    for (var j = 0; j < 30; j++) {
+        createTrack(2, .1,.8);
     }
 
+    createRamp(10,.1,-1);
+    createSpace(10,.1,1);
+    
+      for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,.4);
+    }
+
+    createRamp(10,.1,-.5);
+
+    createSpace(5,.1,0);
+    
+      for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,0);
+    }
+
+          
+           
 }
 
 //simple example car 
