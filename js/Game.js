@@ -107,7 +107,7 @@ function init()
 	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 	
 	// the camera starts at 0,0,0
-	// so move it back
+	// so move it
 	camera.position.set(0,10,-50);
 	camera.lookAt(scene.position);
 	// add the camera to the scene
