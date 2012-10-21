@@ -12,7 +12,7 @@
 *******************/
 
 
-		b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef,
+	var b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef;
 	//car variables
 	var car, axle1, axle2, spring1, spring2, wheel1, wheel2, motor1, motor2;
 	
