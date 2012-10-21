@@ -2,8 +2,8 @@ function CreateCar() {
 	// Add the car //
 	var bodyDefCar = new b2BodyDef;
 	bodyDefCar.type = b2Body.b2_dynamicBody;
-	bodyDefCar.position.Set(0.5, -5);
-	bodyDefCar.angle = 0;
+	bodyDefCar.position.Set(1, -5);
+	bodyDefCar.angle = Math.PI/4;
 	car = world.CreateBody(bodyDefCar);
 	
 	//Set the properties of our car fixture
@@ -100,6 +100,9 @@ function CreateCar() {
 
 	revoluteJointDefCar.Initialize(axle2, wheel2, wheel2.GetWorldCenter());
 	motor2 = world.CreateJoint(revoluteJointDefCar);
+	
+	//Rotate the car
+	car.SetAngle(d2r(180));
 	
 	// Creat car parts in webGL //
 	//front tire
