@@ -1,3 +1,9 @@
+/******************
+* File: Global.js
+* Author: Scott Larson, Eric Satterness, Paul Bolanowski
+* Date: 21 Oct 2012
+*******************/
+
 /***GLOBAL VARIABLES***/
 	
 //box2d vars
@@ -62,7 +68,7 @@
 	var wheel1Radius = 0.7;
 	var wheel2Radius = 0.7;
 	var wheelFriction = 5;
-	//var suspension = ;
+	var suspension = 20; //Higher number gives a firmer spring
 	var carDensity = 2;
 	
 	//car box2d vars
