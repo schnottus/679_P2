@@ -2,14 +2,13 @@ function CreateCar() {
 	// Add the car //
 	var bodyDefCar = new b2BodyDef;
 	bodyDefCar.type = b2Body.b2_dynamicBody;
-	bodyDefCar.position.Set(1, -5);
-	bodyDefCar.angle = Math.PI/4;
+	bodyDefCar.position.Set(CAR_X, CAR_Y);
 	car = world.CreateBody(bodyDefCar);
 	
 	//Set the properties of our car fixture
 	var fixDefCar = new b2FixtureDef;
 	//fixDefCar.type = b2Body.b2_dynamicBody;
-	fixDefCar.density = 2;
+	fixDefCar.density = carDensity;
 	fixDefCar.friction = 0.5;
 	fixDefCar.restitution = 0.2;
 	fixDefCar.filter.groupIndex = -1;
@@ -19,7 +18,7 @@ function CreateCar() {
 	fixDefCar.shape = new b2PolygonShape();
 	//note: setAsBox takes half-width and half-height as params, 
 	//then the fixture is centered at the location of the body it is attached to
-	fixDefCar.shape.SetAsBox(1.5, 0.3);
+	fixDefCar.shape.SetAsBox(CAR_WIDTH/2, CAR_HEIGHT/2);
 	car.CreateFixture(fixDefCar);
 
 	//Create the legs for the axles to attach to
@@ -71,7 +70,7 @@ function CreateCar() {
 	fixDefCar = new b2FixtureDef;
 	fixDefCar.shape = new b2CircleShape(wheel1Radius);
 	fixDefCar.density = 0.1;
-	fixDefCar.friction = 5;
+	fixDefCar.friction = wheelFriction;
 	fixDefCar.restitution = 0.2;
 	fixDefCar.filter.groupIndex = -1;
 
@@ -97,12 +96,14 @@ function CreateCar() {
 
 	revoluteJointDefCar.Initialize(axle1, wheel1, wheel1.GetWorldCenter());
 	motor1 = world.CreateJoint(revoluteJointDefCar);
+	motor1.SetLimits(0, 0);	//By enabling the limits, we can restrict the wheel spin
 
 	revoluteJointDefCar.Initialize(axle2, wheel2, wheel2.GetWorldCenter());
 	motor2 = world.CreateJoint(revoluteJointDefCar);
+	motor2.SetLimits(0, 0);	//By enabling the limits, we can restrict the wheel spin
 	
 	//Rotate the car
-	car.SetAngle(d2r(180));
+	car.SetAngle(d2r(CAR_ANGLE));
 	
 	// Creat car parts in webGL //
 	//front tire

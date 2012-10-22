@@ -122,6 +122,37 @@ function init()
 
 	//load level
 	LoadLevel(0);
+	
+	//add listeners for our controls
+	document.addEventListener("keydown", function(e) {
+		//down arrow key
+		if (e.keyCode == 40) {
+			applyBrake = true;
+		}
+		//right arrow key
+		else if (e.keyCode == 39) {
+			tiltRight = true;
+		}
+		//left arrow key
+		else if (e.keyCode == 37) {
+			tiltLeft = true;
+		}
+    }, true);
+	
+	document.addEventListener("keyup", function(e) {
+		//down arrow key
+		if (e.keyCode == 40) {
+			applyBrake = false;
+		}
+		//right arrow key
+		else if (e.keyCode == 39) {
+			tiltRight = false;
+		}
+		//left arrow key
+		else if (e.keyCode == 37) {
+			tiltLeft = false;
+		}
+    }, true);
 			
 
 	//sphere parameters: radius, segments along width, segments along height
@@ -199,12 +230,6 @@ function animate()
 //gl loop, updates on every requestAnimationFrame
 function update()
 {
-	//Reset the motor in the car axles to give it a spring effect
-	spring1.SetMaxMotorForce(30+Math.abs(800*Math.pow(spring1.GetJointTranslation(), 2)));
-	spring1.SetMotorSpeed((spring1.GetMotorSpeed() - 10*spring1.GetJointTranslation())*0.4);
-	spring2.SetMaxMotorForce(20+Math.abs(800*Math.pow(spring2.GetJointTranslation(), 2)));
-	spring2.SetMotorSpeed(-4*Math.pow(spring2.GetJointTranslation(), 1));
-	
 	//update box2d world
 	updateWorld();
 	updateSpheres();
@@ -222,6 +247,27 @@ function render()
 
 function updateCar()
 {
+	//Reset the motor in the car axles to give it a spring effect
+	spring1.SetMaxMotorForce(30+Math.abs(800*Math.pow(spring1.GetJointTranslation(), 2)));
+	spring1.SetMotorSpeed((spring1.GetMotorSpeed() - 10*spring1.GetJointTranslation())*0.4);
+	spring2.SetMaxMotorForce(20+Math.abs(800*Math.pow(spring2.GetJointTranslation(), 2)));
+	spring2.SetMotorSpeed(-4*Math.pow(spring2.GetJointTranslation(), 1));
+	
+	if (tiltRight) {
+		car.ApplyTorque(CAR_TILT);
+	}
+	if (tiltLeft) {
+		car.ApplyTorque(-CAR_TILT);
+	}
+	if (applyBrake) {
+		//motor1.EnableLimit(true);
+		motor2.EnableLimit(true);
+	}
+	else {
+		//motor1.EnableLimit(false);
+		motor2.EnableLimit(false);
+	}
+	
 	frontWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
 						0);
@@ -261,7 +307,6 @@ function updateCamera()
 	
 	
 }
-
 
 function createTrack(length, height, angle, color, friction) {
 

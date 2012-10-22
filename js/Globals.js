@@ -27,6 +27,11 @@
     fixDef.restitution = 0.5;    //raise for more bounce     
     var bodyDef = new b2BodyDef;
 	
+	//car controls
+	var tiltLeft = false;
+	var tiltRight = false;
+	var applyBrake = false;
+	
 //three.js vars
 	var container,
 	scene, 
@@ -43,15 +48,28 @@
 	var originalX = 0;
 	var originalY = 0;
 	
-//car.js vars  
-	//car box2d vars
-	var car, axle1, axle2, spring1, spring2, wheel1, wheel2, motor1, motor2;
+//car.js vars
+	//constants
+	var CAR_WIDTH = 3;
+	var CAR_HEIGHT = 0.6;
+	var CAR_X = 4;
+	var CAR_Y = 4;
+	var CAR_ANGLE = 210;
+	var CAR_TILT = 30;
+	
+	//adjustable by player
+	//Wheel radius, friction, suspension, body mass/density, body shape?
 	var wheel1Radius = 0.7;
 	var wheel2Radius = 0.7;
+	var wheelFriction = 5;
+	//var suspension = ;
+	var carDensity = 2;
+	
+	//car box2d vars
+	var car, axle1, axle2, spring1, spring2, wheel1, wheel2, motor1, motor2;
+	
 	//car webGL vars
 	var carBody;
 	var frontWheel;
 	var rearWheel;
-	var CAR_WIDTH = 3;
-	var CAR_HEIGHT = 0.6;
 	
