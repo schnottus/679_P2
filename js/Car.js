@@ -182,30 +182,17 @@ function CreateCar() {
 	
 	//body 
 	//make custom box2d polys to match
-	//note: this body won't be valid in box2d as box2d custom polys can only be convex
-	var body1Points = [];
-	
-	body1Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
-	body1Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH,	0.5 * CAR_HEIGHT ) );
-	body1Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	0.5 * CAR_HEIGHT ) );
-	body1Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
-	//body1Points.push( new THREE.Vector2 (  2.4,  0.3 ) );
-	//body1Points.push( new THREE.Vector2 (  2.2, 0.0 ) );
-	
 	var body1Shape = new THREE.Shape ( body1Points );
-	
 	var extrusionSettings = {
-		amount: 2
+		amount: CAR_WIDTH
 	};
 	extrusionSettings.bevelEnabled = false;
 	
 	var body1Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
 	
 	carBody = THREE.SceneUtils.createMultiMaterialObject( body1Geometry, [ new THREE.MeshLambertMaterial( { color: 0xFFAA00 } ), new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, transparent: true } ) ] );
-	carBody.position.set( -1.5, 0.3, - 1.5 );
-	//mesh.rotation.set( rx, ry, rz );
-	//mesh.scale.set( s, s, s );
 	scene.add( carBody );
+	
 
 
 }

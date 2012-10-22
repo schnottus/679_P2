@@ -11,208 +11,12 @@
 * - modify three.js detector message for no webGL support
 *******************/
 
-//global vars for example spheres
-	var b2Circles = new Array();
-	var glSpheres = new Array();
-	var glTracks = new Array();
-	var numSpheres = 0;
-	
 function updateWorld() 
 {
 	//TODO Fix Step to use delta time
 	world.Step(1 / 60, 10, 10);
 	world.DrawDebugData();
 	world.ClearForces();
-};
-
-function init() 
-{
-	
-	/***BOX2D SETUP***/  
-    //create ground
-    bodyDef.type = b2Body.b2_staticBody;
-    fixDef.shape = new b2PolygonShape;
-    fixDef.shape.SetAsBox(120, 1);
-	//bodyDef.position.Set(0, 0);
-	//world.CreateBody(bodyDef).CreateFixture(fixDef); //top of box
-	//bodyDef.position.Set(0, 80);
-	//world.CreateBody(bodyDef).CreateFixture(fixDef); //bottom of box
-	fixDef.shape.SetAsBox(1, 80);
-	bodyDef.position.Set(0, 0);
-	world.CreateBody(bodyDef).CreateFixture(fixDef); //left wall
-	//bodyDef.position.Set(120, 0);
-	//world.CreateBody(bodyDef).CreateFixture(fixDef); //right wall
-            
-	//setup debug draw
-	var debugDraw = new b2DebugDraw();
-		debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-		debugDraw.SetDrawScale(4.0);
-		debugDraw.SetFillAlpha(0.5);
-		debugDraw.SetLineThickness(1.0);
-		debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-		world.SetDebugDraw(debugDraw);
-
-		
-	/***WEBGL SETUP***/
-	//check to make sure webGL is available, if not populate message div with message
-	//TODO: modify standard message?
-	if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-	
-	// get the DOM element to attach to
-	container = document.getElementById('container');
-	// start the renderer
-	renderer = new THREE.WebGLRenderer();
-	renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	// attach the render-supplied DOM element
-	container.appendChild(renderer.domElement);
-
-	//create scene
-	scene = new THREE.Scene();
-	
-	//camera attributes
-	var VIEW_ANGLE = 45,
-	ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT,
-	NEAR = 0.01,
-	FAR = 1500;
-	//create camera
-	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
-	
-	// the camera starts at 0,0,0
-	// so move it
-	camera.position.set(0,10,-50);
-	camera.lookAt(scene.position);
-	// add the camera to the scene
-	scene.add(camera);
-	
-	//rotate camera view to match box2d coordinate system ( x:0 and y:0 in upper left)
-	//with this rotation positive z axis is going away from the camera
-	camera.rotation.x = d2r(180);
-	camera.rotation.z = d2r(0);
-	camera.updateMatrix();		
-			
-	// create a light
-	var light = new THREE.PointLight(0xffffff);
-	light.position.set(0,0,-150);
-	scene.add(light);
-	//var ambientLight = new THREE.AmbientLight(0xffffff);
-	//scene.add(ambientLight);   
-	
-	
-	
-	//create some example objects
-	bodyDef.type = b2Body.b2_dynamicBody;
-	for(var i = 0; i < numSpheres; ++i) 
-	{
-		fixDef.shape = new b2CircleShape(
-			1.0 //radius
-		);
-		bodyDef.position.x = Math.random() * 5 + 4;
-		bodyDef.position.y = Math.random() * 5 - 10;
-		var body = world.CreateBody(bodyDef).CreateFixture(fixDef);
-		b2Circles.push(body);
-	}
-	
-	//create car
-	CreateCar();
-
-	//load level
-	LoadLevel(2);
-	
-	//add listeners for our controls
-	document.addEventListener("keydown", function(e) {
-		//down arrow key
-		if (e.keyCode == 40) {
-			applyBrake = true;
-		}
-		//right arrow key
-		else if (e.keyCode == 39) {
-			tiltRight = true;
-		}
-		//left arrow key
-		else if (e.keyCode == 37) {
-			tiltLeft = true;
-		}
-    }, true);
-	
-	document.addEventListener("keyup", function(e) {
-		//down arrow key
-		if (e.keyCode == 40) {
-			applyBrake = false;
-		}
-		//right arrow key
-		else if (e.keyCode == 39) {
-			tiltRight = false;
-		}
-		//left arrow key
-		else if (e.keyCode == 37) {
-			tiltLeft = false;
-		}
-    }, true);
-			
-
-	//sphere parameters: radius, segments along width, segments along height
-	//THREE.SphereGeometry = function ( radius, segmentsWidth, segmentsHeight, phiStart, phiLength, thetaStart, thetaLength )
-	//create some spheres (to use with b2Circles created earlier)
-	for(var i = 0; i < numSpheres; ++i) 
-	{ 
-		var sphereGeometry = new THREE.SphereGeometry( 1.0, 20, 16 ); 
-		var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0x95F717} ); 
-		var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-		sphere.position.set(b2Circles[i].m_body.GetPosition().x, 
-							b2Circles[i].m_body.GetPosition().y,
-							0);
-		scene.add(sphere);
-		glSpheres.push(sphere);
-        
-	}
-
-    for (var i = 0; i < glTracks.length; ++i) {
-        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, glTracks[i].height, 1, 1, 1, 1);
-
-        var trackMaterial = new THREE.MeshLambertMaterial({ color: glTracks[i].color});
-        var track = new THREE.Mesh(trackGeometry, trackMaterial);
-      track.rotation.z = glTracks[i].angle;
-		
-        track.position.set(glTracks[i].x,
-							glTracks[i].y,
-							0);
-        //track.rotation.z = glTracks[i].angle;
-		
-     scene.add(track);
- 
-    }
-	
-	
-	// create a set of coordinate axes to help orient user
-	// default size is 100 pixels in each direction; change size by setting scale
-	var axes = new THREE.AxisHelper();
-	axes.scale.set( 0.1, 0.1, 0.1 );
-	scene.add( axes );
-	
-	// create skybox
-	// make sure the camera's "far" value is large enough so that it will render the skyBox!
-	var skyBoxGeometry = new THREE.CubeGeometry( 2000, 2000, 2000 );
-	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xdddddd } );
-	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
-	skyBox.flipSided = true; // render faces from inside of the cube, instead of from outside (default).
-	scene.add(skyBox);
-	
-	//background filler texture
-	// note: 4x4 checkboard pattern
-	var backTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
-	backTexture.wrapS = backTexture.wrapT = THREE.RepeatWrapping; 
-	backTexture.repeat.set( 100, 100 );
-	var backMaterial = new THREE.MeshBasicMaterial( { map: backTexture } );
-	var backGeometry = new THREE.PlaneGeometry(2000, 2000, 1, 1);
-	var background = new THREE.Mesh(backGeometry, backMaterial);
-	background.position.y = -5;
-	background.position.x = -5;
-	background.position.z = 10;
-	background.rotation.x = d2r(90);
-	background.doubleSided = true;
-	scene.add(background);
-	 
-	animate();
 };
 
 //gl animate loop
@@ -227,11 +31,14 @@ function animate()
 //gl loop, updates on every requestAnimationFrame
 function update()
 {
+
+	//var delta = clock.getDelta(); // seconds.
+	
 	//update box2d world
 	updateWorld();
 	updateSpheres();
 	updateCar();
-	updateCamera();
+	updateCameras();
 	updateDebugDraw();
     updateGameState();
     updateText();
@@ -272,7 +79,23 @@ function updateText(){
 //gl render scene
 function render() 
 {	
-	renderer.render( scene, camera );
+
+	chaseCamera.aspect =  (0.5 * SCREEN_WIDTH) / SCREEN_HEIGHT;
+	sideCamera.aspect =  (0.5 * SCREEN_WIDTH) / SCREEN_HEIGHT;
+	chaseCamera.updateProjectionMatrix();
+	sideCamera.updateProjectionMatrix();
+	
+	renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+	renderer.clear();
+	
+	//setViewport(x,y,width,height);
+	// left side
+	renderer.setViewport( 0, 0, 0.5 * SCREEN_WIDTH, SCREEN_HEIGHT );
+	renderer.render( scene, sideCamera );
+	
+	// upper right side
+	renderer.setViewport( 0.5 * SCREEN_WIDTH , 0,  0.5 * SCREEN_WIDTH , SCREEN_HEIGHT );
+	renderer.render( scene, chaseCamera );
 }
 
 function updateCar()
@@ -309,8 +132,9 @@ function updateCar()
 	
 	carBody.position.set(car.GetPosition().x ,
 						car.GetPosition().y ,
-						0);
+						(-0.5*CAR_WIDTH));
 	carBody.rotation.z = car.GetAngle();
+	
 }
 
 function updateDebugDraw()
@@ -331,26 +155,28 @@ function updateSpheres()
 };
 
 //move camera to follow player
-function updateCamera()
+function updateCameras()
 {
 
-	camera.position.set(carBody.position.x,
-						carBody.position.y - 2,
+	sideCamera.position.set(carBody.position.x - 4,
+						carBody.position.y - 6,
 						-CAMERA_DISTANCE);
-	//camera.lookAt(carBody.position.x, carBody.position.y, 0);
+	//alert("x: " + carBody.position.x + "\n y: " + carBody.position.y + "\n z: " + carBody.position.z);
+	sideCamera.lookAt(carBody.position);
+	sideCamera.rotation.z = d2r(0);
 	
-	
+	chaseCamera.position.set(carBody.position.x - 6,
+						carBody.position.y - 4,
+						0);
+	//alert("x: " + carBody.position.x + "\n y: " + carBody.position.y + "\n z: " + carBody.position.z);
+	chaseCamera.lookAt(new THREE.Vector3( carBody.position.x,
+						carBody.position.y - 1,
+						0 ));
+	chaseCamera.rotation.z = d2r(270);
+	//chaseCamera.rotation.x = d2r(0);
 }
 
 
 
-function createMovingObject(x,y){
-     bodyDef.type = Box2D.Dynamics.b2_kinematicBody; //this will be a kinematic body
-     bodyDef.position.Set(x, y);
-     fixDef.shape.SetAsBox(2,2);
-     var movingBody = world.CreateBody(bodyDef).CreateFixture(fixDef);
-    // movingBody.SetLinearVelocity(new b2Vec2(0,1));
-    
-}
 
 

@@ -47,13 +47,15 @@
 //three.js vars
 	var container,
 	scene, 
-	camera, 
-	renderer, 
+	sideCamera,
+	chaseCamera,
+	renderer,
 	controls;
-	var SCREEN_WIDTH = 800, 
-	SCREEN_HEIGHT = 600;  //view size in pixels
+	var SCREEN_WIDTH = 1600, 
+		SCREEN_HEIGHT = 600;
 	var keyboard = new THREEx.KeyboardState();
 	var CAMERA_DISTANCE = 15; //distance from camera to player
+	var VIEW_ANGLE = 45; //camera view angle
 	
 	
 //level.js vars
@@ -61,6 +63,8 @@
 	var originalY = 0;
 	var gameLost = false;
 	var gameWon = true;
+	//gl vars
+	var TRACK_WIDTH = 5;
 	
 //car.js vars
 	//constants
@@ -90,7 +94,20 @@
 	var FLWheel; //front left wheel
 	var RRWheel; //rear right
 	var RLWheel; //rear left
-	var CAR_HALF_WIDTH = 1.5;
-	var WHEEL1_OFFSET = (CAR_HALF_WIDTH + wheel1Radius);
-	var WHEEL2_OFFSET = (CAR_HALF_WIDTH + wheel2Radius);
+	var CAR_Z_HALF_WIDTH = 1.0;
+	//todo, change if we are going to have adjustable wheel radius
+	var WHEEL1_OFFSET = (CAR_Z_HALF_WIDTH + wheel1Radius);
+	var WHEEL2_OFFSET = (CAR_Z_HALF_WIDTH + wheel2Radius);
+	var body1Points = []; //box body
+		body1Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
+		body1Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH,	0.5 * CAR_HEIGHT ) );
+		body1Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	0.5 * CAR_HEIGHT ) );
+		body1Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
+	var body2Points = [];
+		body2Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
+		body2Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH,	0.5 * CAR_HEIGHT ) );
+		body2Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	0.5 * CAR_HEIGHT ) );
+		body2Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
+		//body2Points.push( new THREE.Vector2 (  2.4,  0.3 ) );
+		//body2Points.push( new THREE.Vector2 (  2.2, 0.0 ) );
 	
