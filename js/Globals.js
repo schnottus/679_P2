@@ -111,6 +111,7 @@
 		//body2Points.push( new THREE.Vector2 (  2.4,  0.3 ) );
 		//body2Points.push( new THREE.Vector2 (  2.2, 0.0 ) );
 
-//menu screen variables
+//game.js variables
+	var webGLTrackPieces = [];
 	var currentLevel = 1;
 	var timeElapsed = 0;

@@ -68,6 +68,30 @@ function createMovingObject(x,y){
     
 }
 
+//draw track that corresponds to box2dweb level
+function drawWebGLTrack() {
+	//THREE.CubeGeometry = function ( width, height, depth, segmentsWidth, segmentsHeight, segmentsDepth, materials, sides )
+    for (var i = 0; i < glTracks.length; ++i) {
+        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, glTracks[i].height, TRACK_WIDTH, 1, 1, 1);
+
+        var trackMaterial = new THREE.MeshLambertMaterial({ color: glTracks[i].color});
+        var track = new THREE.Mesh(trackGeometry, trackMaterial);
+      track.rotation.z = glTracks[i].angle;
+		
+		//-1 from x as workaround (why is track offset?)
+        track.position.set(glTracks[i].x - 1,
+							glTracks[i].y,
+							0);
+        //track.rotation.z = glTracks[i].angle;
+		
+     scene.add(track);
+	 
+	 //add it to the track pieces list so we can remove it later
+	 webGLTrackPieces.push(track);
+ 
+    }
+}
+
 	
 function LoadLevel(level) {
 

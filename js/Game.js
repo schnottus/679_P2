@@ -22,10 +22,10 @@ function updateWorld()
 //gl animate loop
 function animate() 
 {
-	timeElapsed++;
+	//timeElapsed++;
 	//Check if the level is completed
 	if (gameWon) {
-	//if (timeElapsed >= 100) {
+	//if (timeElapsed >= 500) {
 		requestAnimationFrame(levelCompleted);
 	}
 	else {
@@ -177,15 +177,7 @@ function updateCameras()
 }
 
 function levelCompleted() {
-	//WebGL, debugDraw, and menu html divs
-	var	divWebGL = document.getElementById("container");
-	var divDebugDraw = document.getElementById("debugDraw");
-	var divInterimMenu = document.getElementById("interimMenu");
-	var divEndMenu = document.getElementById("endMenu");
-
-	//Hide canvases
-	divWebGL.style.display = "none";
-	divDebugDraw.style.display = "none";
+	clearCanvas();
 	
 	//Display appropriate menu
 	switch(currentLevel) {
@@ -210,10 +202,12 @@ function levelCompleted() {
 			break;
 		}
 		case 6: {
+			var divEndMenu = document.getElementById("endMenu");
 			divEndMenu.style.display = "block";
 			break;
 		}
-		default: {
+		default: { //Restart if there was an error
+			var divStartMenu = document.getElementById("startMenu");
 			divStartMenu.style.display = "block";
 			currentLevel = 1;
 			gameLost = false;
@@ -247,9 +241,54 @@ function startLevel(level) {
 	divStartMenu.style.display = "none";
 	divInterimMenu.style.display = "none";
 	
-	levelComplete = false;
+	gameLost = false;
+	gameWon = false;
 	currentLevel = level;
 	timeElapsed = 0;
 	
-	init();
+	if (level == 1)
+		init();
+	else {
+		LoadLevel(level);
+		CreateCar(3);
+		drawWebGLTrack();
+		animate();
+	}
+}
+
+function clearCanvas() {
+	clearBox2DCanvas();
+	clearWebGLCanvas();
+
+	//Hide canvases
+	var	divWebGL = document.getElementById("container");
+	var divDebugDraw = document.getElementById("debugDraw");
+	divWebGL.style.display = "none";
+	divDebugDraw.style.display = "none";
+}
+
+//Remove all bodies and joints from the box2D canvas
+function clearBox2DCanvas() {
+	while (world.GetBodyCount() > 0) {
+		world.DestroyBody(world.GetBodyList());
+	}
+	while (world.GetJointCount() > 0) {
+		world.DestroyJoint(world.GetJointList());
+	}
+}
+
+function clearWebGLCanvas() {
+	//Remove the car from WebGL
+	scene.remove(carBody);
+	scene.remove(FRWheel);
+	scene.remove(FLWheel);
+	scene.remove(RRWheel);
+	scene.remove(RLWheel);
+	
+	//Remove the tracks from WebGL
+	for (var i = 0; i < webGLTrackPieces.length; ++i) {
+		scene.remove(webGLTrackPieces[i]);
+	}
+	webGLTrackPieces = [];
+	glTracks = [];
 }
