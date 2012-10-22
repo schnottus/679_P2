@@ -31,6 +31,9 @@
 	var tiltLeft = false;
 	var tiltRight = false;
 	var applyBrake = false;
+
+	var maxY;
+	var maxX;
 	
 //three.js vars
 	var container,

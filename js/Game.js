@@ -40,13 +40,13 @@ function init()
     fixDef.shape.SetAsBox(120, 1);
 	//bodyDef.position.Set(0, 0);
 	//world.CreateBody(bodyDef).CreateFixture(fixDef); //top of box
-	bodyDef.position.Set(0, 80);
-	world.CreateBody(bodyDef).CreateFixture(fixDef); //bottom of box
+	//bodyDef.position.Set(0, 80);
+	//world.CreateBody(bodyDef).CreateFixture(fixDef); //bottom of box
 	fixDef.shape.SetAsBox(1, 80);
 	bodyDef.position.Set(0, 0);
 	world.CreateBody(bodyDef).CreateFixture(fixDef); //left wall
-	bodyDef.position.Set(120, 0);
-	world.CreateBody(bodyDef).CreateFixture(fixDef); //right wall
+	//bodyDef.position.Set(120, 0);
+	//world.CreateBody(bodyDef).CreateFixture(fixDef); //right wall
             
 	//setup debug draw
 	var debugDraw = new b2DebugDraw();
@@ -384,7 +384,6 @@ function LoadLevel(level) {
 function LoadLevel1() {
     originalX = 0;
     originalY = 5;
-
     for (var j = 0; j < 30; j++) {
         createTrack(2, .1,.8, 0x95F717, .5);
     }
@@ -395,21 +394,72 @@ function LoadLevel1() {
        createTrack(2, .1,0,0xFFFF99,2.0);
 
     createRamp(10,.1,-1);
-    createSpace(10,.1,1);
-    
-      for (var j = 0; j < 20; j++) {
-        createTrack(2, .1,.4,0x95F717,.5);
+    createSpace(20,-5,-.3);
+   // createTrack(40, .1,.4,0x95F717,.5);
+   
+   for (var j = 0; j < 40; j++) {
+        createTrack(2, .1,0, 0x95F717, .5);
     }
+
+
+   createTrack(2, .1,.1, 0x95F717, .5);
+   createTrack(2, .1,.2, 0x95F717, .5);
+   createTrack(2, .1,.3, 0x95F717, .5);
+   createTrack(2, .1,.4, 0x95F717, .5);
+   createTrack(2, .1,.5, 0x95F717, .5);
+   createTrack(2, .1,.6, 0x95F717, .5);
+   createTrack(2, .1,.7, 0x95F717, .5);
+   createTrack(2, .1,.8, 0x95F717, .5);
+   createTrack(2, .1,.9, 0x95F717, .5);
+   createTrack(2, .1, 1, 0x95F717, .5);
+   createTrack(2, .1, 1, 0x95F717, .5);
+   createTrack(2, .1, 1, 0x95F717, .5);
+   createTrack(2, .1, 1, 0x95F717, .5);
+   createTrack(2, .1, 1, 0x95F717, .5);
+   createTrack(2, .1, 1, 0x95F717, .5);
+   createTrack(2, .1, 1, 0x95F717, .5);
+   createTrack(2, .1, 1, 0x95F717, .5);
+   createTrack(2, .1,.9, 0x95F717, .5);
+   createTrack(2, .1,.6, 0x95F717, .5);
+
+   
+   createRamp(10,.1,-.1);
  
-       
-  //  createRamp(10,.1,-.5,0x95F717, 0,.5);
+    //  createRamp(10,.1,-.5,0x95F717, 0,.5);
 
     //createSpace(5,.1,0);
     
       for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,-.1,0x95F717,.1,.5);
+    }
+    for (var j = 0; j < 5; j++) {
         createTrack(2, .1,0,0x95F717,.1,.5);
     }
+    for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,.1,0x95F717,.1,.5);
+    }
+      //  createTrack(2, .2,.1,0x95F717,.1,.5);
+       // createTrack(2, .3,.1,0x95F717,.1,.5);
+       // createTrack(2, .3,.1,0x95F717,.1,.5);
+       //ty createTrack(2, .2,.1,0x95F717,.1,.5);
+    
+   for (var j = 0; j < 40; j++) {
+        createTrack(2, .1,.8,0x95F717,.1,.5);
+    }
+      createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
 
+      createRamp(10,.1,-1.2);
+     createSpace(25,-5,-.3);
+     for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,0,0x95F717,.1,.5);
+    }
+        createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+    
+    xMax = originalX;
+    yMax = originalY + 20;
           
            
 }
