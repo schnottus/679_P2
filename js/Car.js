@@ -74,23 +74,62 @@ function CreateCar() {
 	fixDefCar.friction = wheelFriction;
 	fixDefCar.restitution = 0.2;
 	fixDefCar.filter.groupIndex = -1;
-
 	bodyDefCar = new b2BodyDef();
 	bodyDefCar.type = b2Body.b2_dynamicBody;
+
 	
 	bodyDefCar.position.Set(axle1.GetWorldCenter().x - 0.3*Math.cos(Math.PI/3), axle1.GetWorldCenter().y - 0.3*Math.sin(Math.PI/3));
 	bodyDefCar.allowSleep = false;
 	wheel1 = world.CreateBody(bodyDefCar);
 	wheel1.CreateFixture(fixDefCar);
 	//wheel1.SetMassFromShapes();
+
+	fixDefCar = new b2FixtureDef;
+	fixDefCar.shape = new b2PolygonShape();
+	fixDefCar.density = 0.0;
+	fixDefCar.shape.SetAsBox(4, 4);
+	fixDefCar.restitution = 0.2;
+	fixDefCar.filter.groupIndex = -1;
+	fixDefCar.isSensor = true;
+	bodyDefCar = new b2BodyDef();
+	bodyDefCar.type = b2Body.b2_dynamicBody;
+    
+
+	bodyDefCar.position.Set(axle1.GetWorldCenter().x - 0.3 * Math.cos(Math.PI / 3), axle1.GetWorldCenter().y - 0.3 * Math.sin(Math.PI / 3));
+	bodyDefCar.allowSleep = false;
+	//fixDefCar.SetMassData(new b2MassData(new b2Vec2(0,0),0,0));
+	var sensor = world.CreateBody(bodyDefCar);
+	sensor.CreateFixture(fixDefCar);
+	//wheel1.SetMassFromShapes();
+	fixDefCar.isSensor = false;
+
+	var contactListener = new Box2D.Dynamics.b2ContactListener;
+	contactListener.BeginContact = function (contact_details) {
+	    // `contact_details` can be used to determine which two
+	    // objects collided and in what way
+	    groundCount++;
+	    isOnGround = true;
+	};
+	contactListener.EndContact = function (contact_details) {
+	    // `contact_details` can be used to determine which two
+	    // objects collided and in what way
+	    groundCount--;
+	    if (groundCount == 0) {
+	        isOnGround = false;
+	    }
+
+	};
+
+	world.SetContactListener(contactListener);
 	
+
 	fixDefCar.shape = new b2CircleShape(wheel2Radius);
 	bodyDefCar.position.Set(axle2.GetWorldCenter().x + 0.3*Math.cos(-Math.PI/3), axle2.GetWorldCenter().y + 0.3*Math.sin(-Math.PI/3));
 	bodyDefCar.allowSleep = false;
 	wheel2 = world.CreateBody(bodyDefCar);
 	wheel2.CreateFixture(fixDefCar);
 	//wheel2.SetMassFromShapes();
-	
+
 	// Add the joints //
 	revoluteJointDefCar = new b2RevoluteJointDef();
 	revoluteJointDefCar.enableMotor = true;
@@ -102,7 +141,12 @@ function CreateCar() {
 	revoluteJointDefCar.Initialize(axle2, wheel2, wheel2.GetWorldCenter());
 	motor2 = world.CreateJoint(revoluteJointDefCar);
 	motor2.SetLimits(0, 0);	//By enabling the limits, we can restrict the wheel spin
-	
+
+	revoluteJointDefCar.Initialize(axle1, sensor, sensor.GetWorldCenter());
+	motor1 = world.CreateJoint(revoluteJointDefCar);
+	motor1.SetLimits(0, 0); //By enabling the limits, we can restrict the wheel spin
+
+
 	//Rotate the car
 	car.SetAngle(d2r(CAR_ANGLE));
 	

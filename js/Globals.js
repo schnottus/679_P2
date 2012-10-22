@@ -38,9 +38,12 @@
 	var tiltRight = false;
 	var applyBrake = false;
 
-	var maxY;
-	var maxX;
-	
+	var yMax;
+	var xMax;
+
+	var isOnGround;
+	var groundCount = 0;
+
 //three.js vars
 	var container,
 	scene, 
@@ -50,12 +53,14 @@
 	var SCREEN_WIDTH = 800, 
 	SCREEN_HEIGHT = 600;  //view size in pixels
 	var keyboard = new THREEx.KeyboardState();
-	var CAMERA_DISTANCE = 20; //distance from camera to player
+	var CAMERA_DISTANCE = 30; //distance from camera to player
 	
 	
 //level.js vars
 	var originalX = 0;
 	var originalY = 0;
+	var gameLost = false;
+	var gameWon = true;
 	
 //car.js vars
 	//constants

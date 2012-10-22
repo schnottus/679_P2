@@ -116,7 +116,7 @@ function init()
 	CreateCar();
 
 	//load level
-	LoadLevel(0);
+	LoadLevel(2);
 	
 	//add listeners for our controls
 	document.addEventListener("keydown", function(e) {
@@ -171,10 +171,12 @@ function init()
 
         var trackMaterial = new THREE.MeshLambertMaterial({ color: glTracks[i].color});
         var track = new THREE.Mesh(trackGeometry, trackMaterial);
+      track.rotation.z = glTracks[i].angle;
+		
         track.position.set(glTracks[i].x,
 							glTracks[i].y,
 							0);
-        track.rotation.z = glTracks[i].angle;
+        //track.rotation.z = glTracks[i].angle;
 		
      scene.add(track);
  
@@ -231,7 +233,40 @@ function update()
 	updateCar();
 	updateCamera();
 	updateDebugDraw();
+    updateGameState();
+    updateText();
 	
+}
+
+function updateGameState(){
+    if(carBody.position.x > xMax){
+        gameWon = true;
+    }
+    if(carBody.position.y > yMax){
+        gameLost = true;
+    }
+
+
+}
+
+function updateText(){
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = "#339933"; 	// This determines the text colour, it can take a hex value or rgba value (e.g. rgba(255,0,0,0.5))
+    ctx.textAlign = "center";	// This determines the alignment of text, e.g. left, center, right
+    ctx.textBaseline = "middle";	// This determines the baseline of the text, e.g. top, middle, bottom
+    ctx.font = "20px monospace";	//
+    
+    if(!isOnGround){
+        ctx.fillText("Nice Air", canvas.width/2, canvas.height/2);
+    }
+
+    if(gameLost)
+    {
+        ctx.fillText("Game Over", canvas.width/2, (canvas.height*3)/4);
+    } else if (gameWon){
+        ctx.fillText("Great Job! You Won!", canvas.width/2, canvas.height/2);
+    }
+
 }
 
 //gl render scene
@@ -295,6 +330,7 @@ function updateSpheres()
 //move camera to follow player
 function updateCamera()
 {
+
 	camera.position.set(carBody.position.x,
 						carBody.position.y - 2,
 						-CAMERA_DISTANCE);
@@ -335,6 +371,10 @@ function createTrack(length, height, angle, color, friction) {
     originalY = Y_pivot + length * Math.sin(angle);
     originalX = X_pivot + length * Math.cos(angle);
 
+    if(originalY > yMax){
+     yMax = originalY + 20;
+    }
+      
 }
 
 function createSpace(length, height, angle){
@@ -370,9 +410,23 @@ function createMovingObject(x,y){
 
 function LoadLevel(level) {
 
-    if (level == 0) {
+    gameLost = false;
+    gameWon = false;
+    yMax = 0;
+    if (level == 1) {
         LoadLevel1();
     }
+    
+    if (level == 2) {
+        LoadLevel2();
+    }
+
+    if (level == 3) {
+        LoadLevel3();
+   }
+
+
+
 
 }
 
@@ -390,9 +444,8 @@ function LoadLevel1() {
 
     createRamp(10,.1,-1);
     createSpace(20,-5,-.3);
-   // createTrack(40, .1,.4,0x95F717,.5);
-   
-   for (var j = 0; j < 40; j++) {
+  
+   for (var j = 0; j < 20; j++) {
         createTrack(2, .1,0, 0x95F717, .5);
     }
 
@@ -416,14 +469,9 @@ function LoadLevel1() {
    createTrack(2, .1, 1, 0x95F717, .5);
    createTrack(2, .1,.9, 0x95F717, .5);
    createTrack(2, .1,.6, 0x95F717, .5);
-
    
    createRamp(10,.1,-.1);
- 
-    //  createRamp(10,.1,-.5,0x95F717, 0,.5);
 
-    //createSpace(5,.1,0);
-    
       for (var j = 0; j < 20; j++) {
         createTrack(2, .1,-.1,0x95F717,.1,.5);
     }
@@ -433,11 +481,7 @@ function LoadLevel1() {
     for (var j = 0; j < 20; j++) {
         createTrack(2, .1,.1,0x95F717,.1,.5);
     }
-      //  createTrack(2, .2,.1,0x95F717,.1,.5);
-       // createTrack(2, .3,.1,0x95F717,.1,.5);
-       // createTrack(2, .3,.1,0x95F717,.1,.5);
-       //ty createTrack(2, .2,.1,0x95F717,.1,.5);
-    
+
    for (var j = 0; j < 40; j++) {
         createTrack(2, .1,.8,0x95F717,.1,.5);
     }
@@ -453,10 +497,147 @@ function LoadLevel1() {
     }
         createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
     
-    xMax = originalX;
-    yMax = originalY + 20;
+    xMax = originalX - 10;
+    
           
            
+}
+
+function LoadLevel2() {
+    originalX = 0;
+    originalY = 5;
+
+     for (var j = 0; j < 30; j++) {
+        createTrack(2, .1,.4, 0x95F717, .5);
+    }
+
+     for (var j = 0; j < 5; j++) {
+        createTrack(2, .1,.3, 0x95F717, .5);
+    }
+    for (var j = 0; j < 5; j++) {
+        createTrack(2, .1,.1, 0x95F717, .5);
+    }
+        for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,.5, 0x95F717, .5);
+    }
+
+     for (var j = 0; j < 10; j++) {
+        createTrack(2, .1,.3, 0x95F717, .5);
+    }
+    for (var j = 0; j < 10; j++) {
+        createTrack(2, .1,.1, 0x95F717, .5);
+    }
+    
+        for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,.5, 0x95F717, .5);
+    }
+
+     for (var j = 0; j < 15; j++) {
+        createTrack(2, .1,.3, 0x95F717, .5);
+    }
+    for (var j = 0; j < 10; j++) {
+        createTrack(2, .1,.1, 0x95F717, .5);
+    }
+    
+         for (var j = 0; j < 5; j++) {
+        createTrack(2, .1,.3, 0x95F717, .5);
+    }
+    for (var j = 0; j < 5; j++) {
+        createTrack(2, .1,.1, 0x95F717, .5);
+    }
+        for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,.5, 0x95F717, .5);
+    }
+
+     for (var j = 0; j < 10; j++) {
+        createTrack(2, .1,.3, 0x95F717, .5);
+    }
+    for (var j = 0; j < 10; j++) {
+        createTrack(2, .1,.1, 0x95F717, .5);
+    }
+    
+        for (var j = 0; j < 10; j++) {
+        createTrack(2, .1,.5, 0x95F717, .5);
+    }
+
+     for (var j = 0; j < 15; j++) {
+        createTrack(2, .1,.3, 0x95F717, .5);
+    }
+    for (var j = 0; j < 10; j++) {
+        createTrack(2, .1,.1, 0x95F717, .5);
+    }
+    
+        for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,.5, 0x95F717, .5);
+    }
+        for (var j = 0; j < 20; j++) {
+        createTrack(2, .1,.5, 0x95F717, .5);
+    }
+
+
+    createTrack(2, .1,.3,0xFFFF99,2.0);
+    createTrack(2, .1,.2,0xFFFF99,2.0);
+    createTrack(2, .1,.1,0xFFFF99,2.0);
+    createTrack(2, .1,0,0xFFFF99,2.0);
+    createRamp(20,.1,-1);
+
+    createSpace(20,.1,-.6);
+        for (var j = 0; j < 20; j++) {
+              createTrack(2, .1,0, 0x95F717, .5);
+        }
+    createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+
+       
+    xMax = originalX - 10;
+
+    
+}
+
+
+function LoadLevel3() {
+  originalX = 0;
+    originalY = 5;
+
+     for (var j = 0; j < 40; j++) {
+        createTrack(2, .1,.6, 0x95F717, .5);
+    }
+
+    
+     for (var j = 0; j < 5; j++) {
+        createRamp(10,.1,-.6,0x95F717,.5);   
+        createRamp(25,.1,1,0x95F717,.5);
+        createTrack(2,.1,.2,0x95F717,.5);
+        createTrack(2,.1,.1,0x95F717,.5);
+        createTrack(2,.1,0,0x95F717,.5);
+
+    }
+
+    createRamp(20,.1,1);
+    createRamp(20,.1,1);
+    createRamp(20,.1,1);
+    createRamp(20,.1,1);
+    createRamp(10,.1,-.5,0x95F717,.5);   
+    createRamp(10,.1,-.4,0x95F717,.5);   
+    createRamp(10,.1,-.3,0x95F717,.5);   
+    
+     createTrack(2,.1,0,0x95F717,.5);
+     createTrack(2,.1,0,0x95F717,.5);
+     createTrack(2,.1,.5,0x95F717,.5);
+     createTrack(2,.1,.4,0x95F717,.5);
+     createTrack(2,.1,.2,0x95F717,.5);
+     createTrack(2,.1,.4,0x95F717,.5);
+     createTrack(2,.1,.2,0x95F717,.5);
+     createTrack(2,.1,0,0x95F717,.5);
+     createTrack(2,.1,0,0x95F717,.5);
+     createTrack(2,.1,0,0x95F717,.5);
+     createTrack(2,.1,0,0x95F717,.5);
+
+
+     createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+
+       
+    xMax = originalX - 10;
+    yMax = originalY + 20;
 }
 
 //simple example car 
