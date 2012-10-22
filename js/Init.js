@@ -96,7 +96,7 @@ function init()
 	CreateCar();
 
 	//load level
-	LoadLevel(2);
+	LoadLevel(1);
 	
 	//add listeners for our controls
 	document.addEventListener("keydown", function(e) {
