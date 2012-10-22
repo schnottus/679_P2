@@ -32,6 +32,7 @@
     fixDef.friction = 0.5;
     fixDef.restitution = 0.5;    //raise for more bounce     
     var bodyDef = new b2BodyDef;
+	var DEBUGDRAW_SCALE = 16; //make smaller to see whole level, higher numbers zoom in (on origin)
 	
 	//car controls
 	var tiltLeft = false;
