@@ -53,7 +53,7 @@
 	var SCREEN_WIDTH = 800, 
 	SCREEN_HEIGHT = 600;  //view size in pixels
 	var keyboard = new THREEx.KeyboardState();
-	var CAMERA_DISTANCE = 30; //distance from camera to player
+	var CAMERA_DISTANCE = 15; //distance from camera to player
 	
 	
 //level.js vars

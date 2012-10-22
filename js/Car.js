@@ -150,7 +150,7 @@ function CreateCar() {
 	//Rotate the car
 	car.SetAngle(d2r(CAR_ANGLE));
 	
-	// Creat car parts in webGL //
+	// Create car parts in webGL //
 	//front tire
 	var sphereGeometry = new THREE.SphereGeometry( wheel1Radius, 20, 16 ); 
 	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xAAF717} ); 
