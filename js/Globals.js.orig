@@ -32,7 +32,7 @@
     fixDef.friction = 0.5;
     fixDef.restitution = 0.5;    //raise for more bounce     
     var bodyDef = new b2BodyDef;
-	var DEBUGDRAW_SCALE = 1; //make smaller to see whole level, higher numbers zoom in (on origin)
+	var DEBUGDRAW_SCALE = 16; //make smaller to see whole level, higher numbers zoom in (on origin)
 	
 //car controls
 	var tiltLeft = false;
@@ -62,7 +62,7 @@
 	var originalX = 0;
 	var originalY = 0;
 	var gameLost = false;
-	var gameWon = false;
+	var gameWon = true;
 	//gl vars
 	var TRACK_WIDTH = 5;
 	
@@ -87,6 +87,16 @@
 	var car, axle1, axle2, spring1, spring2, wheel1, wheel2, motor1, motor2;
 	
 	//car webGL vars
+<<<<<<< HEAD
+	var carBody;
+	var frontWheel;
+	var rearWheel;
+
+//menu screen variables
+	var currentLevel = 0;
+	var levelComplete = false;
+	var timeElapsed = 0;
+=======
 	var carBody1;
 	var carBody2;
 	var carBody3;
@@ -110,7 +120,5 @@
 		body2Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
 		//body2Points.push( new THREE.Vector2 (  2.4,  0.3 ) );
 		//body2Points.push( new THREE.Vector2 (  2.2, 0.0 ) );
-
-//menu screen variables
-	var currentLevel = 1;
-	var timeElapsed = 0;
+	
+>>>>>>> 815aeb75c3e183665e2d25d96f7d6fdf71f2f2c8
