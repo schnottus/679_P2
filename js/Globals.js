@@ -83,7 +83,14 @@
 	var car, axle1, axle2, spring1, spring2, wheel1, wheel2, motor1, motor2;
 	
 	//car webGL vars
-	var carBody;
-	var frontWheel;
-	var rearWheel;
+	var carBody1;
+	var carBody2;
+	var carBody3;
+	var FRWheel; //front right wheel
+	var FLWheel; //front left wheel
+	var RRWheel; //rear right
+	var RLWheel; //rear left
+	var CAR_HALF_WIDTH = 1.5;
+	var WHEEL1_OFFSET = (CAR_HALF_WIDTH + wheel1Radius);
+	var WHEEL2_OFFSET = (CAR_HALF_WIDTH + wheel2Radius);
 	

@@ -191,19 +191,19 @@ function init()
 	
 	// create skybox
 	// make sure the camera's "far" value is large enough so that it will render the skyBox!
-	var skyBoxGeometry = new THREE.CubeGeometry( 1000, 1000, 1000 );
+	var skyBoxGeometry = new THREE.CubeGeometry( 2000, 2000, 2000 );
 	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xdddddd } );
 	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
 	skyBox.flipSided = true; // render faces from inside of the cube, instead of from outside (default).
 	scene.add(skyBox);
 	
 	//background filler texture
-	// note: 4x4 checkboard pattern scaled so that each square is 10 meters by 10 meters.
+	// note: 4x4 checkboard pattern
 	var backTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
 	backTexture.wrapS = backTexture.wrapT = THREE.RepeatWrapping; 
 	backTexture.repeat.set( 100, 100 );
 	var backMaterial = new THREE.MeshBasicMaterial( { map: backTexture } );
-	var backGeometry = new THREE.PlaneGeometry(1000, 1000, 1, 1);
+	var backGeometry = new THREE.PlaneGeometry(2000, 2000, 1, 1);
 	var background = new THREE.Mesh(backGeometry, backMaterial);
 	background.position.y = -5;
 	background.position.x = -5;
@@ -298,12 +298,15 @@ function updateCar()
 		motor2.EnableLimit(false);
 	}
 	
-	frontWheel.position.set(wheel1.GetPosition().x, 
-						wheel1.GetPosition().y,
-						0);
-	rearWheel.position.set(wheel2.GetPosition().x, 
-						wheel2.GetPosition().y,
-						0);
+	var frontX = wheel1.GetPosition().x;
+	var frontY = wheel1.GetPosition().y;
+	var rearX = wheel2.GetPosition().x;
+	var rearY = wheel2.GetPosition().y;
+	FRWheel.position.set(frontX, frontY, WHEEL1_OFFSET);
+	FLWheel.position.set(frontX, frontY, -WHEEL1_OFFSET);
+	RRWheel.position.set(rearX, rearY, WHEEL2_OFFSET);
+	RLWheel.position.set(rearX, rearY, -WHEEL2_OFFSET);
+	
 	carBody.position.set(car.GetPosition().x ,
 						car.GetPosition().y ,
 						0);

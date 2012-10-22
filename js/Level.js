@@ -58,6 +58,16 @@ function createRamp(length, height, maxAngle, color, friction){
             angle+=angleMargin; 
         }
 }
+
+function createMovingObject(x,y){
+     bodyDef.type = Box2D.Dynamics.b2_kinematicBody; //this will be a kinematic body
+     bodyDef.position.Set(x, y);
+     fixDef.shape.SetAsBox(2,2);
+     var movingBody = world.CreateBody(bodyDef).CreateFixture(fixDef);
+    // movingBody.SetLinearVelocity(new b2Vec2(0,1));
+    
+}
+
 	
 function LoadLevel(level) {
 

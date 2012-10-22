@@ -151,23 +151,34 @@ function CreateCar() {
 	car.SetAngle(d2r(CAR_ANGLE));
 	
 	// Create car parts in webGL //
-	//front tire
-	var sphereGeometry = new THREE.SphereGeometry( wheel1Radius, 20, 16 ); 
+	//front tires
+	//THREE.SphereGeometry = function ( radius, segmentsWidth, segmentsHeight, phiStart, phiLength, thetaStart, thetaLength )
+	var sphereGeometry = new THREE.SphereGeometry( wheel1Radius, 16, 12 ); 
 	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xAAF717} ); 
-	frontWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
-	frontWheel.position.set(wheel1.GetPosition().x, 
+	FRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						0);
-	scene.add(frontWheel);
-	
-	//rear tire
-	var sphereGeometry = new THREE.SphereGeometry( wheel2Radius, 20, 16 ); 
-	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF717} ); 
-	rearWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
-	rearWheel.position.set(wheel2.GetPosition().x, 
+						WHEEL1_OFFSET);
+	scene.add(FRWheel);
+	FLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	FLWheel.position.set(wheel1.GetPosition().x, 
+						wheel1.GetPosition().y,
+						-WHEEL1_OFFSET );
+	scene.add(FLWheel);
+						
+	//rear tires
+	var sphereGeometry = new THREE.SphereGeometry( wheel2Radius, 16, 12 ); 
+	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xAAF717} ); 
+	RRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						0);
-	scene.add(rearWheel);
+						WHEEL2_OFFSET);
+	scene.add(RRWheel);
+	RLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	RLWheel.position.set(wheel2.GetPosition().x, 
+						wheel2.GetPosition().y,
+						-WHEEL2_OFFSET );
+	scene.add(RLWheel);
 	
 	//body 
 	//make custom box2d polys to match
