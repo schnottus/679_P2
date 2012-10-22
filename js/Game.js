@@ -39,7 +39,6 @@ function update()
 	updateSpheres();
 	updateCar();
 	updateCameras();
-	updateDebugDraw();
     updateGameState();
     updateText();
 	
@@ -135,12 +134,6 @@ function updateCar()
 						(-0.5*CAR_WIDTH));
 	carBody.rotation.z = car.GetAngle();
 	
-}
-
-function updateDebugDraw()
-{
-	debugDraw.x = 50;
-	debugDraw.y = 50;
 }
 
 function updateSpheres()

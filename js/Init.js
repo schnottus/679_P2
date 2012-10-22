@@ -25,7 +25,7 @@ function init()
 	//setup debug draw
 	var debugDraw = new b2DebugDraw();
 		debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-		debugDraw.SetDrawScale(1.0);
+		debugDraw.SetDrawScale(16.0);
 		debugDraw.SetFillAlpha(0.5);
 		debugDraw.SetLineThickness(1.0);
 		debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
@@ -93,7 +93,7 @@ function init()
 	}
 	
 	//create car
-	CreateCar();
+	CreateCar( 3 );
 
 	//load level
 	LoadLevel(2);
