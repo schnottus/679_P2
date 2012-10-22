@@ -1,7 +1,8 @@
-/*
-css for project2 game
-Author: Scott Larson
-*/
+/******************
+* File: style.css
+* Author: Scott Larson, Eric Satterness, Paul Bolanowski
+* Date: 21 Oct 2012
+*******************/
 
 h1{
 	color: black;
@@ -9,5 +10,12 @@ h1{
           SunSans-Regular, sans-serif;
 }
 
-#container { border: 1px solid red; float: left}
-#debugDraw { border: 1px solid red; float: left}
+#container { 
+	border: 1px solid red;
+	float: left;
+}
+
+#debugDraw {
+	border: 1px solid red;
+	float: left;
+}

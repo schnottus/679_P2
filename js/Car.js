@@ -1,3 +1,8 @@
+/******************
+* File: Car.js
+* Author: Scott Larson, Eric Satterness, Paul Bolanowski
+* Date: 21 Oct 2012
+*******************/
 function CreateCar() {
 	// Add the car //
 	var bodyDefCar = new b2BodyDef;
@@ -49,8 +54,6 @@ function CreateCar() {
 	prismaticJointDefCar.enableMotor = true;
 
 	spring1 = world.CreateJoint(prismaticJointDefCar);
-	spring1.SetMaxMotorForce(30+Math.abs(800*Math.pow(spring1.GetJointTranslation(), 2)));
-	spring1.SetMotorSpeed((spring1.GetMotorSpeed() - 10*spring1.GetJointTranslation())*0.4);
 
 	axle2 = world.CreateBody(bodyDefCar);
 	
@@ -61,8 +64,6 @@ function CreateCar() {
 	prismaticJointDefCar.Initialize(car, axle2, axle2.GetWorldCenter(), new b2Vec2(-Math.cos(Math.PI/3), Math.sin(Math.PI/3)));
 
 	spring2 = world.CreateJoint(prismaticJointDefCar);
-	spring2.SetMaxMotorForce(20+Math.abs(800*Math.pow(spring2.GetJointTranslation(), 2)));
-	spring2.SetMotorSpeed(-4*Math.pow(spring2.GetJointTranslation(), 1));
 	
 	// Add the wheels //
 	wheel1, wheel2;

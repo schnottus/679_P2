@@ -1,6 +1,6 @@
 /******************
 * File: Game.js
-* Author: Scott Larson
+* Author: Scott Larson, Eric Satterness, Paul Bolanowski
 * Date: 15 Oct 2012
 *
 *Notes:
@@ -10,11 +10,6 @@
 * - fix camera to follow box2d world and coordinates
 * - modify three.js detector message for no webGL support
 *******************/
-
-
-	
-	
-
 
 //global vars for example spheres
 	var b2Circles = new Array();
@@ -248,9 +243,9 @@ function render()
 function updateCar()
 {
 	//Reset the motor in the car axles to give it a spring effect
-	spring1.SetMaxMotorForce(30+Math.abs(800*Math.pow(spring1.GetJointTranslation(), 2)));
+	spring1.SetMaxMotorForce(suspension+Math.abs(800*Math.pow(spring1.GetJointTranslation(), 2)));
 	spring1.SetMotorSpeed((spring1.GetMotorSpeed() - 10*spring1.GetJointTranslation())*0.4);
-	spring2.SetMaxMotorForce(20+Math.abs(800*Math.pow(spring2.GetJointTranslation(), 2)));
+	spring2.SetMaxMotorForce(suspension+Math.abs(800*Math.pow(spring2.GetJointTranslation(), 2)));
 	spring2.SetMotorSpeed(-4*Math.pow(spring2.GetJointTranslation(), 1));
 	
 	if (tiltRight) {
