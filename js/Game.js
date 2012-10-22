@@ -25,7 +25,7 @@ function updateWorld()
 	world.ClearForces();
 };
 
-function init() 
+function init(level) 
 {
 	
 	/***BOX2D SETUP***/  
@@ -116,7 +116,7 @@ function init()
 	CreateCar();
 
 	//load level
-	LoadLevel(0);
+	LoadLevel(level);
 	
 	//add listeners for our controls
 	document.addEventListener("keydown", function(e) {
@@ -215,11 +215,17 @@ function init()
 
 //gl animate loop
 function animate() 
-{
-    requestAnimationFrame( animate ); //this is where the example had it placed, also I've read it should be placed immediately before render()
-	render(); //draw updated game
-	update(); //update game state
-	
+{	
+	timeElapsed++;
+	//Check if the level is completed
+	if (timeElapsed >= 100) {
+		requestAnimationFrame(levelCompleted);
+	}
+	else {
+		requestAnimationFrame( animate ); //this is where the example had it placed, also I've read it should be placed immediately before render()
+		render(); //draw updated game
+		update(); //update game state
+	}
 }
 
 //gl loop, updates on every requestAnimationFrame
@@ -367,6 +373,79 @@ function createMovingObject(x,y){
     // movingBody.SetLinearVelocity(new b2Vec2(0,1));
     
 }
+
+function levelCompleted() {
+	//WebGL, debugDraw, and menu html divs
+	var	divWebGL = document.getElementById("container");
+	var divDebugDraw = document.getElementById("debugDraw");
+	var divInterimMenu = document.getElementById("interimMenu");
+	var divEndMenu = document.getElementById("endMenu");
+
+	//Hide canvases
+	divWebGL.style.display = "none";
+	divDebugDraw.style.display = "none";
+	
+	//Display appropriate menu
+	switch(currentLevel) {
+		case 0: {
+			showInterimMenu();
+			break;
+		}
+		case 1: {
+			showInterimMenu();
+			break;
+		}
+		case 2: {
+			showInterimMenu();
+			break;
+		}
+		case 3: {
+			showInterimMenu();
+			break;
+		}
+		case 4: {
+			showInterimMenu();
+			break;
+		}
+		case 5: {
+			divEndMenu.style.display = "block";
+			break;
+		}
+	}
+}
+
+//show the appropriate menu after completing a level
+function showInterimMenu() {
+	var divInterimMenu = document.getElementById("interimMenu");	
+	divInterimMenu.style.display = "block";
+	
+	var nextLevel = currentLevel + 1;
+	var btnNextLevel = document.getElementById("btnNextLevel");
+	btnNextLevel.setAttribute("onclick","startLevel(" + nextLevel + ");")
+	btnNextLevel.innerHTML = "Level " + nextLevel;
+}
+
+//show canvases, hide menus, and reset level variables
+function startLevel(level) {
+	//WebGL, debugDraw, and menu html divs
+	var	divWebGL = document.getElementById("container");
+	var divDebugDraw = document.getElementById("debugDraw");
+	var divStartMenu = document.getElementById("startMenu");
+	var divInterimMenu = document.getElementById("interimMenu");
+
+	divWebGL.style.display = "block";
+	divDebugDraw.style.display = "block";
+	divStartMenu.style.display = "none";
+	divInterimMenu.style.display = "none";
+	
+	levelComplete = false;
+	currentLevel = level;
+	timeElapsed = 0;
+	
+	init(level);
+}
+
+
 
 function LoadLevel(level) {
 

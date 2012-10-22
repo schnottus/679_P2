@@ -4,12 +4,6 @@
 * Date: 21 Oct 2012
 *******************/
 
-h1{
-	color: black;
-    font-family: Helvetica, Geneva, Arial,
-          SunSans-Regular, sans-serif;
-}
-
 #container { 
 	border: 1px solid red;
 	float: left;
@@ -18,4 +12,28 @@ h1{
 #debugDraw {
 	border: 1px solid red;
 	float: left;
+}
+
+div.menuPage {
+	width: 800px;
+	height: 600px;
+	border: 1px solid red;
+	padding: 0 20px;
+}
+
+div#startMenu {
+
+}
+
+div#interimMenu {
+
+}
+
+div#endMenu {
+	
+}
+
+h1 {
+	color: black;
+    font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
 }

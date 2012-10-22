@@ -5,7 +5,7 @@
 *******************/
 
 /***GLOBAL VARIABLES***/
-	
+
 //box2d vars
 	var b2Vec2 = Box2D.Common.Math.b2Vec2,
 		b2AABB = Box2D.Collision.b2AABB,
@@ -33,7 +33,7 @@
     fixDef.restitution = 0.5;    //raise for more bounce     
     var bodyDef = new b2BodyDef;
 	
-	//car controls
+//car controls
 	var tiltLeft = false;
 	var tiltRight = false;
 	var applyBrake = false;
@@ -48,7 +48,6 @@
 	SCREEN_HEIGHT = 600;  //view size in pixels
 	var keyboard = new THREEx.KeyboardState();
 	var CAMERA_DISTANCE = 20; //distance from camera to player
-	
 	
 //level.js vars
 	var originalX = 0;
@@ -78,4 +77,8 @@
 	var carBody;
 	var frontWheel;
 	var rearWheel;
-	
+
+//menu screen variables
+	var currentLevel = 0;
+	var levelComplete = false;
+	var timeElapsed = 0;

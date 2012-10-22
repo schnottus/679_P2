@@ -18,10 +18,27 @@
 	<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
-<body onload="init();">
-    <div id="container"></div>
-	<div id="debugDraw">
+<!--<body onload="init(0);">-->
+<body>
+    <div id="container" style="display: none;"></div>
+	<div id="debugDraw" style="display: none;">
 		<canvas id="canvas" width="480" height="320" style="background-color:#333333;"></canvas>
+	</div>
+	<div id="startMenu" class="menuPage">
+		<h1>Pinewood Derby Game</h1>
+		<h3>Instructions</h3>
+		<p>Navigate your car down the track to reach the end.</p>
+		<button id="btnStart" type="button" onclick="startLevel(0);" >Start</button>
+		<button id="btnControls" type="button">Controls</button>
+	</div>
+	<div id="interimMenu" class="menuPage" style="display: none;">
+		<h1>Level Complete!</h1>
+		<button id="btnNextLevel" type="button">Level #</button>
+		<button id="btnCustomizeCar" type="button">Customize Car</button>
+	</div>
+	<div id="endMenu" class="menuPage" style="display: none;">
+		<h1>Congratulations!</h1>
+		<h3>You win!</h3>
 	</div>
 </body>
 </html>
