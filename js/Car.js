@@ -93,7 +93,9 @@ function CreateCar( type ) {
 	fixDefCar.isSensor = true;
 	bodyDefCar = new b2BodyDef();
 	bodyDefCar.type = b2Body.b2_dynamicBody;
-    
+	var gravity = bodyDefCar.gravityScale;
+	bodyDefCar.gravityScale = 0.0;
+
 
 	bodyDefCar.position.Set(axle1.GetWorldCenter().x - 0.3 * Math.cos(Math.PI / 3), axle1.GetWorldCenter().y - 0.3 * Math.sin(Math.PI / 3));
 	bodyDefCar.allowSleep = false;
@@ -102,6 +104,13 @@ function CreateCar( type ) {
 	sensor.CreateFixture(fixDefCar);
 	//wheel1.SetMassFromShapes();
 	fixDefCar.isSensor = false;
+	fixDefCar = new b2FixtureDef;
+	fixDefCar.shape = new b2CircleShape(wheel1Radius);
+	fixDefCar.density = 0.1;
+	fixDefCar.friction = wheelFriction;
+	fixDefCar.restitution = 0.2;
+	fixDefCar.filter.groupIndex = -1;
+	bodyDefCar.gravityScale = 0.0;
 
 	var contactListener = new Box2D.Dynamics.b2ContactListener;
 	contactListener.BeginContact = function (contact_details) {
