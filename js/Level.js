@@ -92,14 +92,18 @@ function drawWebGLTrack() {
     }
 }
 
+function GetNumberOfLevels(){
+        return 5;
+}
 	
 function LoadLevel(level) {
 
     gameLost = false;
     gameWon = false;
-    yMax = 0;
+    yMax = 20;
+    xMax = 50;
     if (level == 1) {
-        LoadLevel1();
+         LoadLevel1();
     }
     
     if (level == 2) {
@@ -109,6 +113,16 @@ function LoadLevel(level) {
     if (level == 3) {
         LoadLevel3();
    }
+    if (level == 4) {
+        LoadLevel4();
+   }
+
+    if (level == 5) {
+        LoadLevel5();
+   }
+
+
+
 
 
 
@@ -180,6 +194,7 @@ function LoadLevel1() {
      for (var j = 0; j < 20; j++) {
         createTrack(2, .1,0,0x95F717,.1,.5);
     }
+      yMin = originalY + 5;
         createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
     
     xMax = originalX - 10;
@@ -270,6 +285,7 @@ function LoadLevel2() {
         for (var j = 0; j < 20; j++) {
               createTrack(2, .1,0, 0x95F717, .5);
         }
+      yMin = originalY + 5;
     createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
 
        
@@ -317,12 +333,238 @@ function LoadLevel3() {
      createTrack(2,.1,0,0x95F717,.5);
      createTrack(2,.1,0,0x95F717,.5);
 
-
+       yMin = originalY + 5;
      createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
 
        
     xMax = originalX - 10;
     yMax = originalY + 20;
+}
+
+function LoadLevel4(){
+      originalX = 0;
+    originalY = 5;
+    for (var j = 0; j < 30; j++) {
+        createTrack(2, .1,.8, 0x95F717, .5);
+    }
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,-.1,0xFFFF99,2.0);
+       var saveX = originalX;
+       var saveY = originalY;
+       createSpace(5,.1,0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(20,.1,-4);   // loop
+       originalX = saveX;
+       originalY = saveY;
+       createTrack(2, .1,1.5,0xFFFF99,2.0);
+       createTrack(2, .1,1.4,0xFFFF99,2.0);
+       createTrack(2, .1,1.3,0xFFFF99,2.0);
+       createTrack(2, .1,1.3,0xFFFF99,2.0);
+       createTrack(2, .1,1.3,0xFFFF99,2.0);
+       createTrack(2, .1,1.2,0xFFFF99,2.0);
+       createTrack(2, .1,1.1,0xFFFF99,2.0);
+       createTrack(2, .1,1.0,0xFFFF99,2.0);
+       createTrack(2, .1,.9,0xFFFF99,2.0);
+       for (var j = 0; j < 20; j++) {
+            createTrack(2, .1,.8, 0x95F717, .5);
+       }
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,-.1,0xFFFF99,2.0);
+       var saveX = originalX;
+       var saveY = originalY;
+       createSpace(5,.1,0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+      
+       createRamp(35,.1,-4);   // loop
+       originalX = saveX;
+       originalY = saveY;
+       createTrack(2, .1,1.5,0xFFFF99,2.0);
+       createTrack(2, .1,1.4,0xFFFF99,2.0);
+       createTrack(2, .1,1.3,0xFFFF99,2.0);
+       createTrack(2, .1,1.3,0xFFFF99,2.0);
+       createTrack(2, .1,1.3,0xFFFF99,2.0);
+       createTrack(2, .1,1.2,0xFFFF99,2.0);
+       createTrack(2, .1,1.1,0xFFFF99,2.0);
+       createTrack(2, .1,1.0,0xFFFF99,2.0);
+       createTrack(2, .1,.9,0xFFFF99,2.0);
+        for (var j = 0; j < 30; j++) {
+            createTrack(2, .1,.8, 0x95F717, .5);
+       }
+         for (var j = 0; j < 10; j++) {
+            createTrack(2, .1,.9, 0x95F717, .5);
+       }
+       createTrack(2, .1,.4,0xFFFF99,2.0);
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,-.1,0xFFFF99,2.0);
+       
+        createRamp(10,.1,-1);   
+      
+      createSpace(35,.1,-.5);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+
+
+       yMin = originalY + 5;
+       yMin = originalY + 5;
+       xMax = originalX -10;
+  
+       createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+
+       
+      
+       
+       
+  
+}
+
+function LoadLevel5() {
+    originalX = 0;
+    originalY = 5;
+    for (var j = 0; j < 30; j++) {
+        createTrack(2, .1,.8, 0x95F717, .5);
+    }
+
+    createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+
+    createRamp(10,.1,-1);
+    createSpace(13,.1,-.3);
+  
+   for (var j = 0; j < 3; j++) {
+        createTrack(2, .1,0, 0x95F717, .5);
+    }
+       createTrack(2, .1,.6,0xFFFF99,2.0);
+       createTrack(2, .1,.5,0xFFFF99,2.0);
+       createTrack(2, .1,.4,0xFFFF99,2.0);
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(5,.1,-.8,0xFFFF99,2.0);
+       createSpace(5,.1,-.3);
+    for (var j = 0; j < 7; j++) {
+        createTrack(2, .1,0, 0x95F717, .5);
+    }
+     createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.4,0xFFFF99,2.0);
+       createTrack(2, .1,.5,0xFFFF99,2.0);
+       createTrack(2, .1,.6,0xFFFF99,2.0);
+       createTrack(2, .1,.7,0xFFFF99,2.0);
+       createTrack(2, .1,.8,0xFFFF99,2.0);
+       for (var j = 0; j < 25; j++) {
+        createTrack(2, .1,.9, 0x95F717, .5);
+       }
+       createTrack(2, .1,.6,0xFFFF99,2.0);
+       createTrack(2, .1,.5,0xFFFF99,2.0);
+       createTrack(2, .1,.4,0xFFFF99,2.0);
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(10,.1,-.3);
+       createSpace(25,.1,0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(10,.1,-.3);
+       createSpace(20,.1,0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(10,.1,-.3);
+       createSpace(10,.1,0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(10,.1,-.3);
+       createSpace(10,.1,0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(10,.1,-.3);
+       createSpace(10,.1,0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(10,.1,-.3);
+       createSpace(10,.1,0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       
+        for (var j = 0; j < 30; j++) {
+        createTrack(2, .1,.8, 0x95F717, .5);
+       }
+       createTrack(2, .1,.6,0xFFFF99,2.0);
+       createTrack(2, .1,.5,0xFFFF99,2.0);
+       createTrack(2, .1,.4,0xFFFF99,2.0);
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,0,0xFFFF99,2.0);
+       createRamp(15,.1,-1.5);
+
+       createSpace(15,.1,-1.0);
+       createTrack(2, .1,.6,0xFFFF99,2.0);
+       createTrack(2, .1,.5,0xFFFF99,2.0);
+       createTrack(2, .1,.4,0xFFFF99,2.0);
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       createTrack(2, .1,.6,0xFFFF99,2.0);
+       createTrack(2, .1,.5,0xFFFF99,2.0);
+       createTrack(2, .1,.4,0xFFFF99,2.0);
+       createTrack(2, .1,.3,0xFFFF99,2.0);
+       createTrack(2, .1,.2,0xFFFF99,2.0);
+       createTrack(2, .1,.1,0xFFFF99,2.0);
+       
+       yMin = originalY + 5;
+       yMin = originalY + 5;
+       xMax = originalX -10;
+  
+       createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+
+  
+
 }
 
 

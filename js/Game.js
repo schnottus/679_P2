@@ -26,8 +26,8 @@ function animate()
 	if (reloadLevelBool) { //Check if we need to reload the level
 		requestAnimationFrame(reloadLevel);
 	}
-	//else if (gameWon) { //Check if the level was completed
-	else if (timeElapsed >= 100) {
+	else if (gameWon) { //Check if the level was completed
+	//else if (timeElapsed >= 100) {
 		requestAnimationFrame(levelCompleted);
 	}
 	else {*/
@@ -54,12 +54,13 @@ function update()
 }
 
 function updateGameState(){
-    if(carBody.position.x > xMax){
+    if(carBody.position.x > xMax && carBody.position.y < yMin){
         gameWon = true;
     }
     if(carBody.position.y > yMax){
         gameLost = true;
     }
+    
 
 
 }
@@ -198,7 +199,7 @@ function showMenu(level) {
 	if (level <= 1) {
 		showStartMenu();
 	}
-	else if (level <= 3) {
+	else if (level <= GetNumberOfLevels()) {
 		showInterimMenu(level);
 	}
 	else {
