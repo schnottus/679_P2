@@ -58,6 +58,13 @@
 	var keyboard = new THREEx.KeyboardState();
 	var CAMERA_DISTANCE = 15; //distance from camera to player
 	var VIEW_ANGLE = 45; //camera view angle
+
+//shader vars
+	var uniforms = {
+					time: { type: "f", value: 1.0 },
+					resolution: { type: "v2", value: new THREE.Vector2() }
+				};
+	var utils;
 	
 //level.js vars
 	var originalX = 0;

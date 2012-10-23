@@ -309,9 +309,21 @@ function car3GL()
 	};
 	extrusionSettings.bevelEnabled = false;
 	
-	var body1Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
+	var body3Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
 	
-	carBody = THREE.SceneUtils.createMultiMaterialObject( body1Geometry, [ new THREE.MeshLambertMaterial( { color: 0xFF3300 } ) ] );
+	
+	uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
+	uniforms.resolution.value.y = SCREEN_HEIGHT;
+	shaderMat = new THREE.ShaderMaterial( {
+
+					uniforms: uniforms,
+					vertexShader: document.getElementById( 'vertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+
+				} );
+	carBody = new THREE.Mesh( body3Geometry, shaderMat );	
+	
+	//carBody = THREE.SceneUtils.createMultiMaterialObject( body1Geometry, [ new THREE.MeshLambertMaterial( { color: 0xFF3300 } ) ] );
 	scene.add( carBody );
 }
 

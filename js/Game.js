@@ -22,7 +22,7 @@ function updateWorld()
 //gl animate loop
 function animate()
 {
-	timeElapsed++;
+	/*timeElapsed++;
 	if (reloadLevelBool) { //Check if we need to reload the level
 		requestAnimationFrame(reloadLevel);
 	}
@@ -30,11 +30,11 @@ function animate()
 	else if (timeElapsed >= 100) {
 		requestAnimationFrame(levelCompleted);
 	}
-	else {
+	else {*/
 		requestAnimationFrame( animate ); //this is where the example had it placed, also I've read it should be placed immediately before render()
 		render(); //draw updated game
 		update(); //update game state
-	}
+	//}
 }
 
 //gl loop, updates on every requestAnimationFrame
@@ -87,6 +87,8 @@ function updateText(){
 //gl render scene
 function render() 
 {	
+	//for shader
+	uniforms.time.value += 0.05;
 
 	chaseCamera.aspect =  (0.5 * SCREEN_WIDTH) / SCREEN_HEIGHT;
 	sideCamera.aspect =  (0.5 * SCREEN_WIDTH) / SCREEN_HEIGHT;
