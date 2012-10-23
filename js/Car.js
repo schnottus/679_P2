@@ -187,12 +187,12 @@ function car1GL()
 	FRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						WHEEL1_OFFSET);
+						wheel1_offset);
 	scene.add(FRWheel);
 	FLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	FLWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						-WHEEL1_OFFSET );
+						-wheel1_offset);
 	scene.add(FLWheel);
 						
 	//rear tires
@@ -201,12 +201,12 @@ function car1GL()
 	RRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						WHEEL2_OFFSET);
+						wheel2_offset);
 	scene.add(RRWheel);
 	RLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	RLWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						-WHEEL2_OFFSET );
+						-wheel2_offset);
 	scene.add(RLWheel);
 	
 	//body 
@@ -233,12 +233,12 @@ function car2GL()
 	FRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						WHEEL1_OFFSET);
+						wheel1_offset);
 	scene.add(FRWheel);
 	FLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	FLWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						-WHEEL1_OFFSET );
+						-wheel1_offset);
 	scene.add(FLWheel);
 						
 	//rear tires
@@ -247,12 +247,12 @@ function car2GL()
 	RRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						WHEEL2_OFFSET);
+						wheel2_offset);
 	scene.add(RRWheel);
 	RLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	RLWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						-WHEEL2_OFFSET );
+						-wheel2_offset);
 	scene.add(RLWheel);
 	
 	//body 
@@ -279,12 +279,12 @@ function car3GL()
 	FRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						WHEEL1_OFFSET);
+						wheel1_offset);
 	scene.add(FRWheel);
 	FLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	FLWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						-WHEEL1_OFFSET );
+						-wheel1_offset);
 	scene.add(FLWheel);
 						
 	//rear tires
@@ -293,12 +293,12 @@ function car3GL()
 	RRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						WHEEL2_OFFSET);
+						wheel2_offset);
 	scene.add(RRWheel);
 	RLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	RLWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						-WHEEL2_OFFSET );
+						-wheel2_offset);
 	scene.add(RLWheel);
 	
 	//body 

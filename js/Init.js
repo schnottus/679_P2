@@ -5,8 +5,7 @@
 	var numSpheres = 0;
 
 function init() 
-{
-	
+{	
 	/***BOX2D SETUP***/  
     //create ground
     bodyDef.type = b2Body.b2_staticBody;
@@ -92,8 +91,19 @@ function init()
 		b2Circles.push(body);
 	}
 	
+	//default car customization variables
+	wheel1Radius = 0.7;
+	wheel2Radius = 0.7;
+	wheelFriction = 5;
+	suspension = 20;
+	carDensity = 2;
+	carBodyNum = 3;
+	
+	wheel1_offset = CAR_Z_HALF_WIDTH + wheel1Radius;
+	wheel2_offset = CAR_Z_HALF_WIDTH + wheel2Radius;
+	
 	//create car
-	CreateCar( 3 );
+	CreateCar(carBodyNum);
 
 	//load level
 	LoadLevel(1);
@@ -112,6 +122,10 @@ function init()
 		else if (e.keyCode == 37) {
 			tiltLeft = true;
 		}
+		//spacebar
+		//else if (e.keyCode == 32) {
+		//	reloadLevelBool = true;
+		//}
     }, true);
 	
 	document.addEventListener("keyup", function(e) {
@@ -126,6 +140,10 @@ function init()
 		//left arrow key
 		else if (e.keyCode == 37) {
 			tiltLeft = false;
+		}
+		//spacebar
+		else if (e.keyCode == 32) {
+			reloadLevelBool = true;
 		}
     }, true);
 			

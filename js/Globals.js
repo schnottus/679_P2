@@ -38,6 +38,7 @@
 	var tiltLeft = false;
 	var tiltRight = false;
 	var applyBrake = false;
+	var reloadLevelBool = false;
 
 	var yMax;
 	var xMax;
@@ -77,11 +78,12 @@
 	
 	//adjustable by player
 	//Wheel radius, friction, suspension, body mass/density, body shape?
-	var wheel1Radius = 0.7;
-	var wheel2Radius = 0.7;
-	var wheelFriction = 5;
-	var suspension = 20; //Higher number gives a firmer spring
-	var carDensity = 2;
+	var wheel1Radius;
+	var wheel2Radius;
+	var wheelFriction;
+	var suspension; //Higher number gives a firmer spring
+	var carDensity;
+	var carBodyNum;
 	
 	//car box2d vars
 	var car, axle1, axle2, spring1, spring2, wheel1, wheel2, motor1, motor2;
@@ -96,8 +98,9 @@
 	var RLWheel; //rear left
 	var CAR_Z_HALF_WIDTH = 1.0;
 	//todo, change if we are going to have adjustable wheel radius
-	var WHEEL1_OFFSET = (CAR_Z_HALF_WIDTH + wheel1Radius);
-	var WHEEL2_OFFSET = (CAR_Z_HALF_WIDTH + wheel2Radius);
+	//var WHEEL1_OFFSET = (CAR_Z_HALF_WIDTH + wheel1Radius);
+	//var WHEEL2_OFFSET = (CAR_Z_HALF_WIDTH + wheel2Radius);
+	var wheel1_offset, wheel2_offset;
 	var body1Points = []; //box body
 		body1Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
 		body1Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH,	0.5 * CAR_HEIGHT ) );

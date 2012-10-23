@@ -20,12 +20,14 @@ function updateWorld()
 };
 
 //gl animate loop
-function animate() 
+function animate()
 {
-	//timeElapsed++;
-	//Check if the level is completed
-	if (gameWon) {
-	//if (timeElapsed >= 500) {
+	timeElapsed++;
+	if (reloadLevelBool) { //Check if we need to reload the level
+		requestAnimationFrame(reloadLevel);
+	}
+	else if (gameWon) { //Check if the level was completed
+	//else if (timeElapsed >= 400) {
 		requestAnimationFrame(levelCompleted);
 	}
 	else {
@@ -131,10 +133,10 @@ function updateCar()
 	var frontY = wheel1.GetPosition().y;
 	var rearX = wheel2.GetPosition().x;
 	var rearY = wheel2.GetPosition().y;
-	FRWheel.position.set(frontX, frontY, WHEEL1_OFFSET);
-	FLWheel.position.set(frontX, frontY, -WHEEL1_OFFSET);
-	RRWheel.position.set(rearX, rearY, WHEEL2_OFFSET);
-	RLWheel.position.set(rearX, rearY, -WHEEL2_OFFSET);
+	FRWheel.position.set(frontX, frontY, wheel1_offset);
+	FLWheel.position.set(frontX, frontY, -wheel1_offset);
+	RRWheel.position.set(rearX, rearY, wheel2_offset);
+	RLWheel.position.set(rearX, rearY, -wheel2_offset);
 	
 	carBody.position.set(car.GetPosition().x ,
 						car.GetPosition().y ,
@@ -176,59 +178,53 @@ function updateCameras()
 	//chaseCamera.rotation.x = d2r(0);
 }
 
+//Level completed, show the menu screen
 function levelCompleted() {
-	clearCanvas();
-	
-	//Display appropriate menu
-	switch(currentLevel) {
-		case 1: {
-			showInterimMenu();
-			break;
-		}
-		case 2: {
-			showInterimMenu();
-			break;
-		}
-		case 3: {
-			showInterimMenu();
-			break;
-		}
-		case 4: {
-			showInterimMenu();
-			break;
-		}
-		case 5: {
-			showInterimMenu();
-			break;
-		}
-		case 6: {
-			var divEndMenu = document.getElementById("endMenu");
-			divEndMenu.style.display = "block";
-			break;
-		}
-		default: { //Restart if there was an error
-			var divStartMenu = document.getElementById("startMenu");
-			divStartMenu.style.display = "block";
-			currentLevel = 1;
-			gameLost = false;
-			gameWon = false;
-			break;
-		}
+	clearCanvases();
+	var nextLevel = currentLevel + 1;
+	showMenu(nextLevel);
+}
+
+//Reload the current level
+function reloadLevel() {
+	clearCanvases();
+	showMenu(currentLevel);
+}
+
+//Display appropriate menu
+function showMenu(level) {
+	if (level <= 1) {
+		showStartMenu();
+	}
+	else if (level <= 5) {
+		showInterimMenu(level);
+	}
+	else {
+		showEndMenu();
 	}
 }
 
-//show the appropriate menu after completing a level
-function showInterimMenu() {
+function showStartMenu() {
+	var divStartMenu = document.getElementById("startMenu");
+	divStartMenu.style.display = "block";
+	currentLevel = 1;
+}
+
+function showInterimMenu(level) {
 	var divInterimMenu = document.getElementById("interimMenu");	
 	divInterimMenu.style.display = "block";
 	
-	var nextLevel = currentLevel + 1;
 	var btnNextLevel = document.getElementById("btnNextLevel");
-	btnNextLevel.setAttribute("onclick","startLevel(" + nextLevel + ");")
-	btnNextLevel.innerHTML = "Level " + nextLevel;
+	btnNextLevel.setAttribute("onclick","startLevel(" + level + ");")
+	btnNextLevel.innerHTML = "Level " + level;
 }
 
-//show canvases, hide menus, and reset level variables
+function showEndMenu() {
+	var divEndMenu = document.getElementById("endMenu");
+	divEndMenu.style.display = "block";
+}
+
+//Show canvases, hide menus, and reset level variables
 function startLevel(level) {
 	//WebGL, debugDraw, and menu html divs
 	var	divWebGL = document.getElementById("container");
@@ -241,22 +237,26 @@ function startLevel(level) {
 	divStartMenu.style.display = "none";
 	divInterimMenu.style.display = "none";
 	
-	gameLost = false;
-	gameWon = false;
-	currentLevel = level;
-	timeElapsed = 0;
 	
-	if (level == 1)
+	if (level == 1 && !reloadLevelBool) //First level and not a reload
 		init();
 	else {
+		//Reset level variables
+		reloadLevelBool = false;
+		gameLost = false;
+		gameWon = false;
+		currentLevel = level;
+		timeElapsed = 0;
+	
 		LoadLevel(level);
-		CreateCar(3);
+		CreateCar(carBodyNum);
 		drawWebGLTrack();
 		animate();
 	}
 }
 
-function clearCanvas() {
+//Clear the car and track from the canvases and then hide the canvases
+function clearCanvases() {
 	clearBox2DCanvas();
 	clearWebGLCanvas();
 
@@ -270,13 +270,16 @@ function clearCanvas() {
 //Remove all bodies and joints from the box2D canvas
 function clearBox2DCanvas() {
 	while (world.GetBodyCount() > 0) {
+		//GetBodyList returns only one body, not a list
 		world.DestroyBody(world.GetBodyList());
 	}
 	while (world.GetJointCount() > 0) {
+		//GetJointList returns only one joint, not a list
 		world.DestroyJoint(world.GetJointList());
 	}
 }
 
+//Remove the car and track from the WebGL canvas
 function clearWebGLCanvas() {
 	//Remove the car from WebGL
 	scene.remove(carBody);
@@ -289,6 +292,8 @@ function clearWebGLCanvas() {
 	for (var i = 0; i < webGLTrackPieces.length; ++i) {
 		scene.remove(webGLTrackPieces[i]);
 	}
+	
+	//Clear our list of tracks
 	webGLTrackPieces = [];
 	glTracks = [];
 }
