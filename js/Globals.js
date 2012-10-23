@@ -42,6 +42,7 @@
 
 	var yMax;
 	var xMax;
+	var yMin;
 
 	var isOnGround;
 	var groundCount = 0;
