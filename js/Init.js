@@ -92,12 +92,12 @@ function init()
 	}
 	
 	//default car customization variables
-	wheel1Radius = 0.7;
-	wheel2Radius = 0.7;
-	wheelFriction = 5;
-	suspension = 20;
-	carDensity = 2;
-	carBodyNum = 3;
+	wheel1Radius = wheelRadiusMed;
+	wheel2Radius = wheelRadiusMed;
+	wheelFriction = wheelFrictionMed;
+	suspension = suspensionMed;
+	carDensity = carDensityMed;
+	carBodyNum = 2;
 	
 	wheel1_offset = CAR_Z_HALF_WIDTH + wheel1Radius;
 	wheel2_offset = CAR_Z_HALF_WIDTH + wheel2Radius;

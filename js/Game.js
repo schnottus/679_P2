@@ -26,8 +26,8 @@ function animate()
 	if (reloadLevelBool) { //Check if we need to reload the level
 		requestAnimationFrame(reloadLevel);
 	}
-	else if (gameWon) { //Check if the level was completed
-	//else if (timeElapsed >= 400) {
+	//else if (gameWon) { //Check if the level was completed
+	else if (timeElapsed >= 100) {
 		requestAnimationFrame(levelCompleted);
 	}
 	else {
@@ -196,7 +196,7 @@ function showMenu(level) {
 	if (level <= 1) {
 		showStartMenu();
 	}
-	else if (level <= 5) {
+	else if (level <= 3) {
 		showInterimMenu(level);
 	}
 	else {
@@ -213,6 +213,9 @@ function showStartMenu() {
 function showInterimMenu(level) {
 	var divInterimMenu = document.getElementById("interimMenu");	
 	divInterimMenu.style.display = "block";
+	
+	var interimHeader = document.getElementById("interimHeader");
+	interimHeader.innerHTML = "LEVEL " +  (level - 1) + " COMPLETE";
 	
 	var btnNextLevel = document.getElementById("btnNextLevel");
 	btnNextLevel.setAttribute("onclick","startLevel(" + level + ");")

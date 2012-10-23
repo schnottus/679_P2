@@ -29,6 +29,10 @@ div#interimMenu {
 
 }
 
+div#interimMenu  button.selected {
+	background-color: red;
+}
+
 div#endMenu {
 	
 }

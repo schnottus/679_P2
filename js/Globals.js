@@ -68,7 +68,7 @@
 	var TRACK_WIDTH = 5;
 	
 //car.js vars
-	//constants
+	//Constants
 	var CAR_WIDTH = 3;
 	var CAR_HEIGHT = 0.6;
 	var CAR_X = 4;
@@ -76,8 +76,7 @@
 	var CAR_ANGLE = 210;
 	var CAR_TILT = 30;
 	
-	//adjustable by player
-	//Wheel radius, friction, suspension, body mass/density, body shape?
+	//Adjustable by player
 	var wheel1Radius;
 	var wheel2Radius;
 	var wheelFriction;
@@ -85,7 +84,21 @@
 	var carDensity;
 	var carBodyNum;
 	
-	//car box2d vars
+	//Constants for the adjustable values
+	var wheelRadiusLow = 0.4;
+	var wheelRadiusMed = 0.7;
+	var wheelRadiusHigh = 0.9;
+	var wheelFrictionLow = 1;
+	var wheelFrictionMed = 5;
+	var wheelFrictionHigh = 9;
+	var suspensionLow = 5;
+	var suspensionMed = 20;
+	var suspensionHigh = 35;
+	var carDensityLow = 0.5;
+	var carDensityMed = 2;
+	var carDensityHigh = 3.5;
+	
+	//Car box2d vars
 	var car, axle1, axle2, spring1, spring2, wheel1, wheel2, motor1, motor2;
 	
 	//car webGL vars

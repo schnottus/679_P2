@@ -314,3 +314,173 @@ function car3GL()
 	carBody = THREE.SceneUtils.createMultiMaterialObject( body1Geometry, [ new THREE.MeshLambertMaterial( { color: 0xFF3300 } ) ] );
 	scene.add( carBody );
 }
+
+// Car customization functions //
+function setWheel1Radius(buttonNum) {
+	var btnWheel1RadiusLow = document.getElementById("btnWheel1RadiusLow");
+	var btnWheel1RadiusMed = document.getElementById("btnWheel1RadiusMed");
+	var btnWheel1RadiusHigh = document.getElementById("btnWheel1RadiusHigh");
+	
+	switch (buttonNum) {
+		case 1: { //Small radius
+			wheel1Radius = wheelRadiusLow;
+
+			btnWheel1RadiusLow.className = "selected";
+			btnWheel1RadiusMed.className = "";
+			btnWheel1RadiusHigh.className = "";
+			break;
+		}
+		case 3: { //Large radius
+			wheel1Radius = wheelRadiusHigh;
+
+			btnWheel1RadiusLow.className = "";
+			btnWheel1RadiusMed.className = "";
+			btnWheel1RadiusHigh.className = "selected";
+			break;
+		}
+		default: { //Medium radius
+			wheel1Radius = wheelRadiusMed;
+
+			btnWheel1RadiusLow.className = "";
+			btnWheel1RadiusMed.className = "selected";
+			btnWheel1RadiusHigh.className = "";
+			break;
+		}
+	}
+}
+
+function setWheel2Radius(buttonNum) {
+	var btnWheel2RadiusLow = document.getElementById("btnWheel2RadiusLow");
+	var btnWheel2RadiusMed = document.getElementById("btnWheel2RadiusMed");
+	var btnWheel2RadiusHigh = document.getElementById("btnWheel2RadiusHigh");
+	
+	switch (buttonNum) {
+		case 1: { //Small radius
+			wheel2Radius = wheelRadiusLow;
+
+			btnWheel2RadiusLow.className = "selected";
+			btnWheel2RadiusMed.className = "";
+			btnWheel2RadiusHigh.className = "";
+			break;
+		}
+		case 3: { //Large radius
+			wheel2Radius = wheelRadiusHigh;
+
+			btnWheel2RadiusLow.className = "";
+			btnWheel2RadiusMed.className = "";
+			btnWheel2RadiusHigh.className = "selected";
+			break;
+		}
+		default: { //Medium radius
+			wheel2Radius = wheelRadiusMed;
+
+			btnWheel2RadiusLow.className = "";
+			btnWheel2RadiusMed.className = "selected";
+			btnWheel2RadiusHigh.className = "";
+			break;
+		}
+	}
+}
+
+function setWheelFriction(buttonNum) {
+	var btnWheelFrictionLow = document.getElementById("btnWheelFrictionLow");
+	var btnWheelFrictionMed = document.getElementById("btnWheelFrictionMed");
+	var btnWheelFrictionHigh = document.getElementById("btnWheelFrictionHigh");
+	
+	switch (buttonNum) {
+		case 1: { //Low friction
+			wheelFriction = wheelFrictionLow;
+
+			btnWheelFrictionLow.className = "selected";
+			btnWheelFrictionMed.className = "";
+			btnWheelFrictionHigh.className = "";
+			break;
+		}
+		case 3: { //High friction
+			wheelFriction = wheelFrictionHigh;
+
+			btnWheelFrictionLow.className = "";
+			btnWheelFrictionMed.className = "";
+			btnWheelFrictionHigh.className = "selected";
+			break;
+		}
+		default: { //Medium friction
+			wheelFriction = wheelFrictionMed;
+
+			btnWheelFrictionLow.className = "";
+			btnWheelFrictionMed.className = "selected";
+			btnWheelFrictionHigh.className = "";
+			break;
+		}
+	}
+}
+
+function setSuspension(buttonNum) {
+	var btnSuspensionLow = document.getElementById("btnSuspensionLow");
+	var btnSuspensionMed = document.getElementById("btnSuspensionMed");
+	var btnSuspensionHigh = document.getElementById("btnSuspensionHigh");
+	
+	switch (buttonNum) {
+		case 1: { //Low friction
+			suspension = suspensionLow;
+
+			btnSuspensionLow.className = "selected";
+			btnSuspensionMed.className = "";
+			btnSuspensionHigh.className = "";
+			break;
+		}
+		case 3: { //High friction
+			suspension = suspensionHigh;
+
+			btnSuspensionLow.className = "";
+			btnSuspensionMed.className = "";
+			btnSuspensionHigh.className = "selected";
+			break;
+		}
+		default: { //Medium friction
+			suspension = suspensionMed;
+
+			btnSuspensionLow.className = "";
+			btnSuspensionMed.className = "selected";
+			btnSuspensionHigh.className = "";
+			break;
+		}
+	}
+}
+
+//Set the car density and the carBodyNum
+function setCarDensity(buttonNum) {
+	var btnCarDensityLow = document.getElementById("btnCarDensityLow");
+	var btnCarDensityMed = document.getElementById("btnCarDensityMed");
+	var btnCarDensityHigh = document.getElementById("btnCarDensityHigh");
+	
+	switch (buttonNum) {
+		case 1: { //Low friction
+			carDensity = carDensityLow;
+			carBodyNum = 1;
+
+			btnCarDensityLow.className = "selected";
+			btnCarDensityMed.className = "";
+			btnCarDensityHigh.className = "";
+			break;
+		}
+		case 3: { //High friction
+			carDensity = carDensityHigh;
+			carBodyNum = 3;
+
+			btnCarDensityLow.className = "";
+			btnCarDensityMed.className = "";
+			btnCarDensityHigh.className = "selected";
+			break;
+		}
+		default: { //Medium friction
+			carDensity = carDensityMed;
+			carBodyNum = 2;
+
+			btnCarDensityLow.className = "";
+			btnCarDensityMed.className = "selected";
+			btnCarDensityHigh.className = "";
+			break;
+		}
+	}
+}
