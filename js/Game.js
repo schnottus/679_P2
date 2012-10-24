@@ -136,10 +136,10 @@ function updateCar()
 	var frontY = wheel1.GetPosition().y;
 	var rearX = wheel2.GetPosition().x;
 	var rearY = wheel2.GetPosition().y;
-	FRWheel.position.set(frontX, frontY, wheel1_offset);
-	FLWheel.position.set(frontX, frontY, -wheel1_offset);
-	RRWheel.position.set(rearX, rearY, wheel2_offset);
-	RLWheel.position.set(rearX, rearY, -wheel2_offset);
+	FRWheel.position.set(frontX, frontY, -wheel1_offset);
+	FLWheel.position.set(frontX, frontY, wheel1_offset);
+	RRWheel.position.set(rearX, rearY, -wheel2_offset);
+	RLWheel.position.set(rearX, rearY, wheel2_offset);
 	
 	carBody.position.set(car.GetPosition().x ,
 						car.GetPosition().y ,

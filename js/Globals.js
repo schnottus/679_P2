@@ -87,6 +87,8 @@
 	//Adjustable by player
 	var wheel1Radius;
 	var wheel2Radius;
+	var wheel1Width = 0.7;
+	var wheel2Width = 1.2;
 	var wheelFriction;
 	var suspension; //Higher number gives a firmer spring
 	var carDensity;

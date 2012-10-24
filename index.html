@@ -10,7 +10,18 @@
 	<script src="js/Detector.js"></script>
 	<script src="js/THREEx.KeyboardState.js"></script>
 	<script src="js/Globals.js"></script>
-	<script id="vertexShader" type="x-shader/x-vertex">
+	<script id="defaultVertexShader" type="x-shader/x-vertex">
+	// switch on high precision floats
+		#ifdef GL_ES
+		precision highp float;
+		#endif
+
+		void main()
+		{
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+		}
+	</script>
+	<script id="vertexShader1" type="x-shader/x-vertex">
 		// switch on high precision floats
 		#ifdef GL_ES
 		precision highp float;
@@ -21,8 +32,47 @@
 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
 		}
 	</script>
+	<script id="vertexShader2" type="x-shader/x-vertex">
+		// switch on high precision floats
+		#ifdef GL_ES
+		precision highp float;
+		#endif
 
-	<script id="fragmentShader" type="x-shader/x-fragment">
+		void main()
+		{
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+		}
+	</script>
+	<script id="vertexShader3" type="x-shader/x-vertex">
+		// switch on high precision floats
+		#ifdef GL_ES
+		precision highp float;
+		#endif
+
+		void main()
+		{
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+		}
+	</script>
+	<script id="car1FragShader" type="x-shader/x-fragment">
+		void main()
+		{
+			gl_FragColor = vec4(1.0,  // R
+				0.0,  // G
+				1.0,  // B
+				1.0); // A				  
+		}
+	</script>
+	<script id="car2FragShader" type="x-shader/x-fragment">
+		void main()
+		{
+			gl_FragColor = vec4(0.0,  // R
+				1.0,  // G
+				0.0,  // B
+				1.0); // A
+		}
+	</script>
+	<script id="car3FragShader" type="x-shader/x-fragment">
 		uniform vec2 resolution;
 		uniform float time;
 		void main()	
@@ -52,7 +102,6 @@
 			gl_FragColor=vec4(vec3(f*i/1.6,i/2.0+d/13.0,i)*d*p.x+vec3(i/1.3+d/8.0,i/2.0+d/18.0,i)*d*(1.0-p.x),1.0);
 		}
 	</script>
-	
 	<script src="js/Init.js"></script>
 	<script src="js/Util.js"></script>
     <script src="js/Level.js"></script>

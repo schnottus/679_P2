@@ -181,45 +181,58 @@ function car1GL()
 {
 	// Create car parts in webGL //
 	//front tires
-	//THREE.SphereGeometry = function ( radius, segmentsWidth, segmentsHeight, phiStart, phiLength, thetaStart, thetaLength )
-	var sphereGeometry = new THREE.SphereGeometry( wheel1Radius, 16, 12 ); 
-	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xAAF717} ); 
-	FRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	//THREE.CylinderGeometry = function ( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded )
+	var wheelGeometry = new THREE.CylinderGeometry( wheel1Radius, wheel1Radius, wheel1Width, 20, 5, false ); 
+	var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} ); 
+	FRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						wheel1_offset);
+						-wheel1_offset);
+	FRWheel.rotation.x = d2r(90);
 	scene.add(FRWheel);
-	FLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	FLWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FLWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						-wheel1_offset);
+						wheel1_offset);
+	FLWheel.rotation.x = d2r(90);
 	scene.add(FLWheel);
 						
 	//rear tires
-	var sphereGeometry = new THREE.SphereGeometry( wheel2Radius, 16, 12 ); 
-	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xAAF717} ); 
-	RRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	wheelGeometry = new THREE.CylinderGeometry( wheel2Radius, wheel2Radius, wheel2Width, 20, 5, false ); 
+	wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} ); 
+	RRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						wheel2_offset);
+						-wheel2_offset);
+	RRWheel.rotation.x = d2r(90);
 	scene.add(RRWheel);
-	RLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	RLWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RLWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						-wheel2_offset);
+						wheel2_offset);
+	RLWheel.rotation.x = d2r(90);
 	scene.add(RLWheel);
 	
 	//body 
 	//make custom box2d polys to match
 	var body1Shape = new THREE.Shape ( body1Points );
 	var extrusionSettings = {
-		amount: CAR_WIDTH
+		amount: CAR_WIDTH,
+		bevelEnabled: false,
+		bevelThickness: 0.1,  // how deep into text bevel goes
+		bevelSize: 0.1,  // how far from text outline is bevel
+		bevelSegments: 5  // number of bevel layers
 	};
-	extrusionSettings.bevelEnabled = false;
 	
 	var body1Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
-	
-	carBody = THREE.SceneUtils.createMultiMaterialObject( body1Geometry, [ new THREE.MeshLambertMaterial( { color: 0xFFAA00 } ) ] );
+	uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
+	uniforms.resolution.value.y = SCREEN_HEIGHT;
+	shaderMat = new THREE.ShaderMaterial( {
+					uniforms: uniforms,
+					vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'car1FragShader' ).textContent
+				} );
+	carBody = new THREE.Mesh( body1Geometry, shaderMat );	
 	scene.add( carBody );
 }
 
@@ -227,45 +240,58 @@ function car2GL()
 {
 	// Create car parts in webGL //
 	//front tires
-	//THREE.SphereGeometry = function ( radius, segmentsWidth, segmentsHeight, phiStart, phiLength, thetaStart, thetaLength )
-	var sphereGeometry = new THREE.SphereGeometry( wheel1Radius, 16, 12 ); 
-	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xAAF717} ); 
-	FRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	//THREE.CylinderGeometry = function ( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded )
+	var wheelGeometry = new THREE.CylinderGeometry( wheel1Radius, wheel1Radius, wheel1Width, 20, 5, false ); 
+	var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF00F} ); 
+	FRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						wheel1_offset);
+						-wheel1_offset);
+	FRWheel.rotation.x = d2r(90);
 	scene.add(FRWheel);
-	FLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	FLWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FLWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						-wheel1_offset);
+						wheel1_offset);
+	FLWheel.rotation.x = d2r(90);
 	scene.add(FLWheel);
 						
 	//rear tires
-	var sphereGeometry = new THREE.SphereGeometry( wheel2Radius, 16, 12 ); 
-	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xAAF717} ); 
-	RRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	wheelGeometry = new THREE.CylinderGeometry( wheel2Radius, wheel2Radius, wheel2Width, 20, 5, false ); 
+	wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF00F} ); 
+	RRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						wheel2_offset);
+						-wheel2_offset);
+	RRWheel.rotation.x = d2r(90);
 	scene.add(RRWheel);
-	RLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	RLWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RLWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						-wheel2_offset);
+						wheel2_offset);
+	RLWheel.rotation.x = d2r(90);
 	scene.add(RLWheel);
 	
 	//body 
 	//make custom box2d polys to match
 	var body1Shape = new THREE.Shape ( body1Points );
 	var extrusionSettings = {
-		amount: CAR_WIDTH
+		amount: CAR_WIDTH,
+		bevelEnabled: false,
+		bevelThickness: 0.1,  // how deep into text bevel goes
+		bevelSize: 0.1,  // how far from text outline is bevel
+		bevelSegments: 5  // number of bevel layers
 	};
-	extrusionSettings.bevelEnabled = false;
 	
-	var body1Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
-	
-	carBody = THREE.SceneUtils.createMultiMaterialObject( body1Geometry, [ new THREE.MeshLambertMaterial( { color: 0xFFFF00 } ) ] );
+	var body2Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
+	uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
+	uniforms.resolution.value.y = SCREEN_HEIGHT;
+	shaderMat = new THREE.ShaderMaterial( {
+					uniforms: uniforms,
+					vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'car2FragShader' ).textContent
+				} );
+	carBody = new THREE.Mesh( body2Geometry, shaderMat );	
 	scene.add( carBody );
 }
 
@@ -273,57 +299,60 @@ function car3GL()
 {
 	// Create car parts in webGL //
 	//front tires
-	//THREE.SphereGeometry = function ( radius, segmentsWidth, segmentsHeight, phiStart, phiLength, thetaStart, thetaLength )
-	var sphereGeometry = new THREE.SphereGeometry( wheel1Radius, 16, 12 ); 
-	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} ); 
-	FRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	//THREE.CylinderGeometry = function ( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded )
+	var wheelGeometry = new THREE.CylinderGeometry( wheel1Radius, wheel1Radius, wheel1Width, 20, 5, false ); 
+	var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} ); 
+	FRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						wheel1_offset);
+						-wheel1_offset);
+	FRWheel.rotation.x = d2r(90);
 	scene.add(FRWheel);
-	FLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	FLWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FLWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
-						-wheel1_offset);
+						wheel1_offset);
+	FLWheel.rotation.x = d2r(90);
 	scene.add(FLWheel);
 						
 	//rear tires
-	var sphereGeometry = new THREE.SphereGeometry( wheel2Radius, 16, 12 ); 
-	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} ); 
-	RRWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	wheelGeometry = new THREE.CylinderGeometry( wheel2Radius, wheel2Radius, wheel2Width, 20, 5, false ); 
+	wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} ); 
+	RRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						wheel2_offset);
+						-wheel2_offset);
+	RRWheel.rotation.x = d2r(90);
 	scene.add(RRWheel);
-	RLWheel = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	RLWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RLWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
-						-wheel2_offset);
+						wheel2_offset);
+	RLWheel.rotation.x = d2r(90);
 	scene.add(RLWheel);
 	
 	//body 
 	//make custom box2d polys to match
 	var body1Shape = new THREE.Shape ( body1Points );
 	var extrusionSettings = {
-		amount: CAR_WIDTH
+		amount: CAR_WIDTH,
+		bevelEnabled: false,
+		bevelThickness: 0.1,  // how deep into text bevel goes
+		bevelSize: 0.1,  // how far from text outline is bevel
+		bevelSegments: 5  // number of bevel layers
 	};
-	extrusionSettings.bevelEnabled = false;
 	
 	var body3Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
-	
-	
 	uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
 
 					uniforms: uniforms,
-					vertexShader: document.getElementById( 'vertexShader' ).textContent,
-					fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+					vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'car3FragShader' ).textContent
 
 				} );
 	carBody = new THREE.Mesh( body3Geometry, shaderMat );	
-	
-	//carBody = THREE.SceneUtils.createMultiMaterialObject( body1Geometry, [ new THREE.MeshLambertMaterial( { color: 0xFF3300 } ) ] );
 	scene.add( carBody );
 }
 
