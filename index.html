@@ -150,6 +150,7 @@
 		#endif
 		
 		varying vec3 pos;
+		varying vec3 vNormal;
 		
 		float random( vec2 p )
 		{
@@ -163,6 +164,7 @@
 		void main()
 		{
 		pos = position;
+		vNormal = normal;
 		//color = vec4(position.y,position.x + position.y, position.y, 1.0);
 	  	gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x,random(vec2(position.x,position.y))*.2 + position.y, position.z,1.0);
 		//gl_Position = vec4(position,1.0);
@@ -172,45 +174,17 @@
 		uniform vec2 resolution;
 		uniform float time;
 		varying vec3 pos;
-		
-			float random( vec2 p )
-		{
-				// We need irrationals for pseudo randomness.
-				// Most (all?) known transcendental numbers will (generally) work.
-		const vec2 r = vec2(
-			23.1406926327792690,  // e^pi (Gelfond's constant)
-			2.6651441426902251); // 2^sqrt(2) (Gelfond–Schneider constant)
-		return fract( cos( mod( 123456789., 1e-7 + 256. * dot(p,r) ) ) );  
-		}
+		varying vec3 vNormal;
 		
 		void main()
 		{
-		  /* vec2 p = gl_FragCoord.xy;
-		   gl_FragColor = vec4( random(vec2(p.y,p.y)),  // R
-				0.0,  // G
-				1.0,  // B
-				1.0); // A	*/
-				
-			if(pos.y > -5.0){
-			  gl_FragColor = vec4(1.0,  // R
-				0.0,  // G
-				0.0,  // B
+		vec3 light = vec3(50.0,-20,-10.0);
+		light = normalize(light);
+		float dProd = max(0.0,dot(vNormal,light));
+		   gl_FragColor = vec4( dProd + pos.y,  // R
+				0.5 * dProd + pos.x + pos.y,  // G
+				dProd,  // B
 				1.0); // A	
-			}
-			
-			else if(pos.y > -10.0){
-			  gl_FragColor = vec4( 0.0,  // R
-				1.0,  // G
-				0.0,  // B
-				1.0); // A	*/
-			}
-			else if(pos.y >-50.0){
-			  gl_FragColor = vec4(0.0,  // R
-				0.0,  // G
-				1.0,  // B
-				1.0); // A	*/
-			}
-			//gl_FragColor = vec4(normalize(pos.y),normalize(pos.x + pos.y), normalize(pos.z), 1.0);
 		}
 		
 	</script>
