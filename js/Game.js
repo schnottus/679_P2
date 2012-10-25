@@ -30,6 +30,9 @@ function animate()
 	//else if (timeElapsed >= 100) {
 		requestAnimationFrame(levelCompleted);
 	}
+	else if (gameLost) { //Check if the level was failed
+		requestAnimationFrame(levelFailed);
+	}
 	else {
 		requestAnimationFrame( animate ); //this is where the example had it placed, also I've read it should be placed immediately before render()
 		render(); //draw updated game
@@ -196,9 +199,17 @@ function levelCompleted() {
 	showMenu(nextLevel);
 }
 
+//Level failed, show game level failed screen
+function levelFailed() {
+	clearCanvases();
+	reloadLevelBool = true;
+	showLevelFailedMenu(currentLevel);
+}
+
 //Reload the current level
 function reloadLevel() {
 	clearCanvases();
+	reloadLevelBool = true;
 	showMenu(currentLevel);
 }
 
@@ -271,16 +282,30 @@ function showInterimMenu(nextLevel) {
 	}
 }
 
-function enableButtons(buttonIDs) {
-	for (i = 0; i < buttonIDs.length; i++) {
-		var button = document.getElementById(buttonIDs[i]);
-		button.removeAttribute("disabled");
-	}
+//Turn the interimMenu into a levelFailed menu
+function showLevelFailedMenu(level) {
+	var divInterimMenu = document.getElementById("interimMenu");	
+	divInterimMenu.style.display = "block";
+	
+	var interimHeader = document.getElementById("interimHeader");
+	interimHeader.innerHTML = "LEVEL " +  level + " FAILED";
+	
+	var btnNextLevel = document.getElementById("btnNextLevel");
+	btnNextLevel.setAttribute("onclick","startLevel(" + level + ");")
+	btnNextLevel.innerHTML = "Try again";
 }
 
 function showEndMenu() {
 	var divEndMenu = document.getElementById("endMenu");
 	divEndMenu.style.display = "block";
+}
+
+//Given an array of buttonIDs, remove the 'disabled' property from them
+function enableButtons(buttonIDs) {
+	for (i = 0; i < buttonIDs.length; i++) {
+		var button = document.getElementById(buttonIDs[i]);
+		button.removeAttribute("disabled");
+	}
 }
 
 //Show canvases, hide menus, and reset level variables
@@ -296,9 +321,9 @@ function startLevel(level) {
 	divStartMenu.style.display = "none";
 	divInterimMenu.style.display = "none";
 	
-	
-	if (level == 1 && !reloadLevelBool) //First level and not a reload
+	if (level == 1 && !reloadLevelBool) { //First level and not a reload
 		init();
+	}
 	else {
 		//Reset level variables
 		reloadLevelBool = false;
