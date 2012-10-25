@@ -203,6 +203,10 @@
 		#ifdef GL_ES
 		precision highp float;
 		#endif
+		
+		varying vec3 pos;
+		varying vec3 vNormal;
+		
 		float random( vec2 p )
 		{
 				// We need irrationals for pseudo randomness.
@@ -214,6 +218,9 @@
 		}
 		void main()
 		{
+		pos = position;
+		vNormal = normal;
+		//color = vec4(position.y,position.x + position.y, position.y, 1.0);
 	  	gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x,random(vec2(position.x,position.y))*.2 + position.y, position.z,1.0);
 		//gl_Position = vec4(position,1.0);
 		}
@@ -221,15 +228,18 @@
 	<script id="trackFragShader" type="x-shader/x-fragment">
 		uniform vec2 resolution;
 		uniform float time;
+		varying vec3 pos;
+		varying vec3 vNormal;
 		
 		void main()
 		{
-		   gl_FragColor = vec4(1.0,  // R
-				0.0,  // G
-				1.0,  // B
+		vec3 light = vec3(50.0,-20,-10.0);
+		light = normalize(light);
+		float dProd = max(0.0,dot(vNormal,light));
+		   gl_FragColor = vec4( dProd + pos.y,  // R
+				0.5 * dProd + pos.x + pos.y,  // G
+				dProd,  // B
 				1.0); // A	
-			
-			
 		}
 		
 	</script>
