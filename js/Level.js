@@ -72,7 +72,7 @@ function createMovingObject(x,y){
 function drawWebGLTrack() {
 	//THREE.CubeGeometry = function ( width, height, depth, segmentsWidth, segmentsHeight, segmentsDepth, materials, sides )
     for (var i = 0; i < glTracks.length; ++i) {
-        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, glTracks[i].height, TRACK_WIDTH, 1, 1, 1);
+        var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, glTracks[i].height, TRACK_WIDTH, 10.0, 10.0, 10.0);
 
 		uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
 		uniforms.resolution.value.y = SCREEN_HEIGHT;
