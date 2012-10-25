@@ -1,0 +1,51 @@
+/******************
+* File: style.css
+* Author: Scott Larson, Eric Satterness, Paul Bolanowski
+* Date: 21 Oct 2012
+*******************/
+
+#container { 
+	border: 1px solid red;
+	float: left;
+	position: relative;
+}
+
+h2#notifications {
+	position: absolute;
+	top: 55px;
+	left: 370px;
+	color: white;
+}
+
+#debugDraw {
+	border: 1px solid red;
+	float: left;
+}
+
+div.menuPage {
+	width: 800px;
+	height: 600px;
+	border: 1px solid red;
+	padding: 0 20px;
+}
+
+div#startMenu {
+
+}
+
+div#interimMenu {
+
+}
+
+div#interimMenu  button.selected {
+	background-color: red;
+}
+
+div#endMenu {
+	
+}
+
+h1 {
+	color: black;
+    font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+}
