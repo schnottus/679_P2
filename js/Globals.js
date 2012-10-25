@@ -33,6 +33,7 @@
     fixDef.restitution = 0.5;    //raise for more bounce     
     var bodyDef = new b2BodyDef;
 	var DEBUGDRAW_SCALE = 1; //make smaller to see whole level, higher numbers zoom in (on origin)
+	var DRAW_DEBUGDRAW = false;  //must also uncomment div in index.html to enable
 	
 //car controls
 	var tiltLeft = false;
@@ -50,15 +51,20 @@
 //three.js vars
 	var container,
 	scene, 
-	sideCamera,
-	chaseCamera,
+	camera1,
+	camera2,
+	camera3,
 	renderer,
 	controls;
-	var SCREEN_WIDTH = 1600, 
-		SCREEN_HEIGHT = 600;
+	var SCREEN_WIDTH = 1200, 
+		SCREEN_HEIGHT = 800;
 	var keyboard = new THREEx.KeyboardState();
-	var CAMERA_DISTANCE = 15; //distance from camera to player
+	var CAMERA1_DISTANCE = 15; //distance from camera to player
+	var CAMERA2_DISTANCE = 10; //distance from side of track for level camera
+	var CAMERA3_DISTANCE = 100; //side camera
 	var VIEW_ANGLE = 45; //camera view angle
+	var mainCam = 1;  //which camera goes in the large (left) portion of screen
+	var clock = new THREE.Clock();
 
 //shader vars
 	var uniforms = {
@@ -134,8 +140,7 @@
 		body2Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH,	0.5 * CAR_HEIGHT ) );
 		body2Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	0.5 * CAR_HEIGHT ) );
 		body2Points.push( new THREE.Vector2 (  0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );
-		//body2Points.push( new THREE.Vector2 (  2.4,  0.3 ) );
-		//body2Points.push( new THREE.Vector2 (  2.2, 0.0 ) );
+		
 
 //game.js variables
 	var webGLTrackPieces = [];

@@ -225,7 +225,7 @@ function car1GL()
 	};
 	
 	var body1Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
-	uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
+	uniforms.resolution.value.x = (SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
 					uniforms: uniforms,
@@ -284,7 +284,7 @@ function car2GL()
 	};
 	
 	var body2Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
-	uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
+	uniforms.resolution.value.x = (SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
 					uniforms: uniforms,
@@ -343,7 +343,7 @@ function car3GL()
 	};
 	
 	var body3Geometry = new THREE.ExtrudeGeometry( body1Shape, extrusionSettings );
-	uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
+	uniforms.resolution.value.x = (SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
 
