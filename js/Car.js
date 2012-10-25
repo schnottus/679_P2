@@ -229,7 +229,8 @@ function car1GL()
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
 					uniforms: uniforms,
-					vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					//vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'car1FragShader' ).textContent
 				} );
 	carBody = new THREE.Mesh( body1Geometry, shaderMat );	
