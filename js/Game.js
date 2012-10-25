@@ -22,7 +22,7 @@ function updateWorld()
 //gl animate loop
 function animate()
 {
-	/*timeElapsed++;
+	timeElapsed++;
 	if (reloadLevelBool) { //Check if we need to reload the level
 		requestAnimationFrame(reloadLevel);
 	}
@@ -30,11 +30,11 @@ function animate()
 	//else if (timeElapsed >= 100) {
 		requestAnimationFrame(levelCompleted);
 	}
-	else {*/
+	else {
 		requestAnimationFrame( animate ); //this is where the example had it placed, also I've read it should be placed immediately before render()
 		render(); //draw updated game
 		update(); //update game state
-	//}
+	}
 }
 
 //gl loop, updates on every requestAnimationFrame
@@ -72,9 +72,17 @@ function updateText(){
     ctx.textBaseline = "middle";	// This determines the baseline of the text, e.g. top, middle, bottom
     ctx.font = "20px monospace";	//
     
+	//Notifications header over the game screen
+	var	notifications = document.getElementById("notifications");
+	
     if(!isOnGround){
         ctx.fillText("Nice Air", canvas.width/2, canvas.height/2);
+		notifications.innerText = "Nice Air";
+		notifications.style.display = "inline-block";
     }
+	else {
+		notifications.style.display = "none";
+	}
 
     if(gameLost)
     {
