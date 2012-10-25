@@ -139,10 +139,18 @@
 	<script id="trackFragShader" type="x-shader/x-fragment">
 		uniform vec2 resolution;
 		uniform float time;
-		
+		float random( vec2 p )
+		{
+				// We need irrationals for pseudo randomness.
+				// Most (all?) known transcendental numbers will (generally) work.
+		const vec2 r = vec2(
+			23.1406926327792690,  // e^pi (Gelfond's constant)
+			2.6651441426902251); // 2^sqrt(2) (Gelfond–Schneider constant)
+		return fract( cos( mod( 123456789., 1e-7 + 256. * dot(p,r) ) ) );  
+		}
 		void main()
 		{
-		   gl_FragColor = vec4(1.0,  // R
+		   gl_FragColor = vec4(random(position.x,position.x),  // R
 				0.0,  // G
 				1.0,  // B
 				1.0); // A	
