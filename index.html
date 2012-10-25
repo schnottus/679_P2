@@ -102,7 +102,12 @@
 			gl_FragColor=vec4(vec3(f*i/1.6,i/2.0+d/13.0,i)*d*p.x+vec3(i/1.3+d/8.0,i/2.0+d/18.0,i)*d*(1.0-p.x),1.0);
 		}
 	</script>
-		<script id="trackVertexShader" type="x-shader/x-vertex">
+	<script src="js/Init.js"></script>
+	<script src="js/Util.js"></script>
+    <script src="js/Level.js"></script>
+	<script src="js/Car.js"></script>
+	<script src="js/Game.js"></script>
+    <script id="trackVertexShader" type="x-shader/x-vertex">
 		// switch on high precision floats
 		#ifdef GL_ES
 		precision highp float;
@@ -135,12 +140,6 @@
 		}
 		
 	</script>
-	<script src="js/Init.js"></script>
-	<script src="js/Util.js"></script>
-    <script src="js/Level.js"></script>
-	<script src="js/Car.js"></script>
-	<script src="js/Game.js"></script>
-    
 	<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
