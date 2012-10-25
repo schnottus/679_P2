@@ -15,7 +15,7 @@ function updateWorld()
 {
 	//TODO Fix Step to use delta time
 	world.Step(1 / 60, 10, 10);
-	world.DrawDebugData();
+	if(DRAW_DEBUGDRAW) world.DrawDebugData();
 	world.ClearForces();
 };
 
@@ -44,15 +44,14 @@ function animate()
 function update()
 {
 
-	//var delta = clock.getDelta(); // seconds.
+	var delta = clock.getDelta(); // seconds since last call
 	
 	//update box2d world
 	updateWorld();
-	updateSpheres();
 	updateCar();
 	updateCameras();
     updateGameState();
-    updateText();
+    if(DRAW_DEBUGDRAW) updateText();
 	
 }
 
@@ -106,23 +105,49 @@ function render()
 {	
 	//for shader
 	uniforms.time.value += 0.05;
-
-	chaseCamera.aspect =  (0.5 * SCREEN_WIDTH) / SCREEN_HEIGHT;
-	sideCamera.aspect =  (0.5 * SCREEN_WIDTH) / SCREEN_HEIGHT;
-	chaseCamera.updateProjectionMatrix();
-	sideCamera.updateProjectionMatrix();
 	
 	renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	renderer.clear();
 	
+	var leftCam,
+		upperRightCam,
+		lowerRightCam;
+		
+	switch(mainCam)
+	{
+	case 1:
+		leftCam = camera1;
+		upperRightCam = camera2;
+		lowerRightCam = camera3;
+	break;
+	case 2:
+		leftCam = camera2;
+		upperRightCam = camera1;
+		lowerRightCam = camera3;
+	break;
+	case 3:
+		leftCam = camera3;
+		upperRightCam = camera1;
+		lowerRightCam = camera2;
+	break;
+	default:
+		leftCam = camera1;
+		upperRightCam = camera2;
+		lowerRightCam = camera3;
+	}
+	
 	//setViewport(x,y,width,height);
 	// left side
-	renderer.setViewport( 0, 0, 0.5 * SCREEN_WIDTH, SCREEN_HEIGHT );
-	renderer.render( scene, sideCamera );
+	renderer.setViewport( 0, 0, 0.7 * SCREEN_WIDTH, SCREEN_HEIGHT );
+	renderer.render( scene, leftCam );
 	
 	// upper right side
-	renderer.setViewport( 0.5 * SCREEN_WIDTH , 0,  0.5 * SCREEN_WIDTH , SCREEN_HEIGHT );
-	renderer.render( scene, chaseCamera );
+	renderer.setViewport( 0.7 * SCREEN_WIDTH , 0.5 * SCREEN_HEIGHT,  0.3 * SCREEN_WIDTH , 0.5 * SCREEN_HEIGHT );
+	renderer.render( scene, upperRightCam );
+	
+	// lower right side
+	renderer.setViewport( 0.7 * SCREEN_WIDTH , 0,  0.3 * SCREEN_WIDTH , 0.5 * SCREEN_HEIGHT );
+	renderer.render( scene, lowerRightCam );
 }
 
 function updateCar()
@@ -164,37 +189,38 @@ function updateCar()
 	
 }
 
-function updateSpheres()
-{
-	for(var i = 0; i < numSpheres; ++i) 
-	{
-		
-		glSpheres[i].position.set(b2Circles[i].m_body.GetPosition().x , 
-							b2Circles[i].m_body.GetPosition().y ,
-							0);
-	}
-};
-
 //move camera to follow player
 function updateCameras()
 {
 
-	sideCamera.position.set(carBody.position.x - 4,
-						carBody.position.y - 6,
-						-CAMERA_DISTANCE);
+	camera1.position.set(carBody.position.x - 3.5,
+						carBody.position.y - 5,
+						-CAMERA1_DISTANCE);
 	//alert("x: " + carBody.position.x + "\n y: " + carBody.position.y + "\n z: " + carBody.position.z);
-	sideCamera.lookAt(carBody.position);
-	sideCamera.rotation.z = d2r(0);
+	camera1.lookAt(carBody.position);
+	camera1.rotation.z = d2r(0);
 	
-	chaseCamera.position.set(carBody.position.x - 6,
-						carBody.position.y - 4,
-						0);
-	//alert("x: " + carBody.position.x + "\n y: " + carBody.position.y + "\n z: " + carBody.position.z);
-	chaseCamera.lookAt(new THREE.Vector3( carBody.position.x,
-						carBody.position.y - 1,
-						0 ));
-	chaseCamera.rotation.z = d2r(270);
-	//chaseCamera.rotation.x = d2r(0);
+	camera2.position.set(carBody.position.x - 24,
+						carBody.position.y -6,
+						-CAMERA2_DISTANCE);
+	
+	//camera2.rotation.y = d2r(340);
+	camera2.lookAt(new THREE.Vector3( carBody.position.x,
+						carBody.position.y - 6,
+						4-CAMERA2_DISTANCE ));
+	camera2.rotation.z = d2r(0);
+	//camera2.rotation.y = d2r(-65);
+	
+	//camera2.rotation.y = d2r(180);
+	//camera2.rotation.x = d2r(0);
+	//alert("cam2 rotY: " + camera2.rotation.y + "\n cam2 rotX: " + camera2.rotation.x + "\n cam2 rotZ: " + camera2.rotation.z);
+	
+	camera3.position.set(carBody.position.x,
+						carBody.position.y - 25,
+						-CAMERA3_DISTANCE);
+	camera3.lookAt(carBody.position);
+	camera3.rotation.z = d2r(0);
+	//camera3.rotation.y = d2r(-65);
 }
 
 //Level completed, show the menu screen
@@ -317,12 +343,12 @@ function enableButtons(buttonIDs) {
 function startLevel(level) {
 	//WebGL, debugDraw, and menu html divs
 	var	divWebGL = document.getElementById("container");
-	var divDebugDraw = document.getElementById("debugDraw");
+	if(DRAW_DEBUGDRAW) var divDebugDraw = document.getElementById("debugDraw");
 	var divStartMenu = document.getElementById("startMenu");
 	var divInterimMenu = document.getElementById("interimMenu");
 
 	divWebGL.style.display = "block";
-	divDebugDraw.style.display = "block";
+	if(DRAW_DEBUGDRAW) divDebugDraw.style.display = "block";
 	divStartMenu.style.display = "none";
 	divInterimMenu.style.display = "none";
 	
@@ -351,9 +377,9 @@ function clearCanvases() {
 
 	//Hide canvases
 	var	divWebGL = document.getElementById("container");
-	var divDebugDraw = document.getElementById("debugDraw");
+	if(DRAW_DEBUGDRAW) var divDebugDraw = document.getElementById("debugDraw");
 	divWebGL.style.display = "none";
-	divDebugDraw.style.display = "none";
+	if(DRAW_DEBUGDRAW) divDebugDraw.style.display = "none";
 }
 
 //Remove all bodies and joints from the box2D canvas
