@@ -15,7 +15,7 @@
 		#ifdef GL_ES
 		precision highp float;
 		#endif
-
+		
 		void main()
 		{
 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
@@ -26,10 +26,20 @@
 		#ifdef GL_ES
 		precision highp float;
 		#endif
+		
+		uniform float time;
+		varying vec3 vNormal;
 
+		//Make the car expand from a point into its full size
 		void main()
 		{
-			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+			vNormal = normal;
+			
+			float scale = time / 4.0;
+			if (scale < 1.0)
+				gl_Position = projectionMatrix * modelViewMatrix * vec4((position*scale),1.0);
+			else
+				gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
 		}
 	</script>
 	<script id="vertexShader2" type="x-shader/x-vertex">
@@ -52,6 +62,23 @@
 		void main()
 		{
 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+		}
+	</script>
+	<<script id="carWheelShader" type="x-shader/x-fragment">
+		uniform float time;
+		uniform vec2 resolution;
+
+		varying vec3 vNormal;
+
+		void main( void ) {
+
+			vec3 position = -1.0 + 2.0 * vNormal;
+
+			float red = abs( sin( position.x * position.y + time / 5.0 ) );
+			float green = abs( sin( position.x * position.y + time / 4.0 ) );
+			float blue = abs( sin( position.x * position.y + time / 3.0 ) );
+			gl_FragColor = vec4( red, green, blue, 1.0 );
+
 		}
 	</script>
 	<script id="car1FragShader" type="x-shader/x-fragment">
