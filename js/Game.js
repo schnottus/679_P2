@@ -96,6 +96,7 @@ function render()
 {	
 	//for shader
 	uniforms.time.value += 0.05;
+	woodUniforms.time.value += 0.05;
 	
 	renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	renderer.clear();
@@ -314,7 +315,7 @@ function showLevelFailedMenu(level) {
 	
 	var btnNextLevel = document.getElementById("btnNextLevel");
 	btnNextLevel.setAttribute("onclick","startLevel(" + level + ");")
-	btnNextLevel.innerHTML = "Try again";
+	btnNextLevel.innerHTML = "Try Again";
 }
 
 function showEndMenu() {

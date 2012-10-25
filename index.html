@@ -29,10 +29,16 @@
 		
 		uniform float time;
 		varying vec3 vNormal;
+		//wood effect
+		varying float LightIntensity;
+		varying vec3 MCposition;
 
 		//Make the car expand from a point into its full size
 		void main()
 		{
+			LightIntensity = 2.0;
+			MCposition = position;
+		
 			vNormal = normal;
 			
 			float scale = time / 4.0;
@@ -64,42 +70,91 @@
 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
 		}
 	</script>
-	<<script id="carWheelShader" type="x-shader/x-fragment">
+	<script id="carWheelShader" type="x-shader/x-fragment">
 		uniform float time;
 		uniform vec2 resolution;
-
 		varying vec3 vNormal;
 
-		void main( void ) {
-
+		void main( void )
+		{
 			vec3 position = -1.0 + 2.0 * vNormal;
-
-			float red = abs( sin( position.x * position.y + time / 5.0 ) );
-			float green = abs( sin( position.x * position.y + time / 4.0 ) );
-			float blue = abs( sin( position.x * position.y + time / 3.0 ) );
+			
+			//Give them a metallic look
+			float red = abs( sin( position.x * position.y ) );
+			float green = abs( sin( position.x * position.y ) );
+			float blue = abs( sin( position.x * position.y ) );
 			gl_FragColor = vec4( red, green, blue, 1.0 );
-
 		}
 	</script>
 	<script id="car1FragShader" type="x-shader/x-fragment">
+		//Make body look like wood
+		//Modified from http://www.yaldex.com/open-gl/ch15lev1sec7.html
+		varying float LightIntensity;
+		varying vec3 MCposition;		
+		varying vec3 vNormal;
+
+		uniform vec3 LightWood;
+		uniform vec3 DarkWood;
+		uniform float RingFreq;
+		uniform float LightGrains;
+		uniform float DarkGrains;
+		uniform float GrainThreshold;
+		uniform vec3 NoiseScale;
+		uniform float Noisiness;
+		uniform float GrainScale;
+		
 		void main()
 		{
-			gl_FragColor = vec4(1.0,  // R
-				0.0,  // G
-				1.0,  // B
-				1.0); // A				  
+			vec3 noisevec = vNormal;
+			vec3 location = MCposition + noisevec;
+
+			float dist = sqrt(location.x * location.x + location.z * location.z);
+			dist *= RingFreq;
+
+			float r = fract(dist + noisevec[0] + noisevec[1] + noisevec[2]) * 2.0;
+
+			if (r > 1.0)
+				r = 2.0 - r;
+
+			vec3 color = mix(LightWood, DarkWood, r);
+
+			r = fract((MCposition.x + MCposition.z) * GrainScale + 0.5);
+			noisevec[2] *= r;
+			if (r < GrainThreshold)
+				color += LightWood * LightGrains * noisevec[2];
+			else
+				color -= LightWood * DarkGrains * noisevec[2];
+			color *= LightIntensity;
+			gl_FragColor = vec4(color, 1.0);		  
 		}
 	</script>
 	<script id="car2FragShader" type="x-shader/x-fragment">
+		//Make body look like stone
+		//Modified from http://www.yaldex.com/open-gl/ch15lev1sec5.html
+		varying float LightIntensity;
+		varying vec3 MCposition;
+		varying vec3 vNormal;
+
+		uniform float NoiseScale;
+		uniform vec3 MarbleColor;
+		uniform vec3 VeinColor;
+
 		void main()
 		{
-			gl_FragColor = vec4(0.0,  // R
-				1.0,  // G
-				0.0,  // B
-				1.0); // A
+			vec4 noisevec   = vec4(vNormal, NoiseScale * MCposition);
+
+			float intensity = abs(noisevec[0] - 0.25) +
+							  abs(noisevec[1] - 0.125) +
+							  abs(noisevec[2] - 0.0625) +
+							  abs(noisevec[3] - 0.03125);
+
+			float sineval = sin(MCposition.y * 6.0 + intensity * 12.0) * 0.5 + 0.2;
+			vec3 color    = mix(VeinColor, MarbleColor, sineval) * LightIntensity;
+			gl_FragColor   = vec4(color, 1.0);
 		}
 	</script>
 	<script id="car3FragShader" type="x-shader/x-fragment">
+		//Make body look CraZy!
 		uniform vec2 resolution;
 		uniform float time;
 		void main()	

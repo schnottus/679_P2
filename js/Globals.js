@@ -68,9 +68,31 @@
 
 //shader vars
 	var uniforms = {
-					time: { type: "f", value: 1.0 },
-					resolution: { type: "v2", value: new THREE.Vector2() }
-				};
+		time: { type: "f", value: 1.0 },
+		resolution: { type: "v2", value: new THREE.Vector2() }
+	};
+	var woodUniforms = {
+		time: { type: "f", value: 1.0 },
+		resolution: { type: "v2", value: new THREE.Vector2() },
+		LightPos: { type: "v3", value: new THREE.Vector3(0.0, 0.0, 4.0) },
+		Scale: { type: "f", value: 2.0 },
+		LightWood: { type: "v3", value: new THREE.Vector3(0.6, 0.3, 0.1) },
+		//LightWood: { type: "v3", value: new THREE.Vector3(0.9, 0.6, 0.4) },
+		DarkWood: { type: "v3", value: new THREE.Vector3(0.4, 0.2, 0.07) },
+		//DarkWood: { type: "v3", value: new THREE.Vector3(0.7, 0.5, 0.37) },
+		//RingFreq: { type: "f", value: 4.0 },
+		RingFreq: { type: "f", value: 3.0 },
+		LightGrains: { type: "f", value: 1.0 },
+		//LightGrains: { type: "f", value: 0.0 },
+		DarkGrains: { type: "f", value: 0.0 },
+		//GrainThreshold: { type: "f", value: 0.5 },
+		GrainThreshold: { type: "f", value: 0.3 },
+		NoiseScale: { type: "v3", value: new THREE.Vector3(0.5, 0.1, 0.1) },
+		Noisiness: { type: "f", value: 3.0 },
+		GrainScale: { type: "f", value: 27.0 },
+		MarbleColor: { type: "v3", value: new THREE.Vector3(0.40, 0.37, 0.34) },
+		VeinColor: { type: "v3", value: new THREE.Vector3(0.20, 0.17, 0.14) },
+	}
 	var utils;
 	
 //level.js vars

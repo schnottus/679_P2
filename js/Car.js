@@ -185,7 +185,7 @@ function car1GL()
 	var wheelGeometry = new THREE.CylinderGeometry( wheel1Radius, wheel1Radius, wheel1Width, 20, 5, false ); 
 	//var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} );
 	wheelMaterial = new THREE.ShaderMaterial( {
-					uniforms: uniforms,
+					uniforms: woodUniforms,
 					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
 				} );
@@ -206,7 +206,7 @@ function car1GL()
 	wheelGeometry = new THREE.CylinderGeometry( wheel2Radius, wheel2Radius, wheel2Width, 20, 5, false ); 
 	//wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} );
 	wheelMaterial = new THREE.ShaderMaterial( {
-					uniforms: uniforms,
+					uniforms: woodUniforms,
 					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
 				} );
@@ -238,8 +238,7 @@ function car1GL()
 	uniforms.resolution.value.x = (SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
-					uniforms: uniforms,
-					//vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					uniforms: woodUniforms,
 					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'car1FragShader' ).textContent
 				} );
@@ -255,7 +254,7 @@ function car2GL()
 	var wheelGeometry = new THREE.CylinderGeometry( wheel1Radius, wheel1Radius, wheel1Width, 20, 5, false ); 
 	//var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF00F} ); 
 	wheelMaterial = new THREE.ShaderMaterial( {
-					uniforms: uniforms,
+					uniforms: woodUniforms,
 					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
 				} );
@@ -276,7 +275,7 @@ function car2GL()
 	wheelGeometry = new THREE.CylinderGeometry( wheel2Radius, wheel2Radius, wheel2Width, 20, 5, false ); 
 	//wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF00F} ); 
 	wheelMaterial = new THREE.ShaderMaterial( {
-					uniforms: uniforms,
+					uniforms: woodUniforms,
 					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
 				} );
@@ -308,7 +307,7 @@ function car2GL()
 	uniforms.resolution.value.x = (SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
-					uniforms: uniforms,
+					uniforms: woodUniforms,
 					//vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
 					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'car2FragShader' ).textContent
