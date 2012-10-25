@@ -149,7 +149,7 @@
 		precision highp float;
 		#endif
 		
-		varying vec4 position;
+		varying vec3 pos;
 		
 		float random( vec2 p )
 		{
@@ -162,7 +162,8 @@
 		}
 		void main()
 		{
-		color = vec4(position.y,position.x + position.y, position.y, 1.0);
+		pos = position;
+		//color = vec4(position.y,position.x + position.y, position.y, 1.0);
 	  	gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x,random(vec2(position.x,position.y))*.2 + position.y, position.z,1.0);
 		//gl_Position = vec4(position,1.0);
 		}
@@ -170,7 +171,7 @@
 	<script id="trackFragShader" type="x-shader/x-fragment">
 		uniform vec2 resolution;
 		uniform float time;
-		varying vec4 position;
+		varying vec3 pos;
 		
 			float random( vec2 p )
 		{
@@ -189,8 +190,27 @@
 				0.0,  // G
 				1.0,  // B
 				1.0); // A	*/
-			gl_FragColor = color;
+				
+			if(pos.y > -5.0){
+			  gl_FragColor = vec4(1.0,  // R
+				0.0,  // G
+				0.0,  // B
+				1.0); // A	
+			}
 			
+			else if(pos.y > -10.0){
+			  gl_FragColor = vec4( 0.0,  // R
+				1.0,  // G
+				0.0,  // B
+				1.0); // A	*/
+			}
+			else if(pos.y >-50.0){
+			  gl_FragColor = vec4(0.0,  // R
+				0.0,  // G
+				1.0,  // B
+				1.0); // A	*/
+			}
+			//gl_FragColor = vec4(normalize(pos.y),normalize(pos.x + pos.y), normalize(pos.z), 1.0);
 		}
 		
 	</script>

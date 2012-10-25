@@ -296,7 +296,9 @@ function LoadLevel2() {
               createTrack(2, .1,0, 0x95F717, .5);
         }
       yMin = originalY + 5;
-    createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+    createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+	createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+	createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
 
        
     xMax = originalX - 10;
@@ -344,7 +346,9 @@ function LoadLevel3() {
      createTrack(2,.1,0,0x95F717,.5);
 
        yMin = originalY + 5;
-     createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+	createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+	createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+	createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
 
        
     xMax = originalX - 10;
@@ -442,7 +446,10 @@ function LoadLevel4(){
        yMin = originalY + 5;
        xMax = originalX -10;
   
-       createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+       createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+	   createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+       createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+       createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
 
        
       
@@ -571,7 +578,10 @@ function LoadLevel5() {
        yMin = originalY + 5;
        xMax = originalX -10;
   
-       createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
+       createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+	   createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+       createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
+       createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
 
   
 
