@@ -79,8 +79,9 @@ function drawWebGLTrack() {
 		shaderMat = new THREE.ShaderMaterial( {
 					uniforms: uniforms,
 					vertexShader: document.getElementById( 'trackVertexShader' ).textContent,
-					fragmentShader: document.getElementById( 'trackFragShader' ).textContent
+					fragmentShader: document.getElementById( 'trackFragShader' ).textContent,
 				} );
+			
         var trackMaterial = new THREE.MeshLambertMaterial({ color: glTracks[i].color});
         var track = new THREE.Mesh(trackGeometry, shaderMat);
       track.rotation.z = glTracks[i].angle;
