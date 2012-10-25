@@ -372,9 +372,9 @@ function clearCanvases() {
 
 	//Hide canvases
 	var	divWebGL = document.getElementById("container");
-	var divDebugDraw = document.getElementById("debugDraw");
+	if(DRAW_DEBUGDRAW) var divDebugDraw = document.getElementById("debugDraw");
 	divWebGL.style.display = "none";
-	divDebugDraw.style.display = "none";
+	if(DRAW_DEBUGDRAW) divDebugDraw.style.display = "none";
 }
 
 //Remove all bodies and joints from the box2D canvas
