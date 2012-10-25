@@ -221,16 +221,61 @@ function showStartMenu() {
 	currentLevel = 1;
 }
 
-function showInterimMenu(level) {
+function showInterimMenu(nextLevel) {
 	var divInterimMenu = document.getElementById("interimMenu");	
 	divInterimMenu.style.display = "block";
 	
 	var interimHeader = document.getElementById("interimHeader");
-	interimHeader.innerHTML = "LEVEL " +  (level - 1) + " COMPLETE";
+	interimHeader.innerHTML = "LEVEL " +  (nextLevel - 1) + " COMPLETE";
 	
 	var btnNextLevel = document.getElementById("btnNextLevel");
-	btnNextLevel.setAttribute("onclick","startLevel(" + level + ");")
-	btnNextLevel.innerHTML = "Level " + level;
+	btnNextLevel.setAttribute("onclick","startLevel(" + nextLevel + ");")
+	btnNextLevel.innerHTML = "Level " + nextLevel;
+	
+	//Enable appropriate buttons
+	switch (nextLevel) {
+		case 2: { //Level 2 unlocks tire radius			
+			var buttonIDs = ["btnWheel1RadiusLow",
+							"btnWheel1RadiusMed",
+							"btnWheel1RadiusHigh",
+							"btnWheel2RadiusLow",
+							"btnWheel2RadiusMed",
+							"btnWheel2RadiusHigh"];
+			enableButtons(buttonIDs);
+			break;
+		}
+		
+		case 3: { //Level 3 unlocks body density
+			var buttonIDs = ["btnCarDensityLow",
+							"btnCarDensityMed",
+							"btnCarDensityHigh"];
+			enableButtons(buttonIDs);
+			break;
+		}
+		
+		case 4: { //Level 4 unlocks suspension
+			var buttonIDs = ["btnSuspensionLow",
+							"btnSuspensionMed",
+							"btnSuspensionHigh"];
+			enableButtons(buttonIDs);
+			break;
+		}
+		
+		case 5: { //Level 5 unlocks tire firction
+			var buttonIDs = ["btnWheelFrictionLow",
+							"btnWheelFrictionMed",
+							"btnWheelFrictionHigh"];
+			enableButtons(buttonIDs);
+			break;
+		}
+	}
+}
+
+function enableButtons(buttonIDs) {
+	for (i = 0; i < buttonIDs.length; i++) {
+		var button = document.getElementById(buttonIDs[i]);
+		button.removeAttribute("disabled");
+	}
 }
 
 function showEndMenu() {
