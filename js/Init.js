@@ -92,6 +92,15 @@ function init()
 	//scene.add(ambientLight);   
 	
 	
+	//Disable the car customization buttons
+	var interimMenuChildren = document.getElementById("interimMenu").getElementsByTagName('button');
+	for  (i = 0; i < interimMenuChildren.length; i++) {
+		var elm = interimMenuChildren[i];
+		if (elm.id != "btnNextLevel") {
+			elm.setAttribute("disabled", "true");
+		}
+	}
+	
 	//default car customization variables
 	wheel1Radius = wheelRadiusMed;
 	wheel2Radius = wheelRadiusMed;

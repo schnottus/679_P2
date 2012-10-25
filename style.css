@@ -7,6 +7,14 @@
 #container { 
 	border: 1px solid red;
 	float: left;
+	position: relative;
+}
+
+h2#notifications {
+	position: absolute;
+	top: 55px;
+	left: 370px;
+	color: white;
 }
 
 #debugDraw {

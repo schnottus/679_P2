@@ -121,7 +121,9 @@
 </head>
 
 <body>
-    <div id="container" style="display: none;"></div>
+    <div id="container" style="display: none;">
+		<h2 id="notifications"></h2>
+	</div>
 	<!--<div id="debugDraw" style="display: none;">
 		<canvas id="canvas" width="480" height="320" style="background-color:#333333;"></canvas>
 	</div>-->
@@ -143,18 +145,18 @@
 		<button id="btnWheel2RadiusLow" type="button" onclick="setWheel2Radius(1);">Small</button>
 		<button id="btnWheel2RadiusMed" type="button" onclick="setWheel2Radius(2);" class="selected">Medium</button>
 		<button id="btnWheel2RadiusHigh" type="button"  onclick="setWheel2Radius(3);">Large</button>
-		<h3>Tire Friction:</h3>
-		<button id="btnWheelFrictionLow" type="button" onclick="setWheelFriction(1);">Low</button>
-		<button id="btnWheelFrictionMed" type="button" onclick="setWheelFriction(2);" class="selected">Medium</button>
-		<button id="btnWheelFrictionHigh" type="button"  onclick="setWheelFriction(3);">High</button>
+		<h3>Body Mass:</h3>
+		<button id="btnCarDensityLow" type="button" onclick="setCarDensity(1);">Light</button>
+		<button id="btnCarDensityMed" type="button" onclick="setCarDensity(2);" class="selected">Medium</button>
+		<button id="btnCarDensityHigh" type="button"  onclick="setCarDensity(3);">Heavy</button>
 		<h3>Suspension:</h3>
 		<button id="btnSuspensionLow" type="button" onclick="setSuspension(1);">Low</button>
 		<button id="btnSuspensionMed" type="button" onclick="setSuspension(2);" class="selected">Medium</button>
 		<button id="btnSuspensionHigh" type="button"  onclick="setSuspension(3);">High</button>
-		<h3>Body:</h3>
-		<button id="btnCarDensityLow" type="button" onclick="setCarDensity(1);">Light</button>
-		<button id="btnCarDensityMed" type="button" onclick="setCarDensity(2);" class="selected">Medium</button>
-		<button id="btnCarDensityHigh" type="button"  onclick="setCarDensity(3);">Heavy</button>
+		<h3>Tire Friction:</h3>
+		<button id="btnWheelFrictionLow" type="button" onclick="setWheelFriction(1);">Low</button>
+		<button id="btnWheelFrictionMed" type="button" onclick="setWheelFriction(2);" class="selected">Medium</button>
+		<button id="btnWheelFrictionHigh" type="button"  onclick="setWheelFriction(3);">High</button>
 	</div>
 	<div id="endMenu" class="menuPage" style="display: none;">
 		<h1>Congratulations!</h1>

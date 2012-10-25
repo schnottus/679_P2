@@ -22,7 +22,7 @@ function updateWorld()
 //gl animate loop
 function animate()
 {
-	/*timeElapsed++;
+	timeElapsed++;
 	if (reloadLevelBool) { //Check if we need to reload the level
 		requestAnimationFrame(reloadLevel);
 	}
@@ -30,11 +30,14 @@ function animate()
 	//else if (timeElapsed >= 100) {
 		requestAnimationFrame(levelCompleted);
 	}
-	else {*/
+	else if (gameLost) { //Check if the level was failed
+		requestAnimationFrame(levelFailed);
+	}
+	else {
 		requestAnimationFrame( animate ); //this is where the example had it placed, also I've read it should be placed immediately before render()
 		render(); //draw updated game
 		update(); //update game state
-	//}
+	}
 }
 
 //gl loop, updates on every requestAnimationFrame
@@ -71,9 +74,17 @@ function updateText(){
     ctx.textBaseline = "middle";	// This determines the baseline of the text, e.g. top, middle, bottom
     ctx.font = "20px monospace";	//
     
+	//Notifications header over the game screen
+	var	notifications = document.getElementById("notifications");
+	
     if(!isOnGround){
         ctx.fillText("Nice Air", canvas.width/2, canvas.height/2);
+		notifications.innerText = "Nice Air";
+		notifications.style.display = "inline-block";
     }
+	else {
+		notifications.style.display = "none";
+	}
 
     if(gameLost)
     {
@@ -214,9 +225,17 @@ function levelCompleted() {
 	showMenu(nextLevel);
 }
 
+//Level failed, show game level failed screen
+function levelFailed() {
+	clearCanvases();
+	reloadLevelBool = true;
+	showLevelFailedMenu(currentLevel);
+}
+
 //Reload the current level
 function reloadLevel() {
 	clearCanvases();
+	reloadLevelBool = true;
 	showMenu(currentLevel);
 }
 
@@ -239,21 +258,80 @@ function showStartMenu() {
 	currentLevel = 1;
 }
 
-function showInterimMenu(level) {
+function showInterimMenu(nextLevel) {
 	var divInterimMenu = document.getElementById("interimMenu");	
 	divInterimMenu.style.display = "block";
 	
 	var interimHeader = document.getElementById("interimHeader");
-	interimHeader.innerHTML = "LEVEL " +  (level - 1) + " COMPLETE";
+	interimHeader.innerHTML = "LEVEL " +  (nextLevel - 1) + " COMPLETE";
+	
+	var btnNextLevel = document.getElementById("btnNextLevel");
+	btnNextLevel.setAttribute("onclick","startLevel(" + nextLevel + ");")
+	btnNextLevel.innerHTML = "Level " + nextLevel;
+	
+	//Enable appropriate buttons
+	switch (nextLevel) {
+		case 2: { //Level 2 unlocks tire radius			
+			var buttonIDs = ["btnWheel1RadiusLow",
+							"btnWheel1RadiusMed",
+							"btnWheel1RadiusHigh",
+							"btnWheel2RadiusLow",
+							"btnWheel2RadiusMed",
+							"btnWheel2RadiusHigh"];
+			enableButtons(buttonIDs);
+			break;
+		}
+		
+		case 3: { //Level 3 unlocks body density
+			var buttonIDs = ["btnCarDensityLow",
+							"btnCarDensityMed",
+							"btnCarDensityHigh"];
+			enableButtons(buttonIDs);
+			break;
+		}
+		
+		case 4: { //Level 4 unlocks suspension
+			var buttonIDs = ["btnSuspensionLow",
+							"btnSuspensionMed",
+							"btnSuspensionHigh"];
+			enableButtons(buttonIDs);
+			break;
+		}
+		
+		case 5: { //Level 5 unlocks tire firction
+			var buttonIDs = ["btnWheelFrictionLow",
+							"btnWheelFrictionMed",
+							"btnWheelFrictionHigh"];
+			enableButtons(buttonIDs);
+			break;
+		}
+	}
+}
+
+//Turn the interimMenu into a levelFailed menu
+function showLevelFailedMenu(level) {
+	var divInterimMenu = document.getElementById("interimMenu");	
+	divInterimMenu.style.display = "block";
+	
+	var interimHeader = document.getElementById("interimHeader");
+	interimHeader.innerHTML = "LEVEL " +  level + " FAILED";
 	
 	var btnNextLevel = document.getElementById("btnNextLevel");
 	btnNextLevel.setAttribute("onclick","startLevel(" + level + ");")
-	btnNextLevel.innerHTML = "Level " + level;
+	btnNextLevel.innerHTML = "Try again";
 }
 
 function showEndMenu() {
 	var divEndMenu = document.getElementById("endMenu");
 	divEndMenu.style.display = "block";
+}
+
+//Given an array of buttonIDs, remove the 'disabled' property from them
+function enableButtons(buttonIDs) {
+	for (i = 0; i < buttonIDs.length; i++) {
+		var button = document.getElementById(buttonIDs[i]);
+		button.removeAttribute("disabled");
+	}
 }
 
 //Show canvases, hide menus, and reset level variables
@@ -269,9 +347,9 @@ function startLevel(level) {
 	divStartMenu.style.display = "none";
 	divInterimMenu.style.display = "none";
 	
-	
-	if (level == 1 && !reloadLevelBool) //First level and not a reload
+	if (level == 1 && !reloadLevelBool) { //First level and not a reload
 		init();
+	}
 	else {
 		//Reset level variables
 		reloadLevelBool = false;
