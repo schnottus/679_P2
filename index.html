@@ -1,7 +1,7 @@
 <! doctype html>
 <html lang="en">
 <head>
-	<title>Pinewood Derby Game</title>
+	<title>Pinewood Derby 3000</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	
@@ -155,35 +155,73 @@
 		<canvas id="canvas" width="480" height="320" style="background-color:#333333;"></canvas>
 	</div>-->
 	<div id="startMenu" class="menuPage" style="display: block;">
-		<h1>Pinewood Derby Game</h1>
-		<h3>Instructions</h3>
-		<p>Navigate your car down the track to reach the end.</p>
-		<button id="btnStart" type="button" onclick="startLevel(1);" >Start</button>
-		<button id="btnControls" type="button">Controls</button>
+		<h1>Pinewood Derby 3000</h1>
+		<div class="instructions">
+			<h3>Instructions</h3>
+			<div>
+				<p>Navigate your car down the track to reach the end.</p>
+			</div>
+		</div>
+		<div class="controls">
+			<h3>Controls</h3>
+			<div>
+				<p><img src="images/controls2.png" class="controlsImage" />Tilt your car forward using the <span class="controlKey">right</span> arrow.<br /><br />
+				Tilt your car backward using the <span class="controlKey">left</span> arrow<br /><br />
+				Press the <span class="controlKey">down</span> arrow to apply the brakes<br /></br />
+				Press the <span class="controlKey">space bar</span> to restart the current level</p>
+			</div>
+		</div>
+		<div class="startBtnWrapper">
+			<button id="btnStart" type="button" onclick="startLevel(1);" >Start</button>
+		</div>
 	</div>
 	<div id="interimMenu" class="menuPage" style="display: none;">
 		<h1 id="interimHeader">Level # Complete!</h1>
-		<button id="btnNextLevel" type="button">Level #</button>
-		<h3>Front Tires:</h3>
-		<button id="btnWheel1RadiusLow" type="button" onclick="setWheel1Radius(1);">Small</button>
-		<button id="btnWheel1RadiusMed" type="button" onclick="setWheel1Radius(2);" class="selected">Medium</button>
-		<button id="btnWheel1RadiusHigh" type="button"  onclick="setWheel1Radius(3);">Large</button>
-		<h3>Back Tires:</h3>
-		<button id="btnWheel2RadiusLow" type="button" onclick="setWheel2Radius(1);">Small</button>
-		<button id="btnWheel2RadiusMed" type="button" onclick="setWheel2Radius(2);" class="selected">Medium</button>
-		<button id="btnWheel2RadiusHigh" type="button"  onclick="setWheel2Radius(3);">Large</button>
-		<h3>Body Mass:</h3>
-		<button id="btnCarDensityLow" type="button" onclick="setCarDensity(1);">Light</button>
-		<button id="btnCarDensityMed" type="button" onclick="setCarDensity(2);" class="selected">Medium</button>
-		<button id="btnCarDensityHigh" type="button"  onclick="setCarDensity(3);">Heavy</button>
-		<h3>Suspension:</h3>
-		<button id="btnSuspensionLow" type="button" onclick="setSuspension(1);">Low</button>
-		<button id="btnSuspensionMed" type="button" onclick="setSuspension(2);" class="selected">Medium</button>
-		<button id="btnSuspensionHigh" type="button"  onclick="setSuspension(3);">High</button>
-		<h3>Tire Friction:</h3>
-		<button id="btnWheelFrictionLow" type="button" onclick="setWheelFriction(1);">Low</button>
-		<button id="btnWheelFrictionMed" type="button" onclick="setWheelFriction(2);" class="selected">Medium</button>
-		<button id="btnWheelFrictionHigh" type="button"  onclick="setWheelFriction(3);">High</button>
+		<div class="nextLevelWrapper">
+			<button id="btnNextLevel" type="button">Level #</button>
+		</div>
+		<div class="configWrapper">
+			<div class="configOption">
+				<h3>Front Tires:</h3>
+				<div class="btnWrapper">
+					<button id="btnWheel1RadiusLow" type="button" onclick="setWheel1Radius(1);">Small</button>
+					<button id="btnWheel1RadiusMed" type="button" onclick="setWheel1Radius(2);" class="selected">Medium</button>
+					<button id="btnWheel1RadiusHigh" type="button"  onclick="setWheel1Radius(3);">Large</button>
+				</div>
+			</div>
+			<div class="configOption">
+				<h3>Back Tires:</h3>
+				<div class="btnWrapper">
+					<button id="btnWheel2RadiusLow" type="button" onclick="setWheel2Radius(1);">Small</button>
+					<button id="btnWheel2RadiusMed" type="button" onclick="setWheel2Radius(2);" class="selected">Medium</button>
+					<button id="btnWheel2RadiusHigh" type="button"  onclick="setWheel2Radius(3);">Large</button>
+				</div>
+			</div>
+			<div class="configOption">
+				<h3>Body Mass:</h3>
+				<div class="btnWrapper">
+					<button id="btnCarDensityLow" type="button" onclick="setCarDensity(1);">Light</button>
+					<button id="btnCarDensityMed" type="button" onclick="setCarDensity(2);" class="selected">Medium</button>
+					<button id="btnCarDensityHigh" type="button"  onclick="setCarDensity(3);">Heavy</button>
+				</div>
+			</div>
+			<div class="configOption">
+				<h3>Suspension:</h3>
+				<div class="btnWrapper">
+					<button id="btnSuspensionLow" type="button" onclick="setSuspension(1);">Low</button>
+					<button id="btnSuspensionMed" type="button" onclick="setSuspension(2);" class="selected">Medium</button>
+					<button id="btnSuspensionHigh" type="button"  onclick="setSuspension(3);">High</button>
+				</div>
+			</div>
+			<div class="configOption">
+				<h3>Tire Friction:</h3>
+				<div class="btnWrapper">
+					<button id="btnWheelFrictionLow" type="button" onclick="setWheelFriction(1);">Low</button>
+					<button id="btnWheelFrictionMed" type="button" onclick="setWheelFriction(2);" class="selected">Medium</button>
+					<button id="btnWheelFrictionHigh" type="button"  onclick="setWheelFriction(3);">High</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="endMenu" class="menuPage" style="display: none;">
 		<h1>Congratulations!</h1>

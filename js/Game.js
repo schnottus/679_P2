@@ -27,7 +27,7 @@ function animate()
 		requestAnimationFrame(reloadLevel);
 	}
 	else if (gameWon) { //Check if the level was completed
-	//else if (timeElapsed >= 100) {
+	//else if (timeElapsed >= 20) {
 		requestAnimationFrame(levelCompleted);
 	}
 	else if (gameLost) { //Check if the level was failed

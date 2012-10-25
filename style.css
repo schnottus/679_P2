@@ -4,10 +4,42 @@
 * Date: 21 Oct 2012
 *******************/
 
+body  p {
+	font-family: Arial;
+	color: white;
+	font-weight: bold;
+}
+
 #container { 
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 	float: left;
 	position: relative;
+}
+
+#debugDraw {
+	/*border: 1px solid red;*/
+	float: left;
+}
+
+div.menuPage {
+	width: 800px;
+	height: 600px;
+	/*border: 1px solid red;*/
+	padding: 0 20px;
+	background-color: #5f5f5f;
+}
+
+div.menuPage h1 {
+	margin: 0;
+	padding: 30px 0 20px 0;
+	text-align: center;
+	font-family: Arial, Tahoma, Georgia, "Bitstream Charter", serif;
+	color: white;
+}
+
+div.menuPage h3 {
+	color: #00cccc;
+	font-family: Arial;
 }
 
 h2#notifications {
@@ -16,6 +48,7 @@ h2#notifications {
 	left: 370px;
 	color: white;
 }
+
 
 h2#distance {
 	position: absolute;
@@ -27,32 +60,102 @@ h2#distance {
 #debugDraw {
 	border: 1px solid red;
 	float: left;
+]
+/*** startMenu START ***/
+div#startMenu  div.instructions {
+	margin: 10px 60px;
+=
 }
 
-div.menuPage {
-	width: 800px;
-	height: 600px;
-	border: 1px solid red;
-	padding: 0 20px;
+div#startMenu  div.instructions div {
+	margin: 0 30px;
 }
 
-div#startMenu {
-
+div#startMenu  div.controls {
+	margin: 10px 60px;
 }
 
-div#interimMenu {
-
+div#startMenu  div.controls div {
+	margin: 0 30px;
 }
 
+div#startMenu  div.controls img.controlsImage {
+	float: left;
+	margin: -3px 10px 0 0;
+}
+
+div#startMenu  div.controls span.controlKey {
+	color: #00cccc;
+}
+
+div#startMenu div.startBtnWrapper {
+	text-align: center;
+	margin: 85px 0 0 0;
+}
+
+div#startMenu button#btnStart {
+	color: #3F3F3F;
+	width: 100px;
+	height: 50px;
+	font-size: 28px;
+	font-weight: bold;
+}
+/*** startMenu END ***/
+
+
+/*** interimMenu START ***/
 div#interimMenu  button.selected {
-	background-color: red;
+	background-color: #00cccc;
 }
 
-div#endMenu {
-	
+div#interimMenu div.nextLevelWrapper {
+	text-align: center;
+	margin: 20px 0 15px 0;
 }
 
-h1 {
-	color: black;
-    font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+div#interimMenu button#btnNextLevel {
+	color: #3F3F3F;
+	width: 140px;
+	height: 50px;
+	font-size: 28px;
+	font-weight: bold;
 }
+
+div#interimMenu div.configWrapper {
+
+}
+
+div#interimMenu div.configOption {
+	float: left;
+	width: 400px;
+	height: 125px;
+}
+
+div#interimMenu div.configOption div.btnWrapper {
+	text-align: center;
+	margin: 20px 0 0 0;
+}
+
+div#interimMenu div.configOption div.btnWrapper button {
+	width: 100px;
+	height: 40px;
+}
+
+div#interimMenu div.configOption h3 {
+	text-align: center;
+}
+/*** interimMenu END ***/
+
+
+/*** endMenu START ***/
+div#endMenu h1 {
+	padding: 60px 0;
+}
+
+div#endMenu h3 {
+	text-align: center;
+	font-size: 70px;
+	font-weight: bold;
+	margin: 80px 0;
+}
+/*** endMenu END ***/
