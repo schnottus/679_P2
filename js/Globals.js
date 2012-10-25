@@ -72,6 +72,7 @@
 	var originalY = 0;
 	var gameLost = false;
 	var gameWon = false;
+	var distanceTraveled = 0;
 	//gl vars
 	var TRACK_WIDTH = 5;
 	

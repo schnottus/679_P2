@@ -63,6 +63,7 @@ function updateGameState(){
     if(carBody.position.y > yMax){
         gameLost = true;
     }
+	distanceTraveled = carBody.position.x;
     
 
 
@@ -77,8 +78,11 @@ function updateText(){
     
 	//Notifications header over the game screen
 	var	notifications = document.getElementById("notifications");
+	var	distance = document.getElementById("distance");
+	distance.innerText = Math.round(distanceTraveled) + "m";
+	distance.style.display = "inline-block";
 	
-    if(!isOnGround){
+    if(!isOnGround && !gameLost){
         ctx.fillText("Nice Air", canvas.width/2, canvas.height/2);
 		notifications.innerText = "Nice Air";
 		notifications.style.display = "inline-block";
@@ -89,7 +93,8 @@ function updateText(){
 
     if(gameLost)
     {
-        ctx.fillText("Game Over", canvas.width/2, (canvas.height*3)/4);
+		notifications.innerText = "Game Over";
+		notifications.style.display = "inline-block";
     } else if (gameWon){
         ctx.fillText("Great Job! You Won!", canvas.width/2, canvas.height/2);
     }

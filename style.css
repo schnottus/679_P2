@@ -17,6 +17,13 @@ h2#notifications {
 	color: white;
 }
 
+h2#distance {
+	position: absolute;
+	top: 530px;
+	left: 15px;
+	color: white;
+}
+
 #debugDraw {
 	border: 1px solid red;
 	float: left;
