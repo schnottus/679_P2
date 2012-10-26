@@ -56,7 +56,7 @@
 	camera3,
 	renderer,
 	controls;
-	var SCREEN_WIDTH = 1200, 
+	var SCREEN_WIDTH = 1400, 
 		SCREEN_HEIGHT = 800;
 	var keyboard = new THREEx.KeyboardState();
 	var CAMERA1_DISTANCE = 15; //distance from camera to player
