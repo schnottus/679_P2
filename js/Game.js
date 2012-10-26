@@ -97,6 +97,7 @@ function render()
 	//for shader
 	uniforms.time.value += 0.05;
 	carBodyUniforms.time.value += 0.05;
+	flagUniforms.time.value +=0.05;
 	
 	renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	renderer.clear();
@@ -213,7 +214,11 @@ function updateCameras()
 						-CAMERA3_DISTANCE);
 	camera3.lookAt(carBody.position);
 	camera3.rotation.z = d2r(0);
-	//camera3.rotation.y = d2r(-65);
+	
+	//for looking at flags
+	/*camera3.position.set(flag1X - 6, flag1Y - 8, -25);
+	camera3.lookAt(new THREE.Vector3(flag1X - 3, flag1Y, (0.5* TRACK_WIDTH)));
+	camera3.rotation.z = d2r(0);*/
 }
 
 //Level completed, show the menu screen

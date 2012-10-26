@@ -100,6 +100,39 @@ function drawWebGLTrack() {
 	 webGLTrackPieces.push(track);
  
     }
+	
+	 //draw finish flags at end of track
+	 //THREE.CylinderGeometry = function ( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded )
+	var flagpoleGeometry = new THREE.CylinderGeometry( 0.4, 0.4, FLAGPOLE_HEIGHT, 10, 5, false ); 
+	var flagpoleMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
+	var leftFlagpole = new THREE.Mesh(flagpoleGeometry, flagpoleMaterial);
+	leftFlagpole.position.set(flag1X, flag1Y, (0.5 * TRACK_WIDTH));
+	scene.add(leftFlagpole);
+	var rightFlagpole = new THREE.Mesh(flagpoleGeometry, flagpoleMaterial);
+	rightFlagpole.position.set(flag1X, flag1Y, -(0.5 * TRACK_WIDTH));
+	scene.add(rightFlagpole);
+	
+	var flagGeometry = new THREE.PlaneGeometry(FLAG_WIDTH, FLAG_HEIGHT, 40, 30);
+	//var flagMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} );
+	flagUniforms.resolution.value.x = SCREEN_WIDTH;
+	flagUniforms.resolution.value.y = SCREEN_HEIGHT;
+	flagUniforms.xOrigin.value = flag1X;
+	var flagMaterial = new THREE.ShaderMaterial( {
+					uniforms: flagUniforms,
+					vertexShader: document.getElementById( 'flagVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'flagFragShader' ).textContent
+				} );
+	
+	var leftFlag = new THREE.Mesh(flagGeometry, flagMaterial);
+	leftFlag.position.set(flag1X - (0.5 * FLAG_WIDTH), flag1Y - (0.5 * FLAG_HEIGHT) - 1.0, (0.5 * TRACK_WIDTH));
+	leftFlag.rotation.x = d2r(90);
+	leftFlag.doubleSided = true;
+	scene.add(leftFlag);
+	var rightFlag = new THREE.Mesh(flagGeometry, flagMaterial);
+	rightFlag.position.set(flag1X - (0.5 * FLAG_WIDTH), flag1Y - (0.5 * FLAG_HEIGHT) - 1.0, -(0.5 * TRACK_WIDTH));
+	rightFlag.rotation.x = d2r(90);
+	rightFlag.doubleSided = true;
+	scene.add(rightFlag);
 }
 
 function GetNumberOfLevels(){
@@ -130,11 +163,6 @@ function LoadLevel(level) {
     if (level == 5) {
         LoadLevel5();
    }
-
-
-
-
-
 
 
 }
@@ -208,6 +236,9 @@ function LoadLevel1() {
         createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
     
     xMax = originalX - 10;
+	
+	flag1X = originalX - 10;
+	flag1Y = originalY + 5;
     
           
            

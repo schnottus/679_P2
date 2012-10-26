@@ -88,7 +88,15 @@
 		MarbleColor: { type: "v3", value: new THREE.Vector3(0.40, 0.37, 0.34) },
 		VeinColor: { type: "v3", value: new THREE.Vector3(0.20, 0.17, 0.14) },
 	}
-	var utils;
+	var flagUniforms = {
+		time: { type: "f", value: 1.0 },
+		resolution: { type: "v2", value: new THREE.Vector2() },
+		xOrigin: { type: "f", value: 1.0 },
+		uvScale: { type: "v2", value: new THREE.Vector2( 3.0, 1.0 ) },
+		texture1: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/checkerboard.jpg" ) }
+	};
+	flagUniforms.texture1.texture.wrapS = flagUniforms.texture1.texture.wrapT = THREE.Repeat;
+	
 	
 //level.js vars
 	var originalX = 0;
@@ -97,7 +105,12 @@
 	var gameWon = false;
 	var distanceTraveled = 0;
 	//gl vars
-	var TRACK_WIDTH = 5;
+	var TRACK_WIDTH = 5; 
+	var flag1X; //finish line flags
+	var flag1Y;
+	var FLAG_HEIGHT = 4.0;
+	var FLAG_WIDTH = 8.0;
+	var FLAGPOLE_HEIGHT = 10;
 	
 //car.js vars
 	//Constants

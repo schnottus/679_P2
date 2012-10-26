@@ -179,21 +179,37 @@ function init()
 	// create skybox
 	//images from http://www.quadropolis.us/node/617
 	var materialArray = [];
-	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/sky1_rt.jpg' ) })); 	//xpos
+	/*materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/sky1_rt.jpg' ) })); 	//xpos
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/sky1_lf.jpg' ) }));	//xneg
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/sky1_up.jpg' ) }));	//ypos
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/sky1_dn.jpg' ) }));	//yneg
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/sky1_bk.jpg' ) }));	//zpos
-	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/sky1_ft.jpg' ) }));	//zneg
-	var skyboxGeom = new THREE.CubeGeometry( 5000, 5000, 5000, 1, 1, 1, materialArray );
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/sky1_ft.jpg' ) }));*/	//zneg
+	
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/spaceSkybox1/spaceSkybox1_right1.png' 	) })); 	//xpos
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/spaceSkybox1/spaceSkybox1_left2.png' 	) }));	//xneg
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/spaceSkybox1/spaceSkybox1_top3.png' 	) }));	//ypos
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/spaceSkybox1/spaceSkybox1_bottom4.png' ) }));	//yneg
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/spaceSkybox1/spaceSkybox1_front5.png' 	) }));	//zpos
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/spaceSkybox1/spaceSkybox1_back6.png' 	) }));	//zneg
+	
+	/*materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Galaxy/Galaxy_RT.bmp' ) })); 	//xpos
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Galaxy/Galaxy_LT.bmp' ) }));	//xneg
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Galaxy/Galaxy_UP.bmp' ) }));	//ypos
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Galaxy/Galaxy_DN.bmp' ) }));	//yneg
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Galaxy/Galaxy_BK.bmp' ) }));	//zpos
+	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Galaxy/Galaxy_FT.bmp' ) }));*/	//zneg
+	var skyboxGeom = new THREE.CubeGeometry( 3000, 3000, 3000, 1, 1, 1, materialArray );
 	var skybox = new THREE.Mesh( skyboxGeom, new THREE.MeshFaceMaterial() );
-	skybox.rotation.z = d2r(180);
-	skybox.position.y = 400; // move the skybox down a little to see some sky
+	//skybox.rotation.z = d2r(180);
+	skybox.rotation.x = d2r(90);
+	skybox.rotation.z = d2r(90);
+	//skybox.position.y = 1000; // move the skybox down a little to see some sky
 	skybox.flipSided = true;
 	scene.add( skybox );	
 	
 	//lava floor texture
-	var lavaMaterial = new THREE.ShaderMaterial( {
+	/*var lavaMaterial = new THREE.ShaderMaterial( {
 
 					uniforms: uniforms,
 					vertexShader: document.getElementById( 'lavaVertexShader' ).textContent,
@@ -206,7 +222,7 @@ function init()
 	lavaMesh.position.z = 0;
 	//lavaMesh.doubleSided = true;
 	lavaMesh.flipSided = true;
-	scene.add(lavaMesh);
+	scene.add(lavaMesh);*/
 	 
 	animate();
 };
