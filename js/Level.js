@@ -73,13 +73,13 @@ function drawWebGLTrack() {
 	//THREE.CubeGeometry = function ( width, height, depth, segmentsWidth, segmentsHeight, segmentsDepth, materials, sides )
     for (var i = 0; i < glTracks.length; ++i) {
         var trackGeometry = new THREE.CubeGeometry(glTracks[i].length, glTracks[i].height, TRACK_WIDTH, 10.0, 10.0, 10.0);
-
-		uniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
-		uniforms.resolution.value.y = SCREEN_HEIGHT;
+		trackUniforms.level = currentLevel;
+		trackUniforms.resolution.value.x = (0.5 * SCREEN_WIDTH);
+		trackUniforms.resolution.value.y = SCREEN_HEIGHT;
 		shaderMat = new THREE.ShaderMaterial( {
 					uniforms: uniforms,
 					vertexShader: document.getElementById( 'trackVertexShader' ).textContent,
-					fragmentShader: document.getElementById( 'trackFragShader' ).textContent,
+					fragmentShader: document.getElementById( 'track' + currentLevel + 'FragShader' ).textContent,
 				} );
 			
         var trackMaterial = new THREE.MeshLambertMaterial({ color: glTracks[i].color});

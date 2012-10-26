@@ -67,6 +67,12 @@
 	var clock = new THREE.Clock();
 
 //shader vars
+	var trackUniforms = {
+		time: { type: "f", value: 1.0 },
+		resolution: { type: "v2", value: new THREE.Vector2() },
+		level: { type: "f", value: 1.0 }
+	};
+	
 	var uniforms = {
 		time: { type: "f", value: 1.0 },
 		resolution: { type: "v2", value: new THREE.Vector2() }
