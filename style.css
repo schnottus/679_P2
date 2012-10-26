@@ -11,20 +11,23 @@ body  p {
 }
 
 #container { 
-	/*border: 1px solid red;*/
 	float: left;
+	padding: 0 20px;
 	position: relative;
 }
 
+#container div.screenOverlay {
+	border: 1px solid blue;
+	position: absolute;
+}
+
 #debugDraw {
-	/*border: 1px solid red;*/
 	float: left;
 }
 
 div.menuPage {
 	width: 800px;
 	height: 600px;
-	/*border: 1px solid red;*/
 	padding: 0 20px;
 	background-color: #5f5f5f;
 }
@@ -45,7 +48,7 @@ div.menuPage h3 {
 h2#notifications {
 	position: absolute;
 	top: 55px;
-	left: 370px;
+	left: 260px;
 	color: white;
 }
 
@@ -114,7 +117,7 @@ div#interimMenu div.nextLevelWrapper {
 
 div#interimMenu button#btnNextLevel {
 	color: #3F3F3F;
-	width: 140px;
+	width: 145px;
 	height: 50px;
 	font-size: 28px;
 	font-weight: bold;
@@ -138,6 +141,10 @@ div#interimMenu div.configOption div.btnWrapper {
 div#interimMenu div.configOption div.btnWrapper button {
 	width: 100px;
 	height: 40px;
+}
+
+div#interimMenu div.configOption div.btnWrapper button:disabled {
+	background-image: url('images/disabledButton2.png');
 }
 
 div#interimMenu div.configOption h3 {

@@ -101,7 +101,7 @@ function init()
 		}
 	}
 	
-	//default car customization variables
+	//Default car customization variables
 	wheel1Radius = wheelRadiusMed;
 	wheel2Radius = wheelRadiusMed;
 	wheelFriction = wheelFrictionMed;
@@ -112,89 +112,57 @@ function init()
 	wheel1_offset = CAR_Z_HALF_WIDTH + wheel1Radius;
 	wheel2_offset = CAR_Z_HALF_WIDTH + wheel2Radius;
 	
-	//create car
+	//Create the car
 	CreateCar(carBodyNum);
 
-	//load level
+	//Load the level
 	LoadLevel(1);
 	
-	//add listeners for our controls
+	//Add event listeners for our controls
 	document.addEventListener("keydown", function(e) {
-		//down arrow key
-		/*if (e.keyCode == 40) {
-			applyBrake = true;
-		}
-		//right arrow key
-		else if (e.keyCode == 39) {
-			tiltRight = true;
-		}
-		//left arrow key
-		else if (e.keyCode == 37) {
-			tiltLeft = true;
-		}
-		//spacebar
-		//else if (e.keyCode == 32) {
-		//	reloadLevelBool = true;
-		//}*/
 		switch(e.keyCode)
 		{
-		case 40: //down arrow
-			applyBrake = true;
-		break;
-		case 39: //right arrow
-			tiltRight = true;
-		break;
-		case 37: //left arrow
-			tiltLeft = true;
-		break;
-		case 32: //space bar
-			//reloadLevelBool = true;
-		break;
-		case 49: //1 key
-			mainCam = 1;
-		break;
-		case 50: //2 key
-			mainCam = 2;
-		break;
-		case 51: //3 key
-			mainCam = 3;
-		break;
-		default:
+			case 40: //down arrow
+				applyBrake = true;
+				break;
+			case 39: //right arrow
+				tiltRight = true;
+				break;
+			case 37: //left arrow
+				tiltLeft = true;
+				break;
+			case 32: //space bar
+				//reloadLevelBool = true;
+				break;
+			case 49: //1 key
+				mainCam = 1;
+				break;
+			case 50: //2 key
+				mainCam = 2;
+				break;
+			case 51: //3 key
+				mainCam = 3;
+				break;
+			default:
 		}
     }, true);
 	
 	document.addEventListener("keyup", function(e) {
-		//down arrow key
-		/*if (e.keyCode == 40) {
-			applyBrake = false;
-		}
-		//right arrow key
-		else if (e.keyCode == 39) {
-			tiltRight = false;
-		}
-		//left arrow key
-		else if (e.keyCode == 37) {
-			tiltLeft = false;
-		}
-		//spacebar
-		else if (e.keyCode == 32) {
-			reloadLevelBool = true;
-		}*/
 		switch(e.keyCode)
 		{
-		case 40: //down arrow
-			applyBrake = false;
-		break;
-		case 39: //right arrow
-			tiltRight = false;
-		break;
-		case 37: //left arrow
-			tiltLeft = false;
-		break;
-		case 32: //space bar
-			reloadLevelBool = true;
-		break;
-		default:
+			case 40: //down arrow
+				applyBrake = false;
+				break;
+			case 39: //right arrow
+				tiltRight = false;
+				break;
+			case 37: //left arrow
+				tiltLeft = false;
+				break;
+			case 32: //space bar
+				reloadLevelBool = true;
+				break;
+			default:
 		}
     }, true);
 
