@@ -67,6 +67,12 @@
 	var clock = new THREE.Clock();
 
 //shader vars
+	var trackUniforms = {
+		time: { type: "f", value: 1.0 },
+		resolution: { type: "v2", value: new THREE.Vector2() },
+		level: { type: "f", value: 1.0 }
+	};
+	
 	var uniforms = {
 		time: { type: "f", value: 1.0 },
 		resolution: { type: "v2", value: new THREE.Vector2() }
@@ -106,11 +112,18 @@
 	var distanceTraveled = 0;
 	//gl vars
 	var TRACK_WIDTH = 5; 
+	var hints = new Array();
+	hints[1] = "Hint: Landing flat after jumps will help maintain your speed"; 
+	hints[2] = "Hint: Slow and steady wins the race";
+	hints[3] = "Hint: Remember to apply your brake";
+	hints[4] = "Hint: a lighter car will get more air off of jumps";
+	hints[5] = "Hint: Switch camera angles for a better view of the course"; 
 	var flag1X; //finish line flags
 	var flag1Y;
 	var FLAG_HEIGHT = 4.0;
 	var FLAG_WIDTH = 8.0;
 	var FLAGPOLE_HEIGHT = 10;
+
 	
 //car.js vars
 	//Constants

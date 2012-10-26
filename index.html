@@ -215,27 +215,28 @@
 		varying vec3 pos;
 		varying vec3 vNormal;
 		
+		
+		//Output: Random number: [0,1), that is between 0.0 and 0.999999... inclusive.
+		// Author: Michael Pohoreski
+		//  I found this random number generator online after attempts to make my own
 		float random( vec2 p )
 		{
-				// We need irrationals for pseudo randomness.
-				// Most (all?) known transcendental numbers will (generally) work.
 		const vec2 r = vec2(
-			23.1406926327792690,  // e^pi (Gelfond's constant)
-			2.6651441426902251); // 2^sqrt(2) (Gelfond–Schneider constant)
-		return fract( cos( mod( 123456789., 1e-7 + 256. * dot(p,r) ) ) );  
+			23.1406926327792690, 
+			2.6651441426902251); 
+		return fract( cos( mod( 123456789., 1e-7 + 256. * dot(p,r) ) ) );
 		}
 		void main()
 		{
 		pos = position;
 		vNormal = normal;
-		//color = vec4(position.y,position.x + position.y, position.y, 1.0);
-	  	gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x,random(vec2(position.x,position.y))*.2 + position.y, position.z,1.0);
-		//gl_Position = vec4(position,1.0);
+		gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x,random(vec2(position.x,position.y))*.2 + position.y, position.z,1.0);
 		}
 	</script>
-	<script id="trackFragShader" type="x-shader/x-fragment">
+		<script id="track1FragShader" type="x-shader/x-fragment">
 		uniform vec2 resolution;
 		uniform float time;
+		uniform float level;
 		varying vec3 pos;
 		varying vec3 vNormal;
 		
@@ -244,10 +245,133 @@
 		vec3 light = vec3(50.0,-20,-10.0);
 		light = normalize(light);
 		float dProd = max(0.0,dot(vNormal,light));
-		   gl_FragColor = vec4( dProd + pos.y,  // R
-				0.5 * dProd + pos.x + pos.y,  // G
-				dProd,  // B
-				1.0); // A	
+		float r = dProd;
+		float g = 0.5 * dProd;
+		float b = dProd;
+		float a = 1.0;
+		r += pos.y;
+		g += pos.x + pos.y;
+			
+		gl_FragColor = vec4(r,  // R
+				g,  // G
+				b,  // B
+				a); // A	
+				
+		
+		}
+		
+	</script>
+		<script id="track2FragShader" type="x-shader/x-fragment">
+		uniform vec2 resolution;
+		uniform float time;
+		uniform float level;
+		varying vec3 pos;
+		varying vec3 vNormal;
+		
+		void main()
+		{
+		vec3 light = vec3(50.0,-20,-10.0);
+		light = normalize(light);
+		float dProd = max(0.0,dot(vNormal,light));
+		float r = dProd;
+		float g = 0.5 * dProd;
+		float b = dProd;
+		float a = 1.0;
+		
+			b += pos.z;
+			r += pos.x + pos.y;
+			
+		
+		gl_FragColor = vec4(r,  // R
+				g,  // G
+				b,  // B
+				a); // A	
+				
+		
+		}
+		
+	</script>
+		<script id="track3FragShader" type="x-shader/x-fragment">
+		uniform vec2 resolution;
+		uniform float time;
+		uniform float level;
+		varying vec3 pos;
+		varying vec3 vNormal;
+		
+		void main()
+		{
+		vec3 light = vec3(50.0,-20,-10.0);
+		light = normalize(light);
+		float dProd = max(0.0,dot(vNormal,light));
+		float r = dProd;
+		float g = 0.5 * dProd;
+		float b = dProd;
+		float a = 1.0;
+		r += pos.z;
+		r += pos.x + pos.y;		
+		gl_FragColor = vec4(r,  // R
+				g,  // G
+				b,  // B
+				a); // A	
+				
+		
+		}
+		
+	</script>
+		<script id="track4FragShader" type="x-shader/x-fragment">
+		uniform vec2 resolution;
+		uniform float time;
+		uniform float level;
+		varying vec3 pos;
+		varying vec3 vNormal;
+		
+		void main()
+		{
+		vec3 light = vec3(50.0,-20,-10.0);
+		light = normalize(light);
+		float dProd = max(0.0,dot(vNormal,light));
+		float r = dProd;
+		float g = 0.5 * dProd;
+		float b = dProd;
+		float a = 1.0;
+		
+			b += pos.y;
+			r += pos.x + pos.y;
+		
+		gl_FragColor = vec4(r,  // R
+				g,  // G
+				b,  // B
+				a); // A	
+				
+		
+		}
+		
+	</script>
+	<script id="track5FragShader" type="x-shader/x-fragment">
+		uniform vec2 resolution;
+		uniform float time;
+		uniform float level;
+		varying vec3 pos;
+		varying vec3 vNormal;
+		
+		void main()
+		{
+		vec3 light = vec3(50.0,-20,-10.0);
+		light = normalize(light);
+		float dProd = max(0.0,dot(vNormal,light));
+		float r = dProd;
+		float g = 0.5 * dProd;
+		float b = dProd;
+		float a = 1.0;
+			r += pos.x;
+			g += pos.y + pos.z;
+		
+		gl_FragColor = vec4(r,  // R
+				g,  // G
+				b,  // B
+				a); // A	
+				
+		
 		}
 		
 	</script>
@@ -292,6 +416,7 @@
 	</div>
 	<div id="interimMenu" class="menuPage" style="display: none;">
 		<h1 id="interimHeader">Level # Complete!</h1>
+		<h2 id="hint"></h2>
 		<div class="nextLevelWrapper">
 			<button id="btnNextLevel" type="button">Level #</button>
 		</div>

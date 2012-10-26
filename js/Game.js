@@ -76,7 +76,7 @@ function updateText(){
 	distance.style.display = "inline-block";
 	
     if(!isOnGround && !gameLost){
-       notifications.innerText = "Nice Air";
+       notifications.innerText = "Nice Air!";
 		notifications.style.display = "inline-block";
     }
 	else {
@@ -268,6 +268,11 @@ function showInterimMenu(nextLevel) {
 	var interimHeader = document.getElementById("interimHeader");
 	interimHeader.innerHTML = "LEVEL " +  (nextLevel - 1) + " COMPLETE";
 	
+	
+	var interimHeader = document.getElementById("interimHeader");
+	var hintText = document.getElementById("hint");
+	hintText.innerHTML = hints[nextLevel];
+	
 	var btnNextLevel = document.getElementById("btnNextLevel");
 	btnNextLevel.setAttribute("onclick","startLevel(" + nextLevel + ");")
 	btnNextLevel.innerHTML = "Level " + nextLevel;
@@ -282,6 +287,7 @@ function showInterimMenu(nextLevel) {
 							"btnWheel2RadiusMed",
 							"btnWheel2RadiusHigh"];
 			enableButtons(buttonIDs);
+				
 			break;
 		}
 		
@@ -317,7 +323,10 @@ function showLevelFailedMenu(level) {
 	divInterimMenu.style.display = "block";
 	
 	var interimHeader = document.getElementById("interimHeader");
+	var hintText = document.getElementById("hint");
+	
 	interimHeader.innerHTML = "LEVEL " +  level + " FAILED";
+	hintText.innerHTML = hints[currentLevel];
 	
 	var btnNextLevel = document.getElementById("btnNextLevel");
 	btnNextLevel.setAttribute("onclick","startLevel(" + level + ");")
