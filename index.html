@@ -22,25 +22,20 @@
 		}
 	</script>
 	<script id="carWarpVertexShader" type="x-shader/x-vertex">
-		// switch on high precision floats
-		#ifdef GL_ES
-		precision highp float;
-		#endif
-		
+		//Make the car expand from a point into its full size	
 		uniform float time;
 		varying vec3 vNormal;
-		//wood effect
 		varying float LightIntensity;
 		varying vec3 MCposition;
 
-		//Make the car expand from a point into its full size
 		void main()
 		{
+			//Set varying values for the various fragment shaders that are used with this vertex shader
 			LightIntensity = 2.0;
 			MCposition = position;
-		
 			vNormal = normal;
 			
+			//Car should be full size before it hits the track
 			float scale = time / 4.0;
 			if (scale < 1.0)
 				gl_Position = projectionMatrix * modelViewMatrix * vec4((position*scale),1.0);
@@ -71,6 +66,7 @@
 		}
 	</script>
 	<script id="carWheelShader" type="x-shader/x-fragment">
+		//Give the wheels a metallic look
 		uniform float time;
 		uniform vec2 resolution;
 		varying vec3 vNormal;
@@ -79,7 +75,6 @@
 		{
 			vec3 position = -1.0 + 2.0 * vNormal;
 			
-			//Give them a metallic look
 			float red = abs( sin( position.x * position.y ) );
 			float green = abs( sin( position.x * position.y ) );
 			float blue = abs( sin( position.x * position.y ) );
@@ -87,7 +82,7 @@
 		}
 	</script>
 	<script id="car1FragShader" type="x-shader/x-fragment">
-		//Make body look like wood
+		//Make body look like a block of wood
 		//Modified from http://www.yaldex.com/open-gl/ch15lev1sec7.html
 		varying float LightIntensity;
 		varying vec3 MCposition;		
@@ -129,7 +124,7 @@
 		}
 	</script>
 	<script id="car2FragShader" type="x-shader/x-fragment">
-		//Make body look like stone
+		//Make body look like a block of stone
 		//Modified from http://www.yaldex.com/open-gl/ch15lev1sec5.html
 		varying float LightIntensity;
 		varying vec3 MCposition;
@@ -248,6 +243,12 @@
 
 <body>
     <div id="container" style="display: none;">
+		<div class="screenOverlay" style="top: 0px; left: 0px; width: 1197px;"></div>
+		<div class="screenOverlay" style="top: 0px; left: 0px; height: 797px;"></div>
+		<div class="screenOverlay" style="bottom: 0px; left: 0px; width: 1197px;"></div>
+		<div class="screenOverlay" style="bottom: 0px; right: 0px; height: 797px;"></div>
+		<div class="screenOverlay" style="top: 398px; right: 1px; width: 358px;"></div>
+		<div class="screenOverlay" style="bottom: 0px; right: 359px; height: 797px;"></div>
 		<h2 id="notifications"></h2>
 		<h2 id="distance"></h2>
 	</div>
@@ -265,10 +266,11 @@
 		<div class="controls">
 			<h3>Controls</h3>
 			<div>
-				<p><img src="images/controls2.png" class="controlsImage" />Tilt your car forward using the <span class="controlKey">right</span> arrow.<br /><br />
+				<p><img src="images/controls3.png" class="controlsImage" />Tilt your car forward using the <span class="controlKey">right</span> arrow.<br /><br />
 				Tilt your car backward using the <span class="controlKey">left</span> arrow<br /><br />
 				Press the <span class="controlKey">down</span> arrow to apply the brakes<br /></br />
-				Press the <span class="controlKey">space bar</span> to restart the current level</p>
+				Press the <span class="controlKey">space bar</span> to restart the current level<br /></br />
+				Press keys <span class="controlKey">1</span>, <span class="controlKey">2</span>, or <span class="controlKey">3</span> to change the camera angle</p>
 			</div>
 		</div>
 		<div class="startBtnWrapper">
@@ -320,6 +322,9 @@
 					<button id="btnWheelFrictionMed" type="button" onclick="setWheelFriction(2);" class="selected">Medium</button>
 					<button id="btnWheelFrictionHigh" type="button"  onclick="setWheelFriction(3);">High</button>
 				</div>
+			</div>
+			<div class="interimNotifications">
+				<h2></h2>
 			</div>
 		</div>
 	</div>

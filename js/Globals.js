@@ -71,21 +71,16 @@
 		time: { type: "f", value: 1.0 },
 		resolution: { type: "v2", value: new THREE.Vector2() }
 	};
-	var woodUniforms = {
+	var carBodyUniforms = {
 		time: { type: "f", value: 1.0 },
 		resolution: { type: "v2", value: new THREE.Vector2() },
 		LightPos: { type: "v3", value: new THREE.Vector3(0.0, 0.0, 4.0) },
 		Scale: { type: "f", value: 2.0 },
 		LightWood: { type: "v3", value: new THREE.Vector3(0.6, 0.3, 0.1) },
-		//LightWood: { type: "v3", value: new THREE.Vector3(0.9, 0.6, 0.4) },
 		DarkWood: { type: "v3", value: new THREE.Vector3(0.4, 0.2, 0.07) },
-		//DarkWood: { type: "v3", value: new THREE.Vector3(0.7, 0.5, 0.37) },
-		//RingFreq: { type: "f", value: 4.0 },
 		RingFreq: { type: "f", value: 3.0 },
 		LightGrains: { type: "f", value: 1.0 },
-		//LightGrains: { type: "f", value: 0.0 },
 		DarkGrains: { type: "f", value: 0.0 },
-		//GrainThreshold: { type: "f", value: 0.5 },
 		GrainThreshold: { type: "f", value: 0.3 },
 		NoiseScale: { type: "v3", value: new THREE.Vector3(0.5, 0.1, 0.1) },
 		Noisiness: { type: "f", value: 3.0 },
@@ -149,9 +144,6 @@
 	var RRWheel; //rear right
 	var RLWheel; //rear left
 	var CAR_Z_HALF_WIDTH = 1.0;
-	//todo, change if we are going to have adjustable wheel radius
-	//var WHEEL1_OFFSET = (CAR_Z_HALF_WIDTH + wheel1Radius);
-	//var WHEEL2_OFFSET = (CAR_Z_HALF_WIDTH + wheel2Radius);
 	var wheel1_offset, wheel2_offset;
 	var body1Points = []; //box body
 		body1Points.push( new THREE.Vector2 (  -0.5 * CAR_WIDTH, 	-0.5 * CAR_HEIGHT ) );

@@ -33,7 +33,7 @@ function animate()
 	else if (gameLost) { //Check if the level was failed
 		requestAnimationFrame(levelFailed);
 	}
-	else {
+	else { //If no other statuses, update the game
 		requestAnimationFrame( animate ); //this is where the example had it placed, also I've read it should be placed immediately before render()
 		render(); //draw updated game
 		update(); //update game state
@@ -96,7 +96,7 @@ function render()
 {	
 	//for shader
 	uniforms.time.value += 0.05;
-	woodUniforms.time.value += 0.05;
+	carBodyUniforms.time.value += 0.05;
 	
 	renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	renderer.clear();
@@ -150,6 +150,7 @@ function updateCar()
 	spring2.SetMaxMotorForce(suspension+Math.abs(800*Math.pow(spring2.GetJointTranslation(), 2)));
 	spring2.SetMotorSpeed(-4*Math.pow(spring2.GetJointTranslation(), 1));
 	
+	//Apply the tilt or brakes if appropriate buttons were pressed
 	if (tiltRight) {
 		car.ApplyTorque(CAR_TILT);
 	}
