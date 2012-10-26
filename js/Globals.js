@@ -56,8 +56,8 @@
 	camera3,
 	renderer,
 	controls;
-	var SCREEN_WIDTH = 1400, 
-		SCREEN_HEIGHT = 800;
+	var SCREEN_WIDTH = 800, 
+		SCREEN_HEIGHT = 600;
 	var keyboard = new THREEx.KeyboardState();
 	var CAMERA1_DISTANCE = 15; //distance from camera to player
 	var CAMERA2_DISTANCE = 10; //distance from side of track for level camera
