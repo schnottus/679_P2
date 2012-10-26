@@ -104,6 +104,13 @@
 	var distanceTraveled = 0;
 	//gl vars
 	var TRACK_WIDTH = 5;
+	var hints = new Array();
+	hints[1] = "Hint: Landing flat after jumps will help maintain your speed"; 
+	hints[2] = "Hint: Slow and steady wins the race";
+	hints[3] = "Hint: Remember to apply your brake";
+	hints[4] = "Hint: a lighter car will get more air off of jumps";
+	hints[5] = "Hint: Switch camera angles for a better view of the course"; 
+	
 	
 //car.js vars
 	//Constants

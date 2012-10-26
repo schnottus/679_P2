@@ -1,24 +1,28 @@
 	
+/*
+* Creates a track that is connected to the edge of the previous track
+* defining length, height and angle of the track as well as friction
+*
+*/
+
 function createTrack(length, height, angle, color, friction) {
 
     var X_pivot = originalX;
     var Y_pivot = originalY;
 
-    originalX = X_pivot + Math.cos(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2));
+    originalX = X_pivot + Math.cos(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2)); // find center of new tack
     originalY = Y_pivot + Math.sin(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2));
 
 
     bodyDef.type = b2Body.b2_staticBody;
     fixDef.shape = new b2PolygonShape;
     fixDef.friction = friction;
-    //originalY = originalY + (height / 2);
-
-    // fixDef.shape.SetAsBox(2, .1);
+ 
     fixDef.shape.SetAsOrientedBox(length / 2, height / 2, new b2Vec2(-(length / 2), -(height / 2)), angle);
     bodyDef.position.Set(originalX, originalY);
     world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-    var track = {
+    var track = { // for gl display
     "x" : bodyDef.position.x,
     "y": bodyDef.position.y,
     "length" : length,
@@ -28,7 +32,7 @@ function createTrack(length, height, angle, color, friction) {
     };
     glTracks.push(track);
 
-    originalY = Y_pivot + length * Math.sin(angle);
+    originalY = Y_pivot + length * Math.sin(angle); // reset to top right corner
     originalX = X_pivot + length * Math.cos(angle);
 
     if(originalY > yMax){
@@ -37,6 +41,10 @@ function createTrack(length, height, angle, color, friction) {
       
 }
 
+/*
+*	creates an empty space between tracks for jumps
+*
+*/
 function createSpace(length, height, angle){
     var X_pivot = originalX;
     var Y_pivot = originalY;
@@ -49,6 +57,11 @@ function createSpace(length, height, angle){
 
 }
 
+/*
+* creates a gradually increasing ramp of this length that ends at
+* the defined angle
+*
+*/
 function createRamp(length, height, maxAngle, color, friction){
         var total = length / 2;
         var angleMargin = maxAngle / total;
@@ -59,6 +72,8 @@ function createRamp(length, height, maxAngle, color, friction){
         }
 }
 
+
+// Creates a moving object
 function createMovingObject(x,y){
      bodyDef.type = Box2D.Dynamics.b2_kinematicBody; //this will be a kinematic body
      bodyDef.position.Set(x, y);
@@ -106,14 +121,17 @@ function GetNumberOfLevels(){
         return 5;
 }
 	
+/*
+* Loads the predefined level
+*/
 function LoadLevel(level) {
 
     gameLost = false;
     gameWon = false;
-    yMax = 20;
+    yMax = 20; // for level bounds
     xMax = 50;
     if (level == 1) {
-         LoadLevel1();
+        LoadLevel1();
     }
     
     if (level == 2) {
@@ -130,12 +148,6 @@ function LoadLevel(level) {
     if (level == 5) {
         LoadLevel5();
    }
-
-
-
-
-
-
 
 }
 
@@ -207,7 +219,7 @@ function LoadLevel1() {
       yMin = originalY + 5;
         createTrack(10, .1,d2r(-90),0x95F717,.1,.5);
     
-    xMax = originalX - 10;
+    xMax = originalX -10;
     
           
            
@@ -355,6 +367,10 @@ function LoadLevel3() {
     yMax = originalY + 20;
 }
 
+/*
+*  Track with two loops
+* Designed for lighter cars
+*/
 function LoadLevel4(){
       originalX = 0;
     originalY = 5;
@@ -458,6 +474,11 @@ function LoadLevel4(){
   
 }
 
+/*
+* Level with a lot of small jumps and a beginning that 
+* requires the brake
+*
+*/
 function LoadLevel5() {
     originalX = 0;
     originalY = 5;
@@ -470,7 +491,7 @@ function LoadLevel5() {
        createTrack(2, .1,.1,0xFFFF99,2.0);
        createTrack(2, .1,0,0xFFFF99,2.0);
 
-    createRamp(10,.1,-1);
+    createRamp(10,.1,-1); // first jump
     createSpace(13,.1,-.3);
   
    for (var j = 0; j < 3; j++) {
@@ -500,6 +521,8 @@ function LoadLevel5() {
        for (var j = 0; j < 25; j++) {
         createTrack(2, .1,.9, 0x95F717, .5);
        }
+	   
+	   // series of small jumps
        createTrack(2, .1,.6,0xFFFF99,2.0);
        createTrack(2, .1,.5,0xFFFF99,2.0);
        createTrack(2, .1,.4,0xFFFF99,2.0);
@@ -581,52 +604,5 @@ function LoadLevel5() {
        createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
 	   createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
        createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
-       createTrack(2, .1,d2r(-90),0x95F717,.1,.5);
-
-  
-
+       createTrack(2, .1,d2r(-90),0x95F717,.1,.5); // ending wall
 }
-
-
-    /*function createTrack(length, height, angle) {
-
-        var X_pivot = originalX;
-        var Y_pivot = originalY;
-
-        originalX = X_pivot + Math.cos(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2));
-        originalY = Y_pivot + Math.sin(angle - Math.atan(height / length)) / Math.sqrt((length / 2) * (length / 2) + (height / 2) * (height / 2));
-
-
-        bodyDef.type = b2Body.b2_staticBody;
-        fixDef.shape = new b2PolygonShape;
-        //originalY = originalY + (height / 2);
-
-        // fixDef.shape.SetAsBox(2, .1);
-        fixDef.shape.SetAsOrientedBox(length / 2, height / 2, new b2Vec2(-(length / 2), -(height / 2)), angle);
-        bodyDef.position.Set(originalX, originalY);
-        world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-        glTracks.push(new b2Vec2(bodyDef.position.x, bodyDef.position.y));
-
-        originalY = Y_pivot + length * Math.sin(angle);
-        originalX = X_pivot + length * Math.cos(angle);
-
-    };
-
-    function LoadLevel(level) {
-
-        if (level == 0) {
-            LoadLevel1();
-        }
-
-    }
-
-    function LoadLevel1() {
-        originalX = 0;
-        originalY = 0;
-
-        for (var j = 0; j < 7; j++) {
-            createTrack(2, .1, .60);
-        }
-
-    }*/
