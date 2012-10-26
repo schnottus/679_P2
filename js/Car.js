@@ -183,7 +183,12 @@ function car1GL()
 	//front tires
 	//THREE.CylinderGeometry = function ( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded )
 	var wheelGeometry = new THREE.CylinderGeometry( wheel1Radius, wheel1Radius, wheel1Width, 20, 5, false ); 
-	var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} ); 
+	//var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} );
+	wheelMaterial = new THREE.ShaderMaterial( {
+					uniforms: woodUniforms,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
+				} );
 	FRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
@@ -199,7 +204,12 @@ function car1GL()
 						
 	//rear tires
 	wheelGeometry = new THREE.CylinderGeometry( wheel2Radius, wheel2Radius, wheel2Width, 20, 5, false ); 
-	wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} ); 
+	//wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} );
+	wheelMaterial = new THREE.ShaderMaterial( {
+					uniforms: woodUniforms,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
+				} );
 	RRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
@@ -228,8 +238,8 @@ function car1GL()
 	uniforms.resolution.value.x = (SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
-					uniforms: uniforms,
-					vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					uniforms: woodUniforms,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'car1FragShader' ).textContent
 				} );
 	carBody = new THREE.Mesh( body1Geometry, shaderMat );	
@@ -242,7 +252,12 @@ function car2GL()
 	//front tires
 	//THREE.CylinderGeometry = function ( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded )
 	var wheelGeometry = new THREE.CylinderGeometry( wheel1Radius, wheel1Radius, wheel1Width, 20, 5, false ); 
-	var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF00F} ); 
+	//var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF00F} ); 
+	wheelMaterial = new THREE.ShaderMaterial( {
+					uniforms: woodUniforms,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
+				} );
 	FRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
@@ -258,7 +273,12 @@ function car2GL()
 						
 	//rear tires
 	wheelGeometry = new THREE.CylinderGeometry( wheel2Radius, wheel2Radius, wheel2Width, 20, 5, false ); 
-	wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF00F} ); 
+	//wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF00F} ); 
+	wheelMaterial = new THREE.ShaderMaterial( {
+					uniforms: woodUniforms,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
+				} );
 	RRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
@@ -287,8 +307,9 @@ function car2GL()
 	uniforms.resolution.value.x = (SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
-					uniforms: uniforms,
-					vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					uniforms: woodUniforms,
+					//vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'car2FragShader' ).textContent
 				} );
 	carBody = new THREE.Mesh( body2Geometry, shaderMat );	
@@ -301,7 +322,12 @@ function car3GL()
 	//front tires
 	//THREE.CylinderGeometry = function ( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded )
 	var wheelGeometry = new THREE.CylinderGeometry( wheel1Radius, wheel1Radius, wheel1Width, 20, 5, false ); 
-	var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} ); 
+	//var wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} ); 
+	wheelMaterial = new THREE.ShaderMaterial( {
+					uniforms: uniforms,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
+				} );
 	FRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	FRWheel.position.set(wheel1.GetPosition().x, 
 						wheel1.GetPosition().y,
@@ -317,7 +343,12 @@ function car3GL()
 						
 	//rear tires
 	wheelGeometry = new THREE.CylinderGeometry( wheel2Radius, wheel2Radius, wheel2Width, 20, 5, false ); 
-	wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} ); 
+	//wheelMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} ); 
+	wheelMaterial = new THREE.ShaderMaterial( {
+					uniforms: uniforms,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'carWheelShader' ).textContent
+				} );
 	RRWheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	RRWheel.position.set(wheel2.GetPosition().x, 
 						wheel2.GetPosition().y,
@@ -346,11 +377,10 @@ function car3GL()
 	uniforms.resolution.value.x = (SCREEN_WIDTH);
 	uniforms.resolution.value.y = SCREEN_HEIGHT;
 	shaderMat = new THREE.ShaderMaterial( {
-
 					uniforms: uniforms,
-					vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					//vertexShader: document.getElementById( 'defaultVertexShader' ).textContent,
+					vertexShader: document.getElementById( 'carWarpVertexShader' ).textContent,
 					fragmentShader: document.getElementById( 'car3FragShader' ).textContent
-
 				} );
 	carBody = new THREE.Mesh( body3Geometry, shaderMat );	
 	scene.add( carBody );

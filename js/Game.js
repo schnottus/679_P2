@@ -51,7 +51,7 @@ function update()
 	updateCar();
 	updateCameras();
     updateGameState();
-    if(DRAW_DEBUGDRAW) updateText();
+    updateText();
 	
 }
 
@@ -62,24 +62,21 @@ function updateGameState(){
     if(carBody.position.y > yMax){
         gameLost = true;
     }
+	distanceTraveled = carBody.position.x;
     
 
 
 }
 
 function updateText(){
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = "#339933"; 	// This determines the text colour, it can take a hex value or rgba value (e.g. rgba(255,0,0,0.5))
-    ctx.textAlign = "center";	// This determines the alignment of text, e.g. left, center, right
-    ctx.textBaseline = "middle";	// This determines the baseline of the text, e.g. top, middle, bottom
-    ctx.font = "20px monospace";	//
-    
 	//Notifications header over the game screen
 	var	notifications = document.getElementById("notifications");
+	var	distance = document.getElementById("distance");
+	distance.innerText = Math.round(distanceTraveled) + "m";
+	distance.style.display = "inline-block";
 	
-    if(!isOnGround){
-        ctx.fillText("Nice Air", canvas.width/2, canvas.height/2);
-		notifications.innerText = "Nice Air";
+    if(!isOnGround && !gameLost){
+       notifications.innerText = "Nice Air";
 		notifications.style.display = "inline-block";
     }
 	else {
@@ -88,10 +85,9 @@ function updateText(){
 
     if(gameLost)
     {
-        ctx.fillText("Game Over", canvas.width/2, (canvas.height*3)/4);
-    } else if (gameWon){
-        ctx.fillText("Great Job! You Won!", canvas.width/2, canvas.height/2);
-    }
+		notifications.innerText = "Game Over";
+		notifications.style.display = "inline-block";
+    } 
 
 }
 
@@ -100,6 +96,7 @@ function render()
 {	
 	//for shader
 	uniforms.time.value += 0.05;
+	woodUniforms.time.value += 0.05;
 	
 	renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	renderer.clear();
@@ -318,7 +315,7 @@ function showLevelFailedMenu(level) {
 	
 	var btnNextLevel = document.getElementById("btnNextLevel");
 	btnNextLevel.setAttribute("onclick","startLevel(" + level + ");")
-	btnNextLevel.innerHTML = "Try again";
+	btnNextLevel.innerHTML = "Try Again";
 }
 
 function showEndMenu() {

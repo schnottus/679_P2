@@ -49,18 +49,6 @@ h2#notifications {
 	color: white;
 }
 
-h2#distance {
-	position: absolute;
-	top: 745px;
-	left: 15px;
-	color: white;
-}
-
-#debugDraw {
-	border: 1px solid red;
-	float: left;
-}
-
 /*** startMenu START ***/
 div#startMenu  div.instructions {
 	margin: 10px 60px;

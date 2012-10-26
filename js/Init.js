@@ -107,7 +107,7 @@ function init()
 	wheelFriction = wheelFrictionMed;
 	suspension = suspensionMed;
 	carDensity = carDensityMed;
-	carBodyNum = 3;
+	carBodyNum = 2;
 	
 	wheel1_offset = CAR_Z_HALF_WIDTH + wheel1Radius;
 	wheel2_offset = CAR_Z_HALF_WIDTH + wheel2Radius;
