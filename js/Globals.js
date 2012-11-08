@@ -123,6 +123,10 @@
 	var FLAG_HEIGHT = 4.0;
 	var FLAG_WIDTH = 8.0;
 	var FLAGPOLE_HEIGHT = 10;
+	var leftFlagpole;
+	var rightFlagpole;
+	var leftFlag;
+	var rightFlag;
 
 	
 //car.js vars

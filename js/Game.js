@@ -409,7 +409,13 @@ function clearWebGLCanvas() {
 	scene.remove(FLWheel);
 	scene.remove(RRWheel);
 	scene.remove(RLWheel);
-	
+	if(currentLevel == 1)
+	{
+		scene.remove(rightFlag);
+		scene.remove(leftFlag);
+		scene.remove(leftFlagpole);
+		scene.remove(rightFlagpole);
+	}
 	//Remove the tracks from WebGL
 	for (var i = 0; i < webGLTrackPieces.length; ++i) {
 		scene.remove(webGLTrackPieces[i]);
@@ -418,4 +424,5 @@ function clearWebGLCanvas() {
 	//Clear our list of tracks
 	webGLTrackPieces = [];
 	glTracks = [];
+	
 }

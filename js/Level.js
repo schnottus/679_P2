@@ -116,18 +116,21 @@ function drawWebGLTrack() {
  
     }
 	
+	if(currentLevel == 1)
+	{
 	 //draw finish flags at end of track
 	 //THREE.CylinderGeometry = function ( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded )
 	var flagpoleGeometry = new THREE.CylinderGeometry( 0.4, 0.4, FLAGPOLE_HEIGHT, 10, 5, false ); 
 	var flagpoleMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
-	var leftFlagpole = new THREE.Mesh(flagpoleGeometry, flagpoleMaterial);
+	leftFlagpole = new THREE.Mesh(flagpoleGeometry, flagpoleMaterial);
 	leftFlagpole.position.set(flag1X, flag1Y, (0.5 * TRACK_WIDTH));
 	scene.add(leftFlagpole);
-	var rightFlagpole = new THREE.Mesh(flagpoleGeometry, flagpoleMaterial);
+	rightFlagpole = new THREE.Mesh(flagpoleGeometry, flagpoleMaterial);
 	rightFlagpole.position.set(flag1X, flag1Y, -(0.5 * TRACK_WIDTH));
 	scene.add(rightFlagpole);
 	
 	var flagGeometry = new THREE.PlaneGeometry(FLAG_WIDTH, FLAG_HEIGHT, 40, 30);
+	
 	//var flagMaterial = new THREE.MeshLambertMaterial( {color: 0xFF22FF} );
 	flagUniforms.resolution.value.x = SCREEN_WIDTH;
 	flagUniforms.resolution.value.y = SCREEN_HEIGHT;
@@ -138,16 +141,17 @@ function drawWebGLTrack() {
 					fragmentShader: document.getElementById( 'flagFragShader' ).textContent
 				} );
 	
-	var leftFlag = new THREE.Mesh(flagGeometry, flagMaterial);
+	leftFlag = new THREE.Mesh(flagGeometry, flagMaterial);
 	leftFlag.position.set(flag1X - (0.5 * FLAG_WIDTH), flag1Y - (0.5 * FLAG_HEIGHT) - 1.0, (0.5 * TRACK_WIDTH));
 	leftFlag.rotation.x = d2r(90);
 	leftFlag.doubleSided = true;
 	scene.add(leftFlag);
-	var rightFlag = new THREE.Mesh(flagGeometry, flagMaterial);
+	rightFlag = new THREE.Mesh(flagGeometry, flagMaterial);
 	rightFlag.position.set(flag1X - (0.5 * FLAG_WIDTH), flag1Y - (0.5 * FLAG_HEIGHT) - 1.0, -(0.5 * TRACK_WIDTH));
 	rightFlag.rotation.x = d2r(90);
 	rightFlag.doubleSided = true;
 	scene.add(rightFlag);
+	}
 }
 
 function GetNumberOfLevels(){
